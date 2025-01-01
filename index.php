@@ -145,73 +145,69 @@
         </div>
     </div>
     <!-- Carousel End -->
-    <div class="container-fluid">
+    <div class="container-xxl py-5">
         <div class="container">
-        
+
             <!-- event Start -->
             <div class="row">
                 <div class="col-lg-8">
-                    <div class="container-xxl bg-light my-5 py-5">
-                        <div class="container py-5">
-                            <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
 
-                                <h3 class="">Our Recent Activities</h3>
-                            </div>
-                            <div class="row g-4 justify-content-center">
-                                <?php
-                                $sql = "SELECT title, content, link, image FROM news ORDER BY id DESC LIMIT 2 ";
-                                $result = $con->query($sql);
+                    <div class="text-center mx-auto  wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
 
-                                // Check if there are results
-                                if ($result->num_rows > 0) {
-                                    // Output data for each row
-                                    while ($row = $result->fetch_assoc()) {
-                                ?>
-
-                                        <div class="col-lg-6 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-                                            <div class="causes-item d-flex flex-column bg-white border-top border-5 rounded-top overflow-hidden h-100">
-                                                <div class="text-center p-4 pt-0">
-                                                    <br>
-                                                    <h6 class="mb-3"><?php echo $row["title"]; ?></h6>
-                                                    <p style="font-size: 12px;"><?php echo $row["content"]; ?></p>
-                                                </div>
-                                                <div class="position-relative mt-auto">
-                                                    <?php
-                                                    if (!empty($row['image'])) {
-                                                        $imageData = base64_encode($row['image']); // Convert binary data to base64
-                                                        echo "<img src='data:image/jpeg;base64," . $imageData . "' alt='News Image' class='fixed-size-image'>";
-                                                    } else {
-                                                        echo "<p>No image available</p>";
-                                                    }
-
-                                                    ?>
-
-                                                </div>
-                                                <br>
-                                                <a class="btn btn-outline-dark" href=" <?php echo $row["link"]; ?>">Read More</a>
-                                            </div>
-                                        </div>
-                                <?php
-                                    }
-                                } else {
-                                    echo "<li>No news articles found.</li>";
-                                }
-
-                                ?>
-                            </div>
-
-                        </div>
+                        <h3 class="">Our Recent Activities</h3>
                     </div>
+                    <div class="row g-4 justify-content-center">
+                        <?php
+                        $sql = "SELECT title, content, link, image FROM news ORDER BY id DESC LIMIT 2 ";
+                        $result = $con->query($sql);
+
+                        // Check if there are results
+                        if ($result->num_rows > 0) {
+                            // Output data for each row
+                            while ($row = $result->fetch_assoc()) {
+                        ?>
+
+                                <div class="col-lg-6 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+                                    <div class="causes-item d-flex flex-column bg-white border-top border-5 rounded-top overflow-hidden h-100">
+                                        <div class="text-center p-4 pt-0">
+                                            <br>
+                                            <h6 class="mb-3"><?php echo $row["title"]; ?></h6>
+                                            <p style="font-size: 12px;"><?php echo $row["content"]; ?></p>
+                                        </div>
+                                        <div class="position-relative mt-auto">
+                                            <?php
+                                            if (!empty($row['image'])) {
+                                                $imageData = base64_encode($row['image']); // Convert binary data to base64
+                                                echo "<img src='data:image/jpeg;base64," . $imageData . "' alt='News Image' class='fixed-size-image'>";
+                                            } else {
+                                                echo "<p>No image available</p>";
+                                            }
+
+                                            ?>
+
+                                        </div>
+                                        <br>
+                                        <a class="btn btn-outline-dark" href=" <?php echo $row["link"]; ?>">Read More</a>
+                                    </div>
+                                </div>
+                        <?php
+                            }
+                        } else {
+                            echo "<li>No news articles found.</li>";
+                        }
+
+                        ?>
+                    </div>
+
+
                 </div>
                 <div class="col-lg-4">
-                    <div class="container py-5">
+                    <div class="container-xxl py-5">
                         <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
 
                             <h3 class="">Up Coming Events</h3>
                         </div>
                         <div class="row g-4 justify-content-center">
-
-
                             <div class="col-lg-12 col-md-12 wow fadeInUp" data-wow-delay="0.5s">
                                 <div class="causes-item d-flex flex-column bg-white  border-5 rounded-top overflow-hidden h-100">
                                     <div class="text-center p-4 pt-0">
