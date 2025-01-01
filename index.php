@@ -83,16 +83,10 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav ms-auto p-4 p-lg-0">
-                    <a href="index.html" class="nav-item nav-link active">Home</a>
-                    <a href="about.html" class="nav-item nav-link">About</a>
-                    <a href="causes.html" class="nav-item nav-link">Causes</a>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
-                        <div class="dropdown-menu m-0">
-                            <a href="service.html" class="dropdown-item">Service</a>
-                            <a href="donate.php" class="dropdown-item">Donate</a>
-                        </div>
-                    </div>
+                    <a href="index.php" class="nav-item nav-link active">Home</a>
+                    <a href="#about" class="nav-item nav-link">About</a>
+                    <a href="Causes.php" class="nav-item nav-link">Causes</a>
+                    <a href="donate.php" class="nav-item nav-link">Donate</a>
                     <a href="contact.html" class="nav-item nav-link">Contact</a>
                 </div>
                 <div class="d-none d-lg-flex ms-2">
@@ -164,7 +158,7 @@
                             </div>
                             <div class="row g-4 justify-content-center">
                                 <?php
-                                $sql = "SELECT title, content, link, image FROM news ORDER BY id DESC LIMIT 3 ";
+                                $sql = "SELECT title, content, link, image FROM news ORDER BY id DESC LIMIT 2 ";
                                 $result = $con->query($sql);
 
                                 // Check if there are results
@@ -271,7 +265,7 @@
     </div>
 
     <!-- About Start -->
-    <div class="container-xxl py-5">
+    <div class="container-xxl py-5" id="about">
         <div class="container">
             <div class="row g-5">
                 <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
@@ -330,7 +324,7 @@
 
     <!-- Causes Start -->
 
-    <div class="container-xxl bg-light my-5 py-5">
+    <div class="container-xxl bg-light my-5 py-5" id="Causes">
         <div class="container py-5">
             <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
                 <div class="d-inline-block rounded-pill bg-secondary text-dark py-1 px-3 mb-3">Feature Causes</div>
@@ -339,7 +333,7 @@
             <?php
 
 
-            $sqlstudent = "SELECT id,fullname, Details, image FROM students";
+            $sqlstudent = "SELECT id,fullname, Details, image FROM students ORDER BY id DESC LIMIT 3";
             $resultstudent = $con->query($sqlstudent);
             ?>
 
