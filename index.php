@@ -145,8 +145,9 @@
         </div>
     </div>
     <!-- Carousel End -->
-    <div class=" container p-0 mb-5">
-        <div class="col-lg-12">
+    <div class="container-fluid">
+        <div class="container">
+        
             <!-- event Start -->
             <div class="row">
                 <div class="col-lg-8">
@@ -394,9 +395,9 @@
     <!-- Donate End -->
 
     <!-- Contact Start -->
-    <div class="container-xxl py-5">
+    <div class="container-fluid">
         <div class="container">
-            <div class="row g-5">
+            <div class="row">
                 <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
                     <div class="d-inline-block rounded-pill bg-secondary text-dark py-1 px-3 mb-3">Contact Us</div>
                     <h1 class="display-6 mb-5">If You Have Any Query, Please Contact Us</h1>
