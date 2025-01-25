@@ -68,16 +68,16 @@ include 'includes/config.php'; // Make sure this file contains your database con
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav ms-auto p-4 p-lg-0">
-                <a href="index" class="nav-item nav-link active">Home</a>
-                    <a href="about" class="nav-item nav-link">About</a>
-                    <a href="service" class="nav-item nav-link">Activites</a>
-                    <a href="donar" class="nav-item nav-link">Donars</a>
-                    <a href="contact" class="nav-item nav-link">Contact</a>
-                    
-                    
+                    <a href="index.php" class="nav-item nav-link active">Home</a>
+                    <a href="about.php" class="nav-item nav-link">About</a>
+                    <a href="service.php" class="nav-item nav-link">Activites</a>
+                    <a href="donar.php" class="nav-item nav-link">Donars</a>
+                    <a href="contact.php" class="nav-item nav-link">Contact</a>
                 </div>
                 <div class="d-none d-lg-flex ms-2">
-                    <a class="btn btn-outline-secondary py-2 px-3" href="donate">Donate Now</a> &nbsp;
+                    <a class="btn btn-outline-secondary py-2 px-3" href="donate.php">
+                        Donate Now
+                    </a>&nbsp;
                 </div>
             </div>
         </nav>

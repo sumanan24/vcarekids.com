@@ -62,20 +62,15 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav ms-auto p-4 p-lg-0">
                     <a href="index.php" class="nav-item nav-link active">Home</a>
-                    <a href="about.html" class="nav-item nav-link">About</a>
-                    <a href="causes.html" class="nav-item nav-link">Causes</a>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
-                        <div class="dropdown-menu m-0">
-                            <a href="service.html" class="dropdown-item">Service</a>
-                            <a href="donate.html" class="dropdown-item">Donate</a>
-                        </div>
-                    </div>
-                    <a href="contact.html" class="nav-item nav-link">Contact</a>
+                    <a href="about.php" class="nav-item nav-link">About</a>
+                    <a href="service.php" class="nav-item nav-link">Activites</a>
+                    <a href="donar.php" class="nav-item nav-link">Donars</a>
+                    <a href="contact.php" class="nav-item nav-link">Contact</a>
                 </div>
                 <div class="d-none d-lg-flex ms-2">
-                    <a class="btn btn-outline-secondary py-2 px-3" href="">Donate Now</a> &nbsp;
-                    <a class="btn btn-outline-secondary py-2 px-3" href="login.php">Admin</a>
+                    <a class="btn btn-outline-secondary py-2 px-3" href="donate.php">
+                        Donate Now
+                    </a>&nbsp;
                 </div>
             </div>
         </nav>
