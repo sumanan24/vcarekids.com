@@ -2,6 +2,7 @@
 // Database connection
 include 'includes/config.php'; // Make sure this file contains your database connection code
 
+
 // Get the student ID from the URL
 if (isset($_GET['id'])) {
     $studentId = $_GET['id'];
@@ -130,24 +131,70 @@ if (isset($_GET['id'])) {
     <!-- Donate Start -->
     <div class="container-fluid py-5">
         <div class="container">
-        <div class="row g-5">
-            <div class="col-lg-6">
-                <!-- Student Profile Picture -->
-                <img class="img-fluid" src="data:image/jpeg;base64,<?php echo base64_encode($row['image']); ?>" alt="Student Image" style="height: 250px; ">
+            <div class="row g-5">
+                <div class="col-lg-6">
+                    <!-- Student Profile Picture -->
+                    <img class="img-fluid" src="data:image/jpeg;base64,<?php echo base64_encode($row['image']); ?>" alt="Student Image" style="height: 250px; ">
+                </div>
+                <div class="col-lg-6">
+                    <h1 class="display-6 mb-4"><?php echo htmlspecialchars($row['fullname']); ?></h1>
+                    <p><strong>Details:</strong> <?php echo htmlspecialchars($row['details']); ?></p>
+                    <p>Do you have Any Idea help this Student contact Us</p>
+                    <?php
+                    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                        // Retrieve form data
+                        $name = $_POST['name1'];
+                        $email = $_POST['email'];
+                        $message = $_POST['message'];
+                        $status = "unread";
+
+                        // SQL query to insert the data into the database
+                        $sql = "INSERT INTO messages (name, email, message, status) VALUES ('$name', '$email', '$message', '$status')";
+
+                        if ($con->query($sql) === TRUE) {
+                    ?>
+                            <div class="alert alert-success left-icon-alert" role="alert">
+                                <strong>Message Sent Success</strong>
+                            </div>
+                    <?php
+                        } else {
+                            echo "Error: " . $sql . "<br>" . $conn->error;
+                        }
+                    }
+                    ?>
+                    <form action="" method="POST">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="text" name="name1" class="form-control" id="name" placeholder="Your Name">
+                                    <label for="name">Your Name</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="email" name="email" class="form-control" id="email" placeholder="Your Email">
+                                    <label for="email">Your Email</label>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <textarea class="form-control" name="message" placeholder="Leave a message here" id="message" style="height: 100px"></textarea>
+                                    <label for="message">Message</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <button class="btn btn-dark py-2 px-3 me-3">
+                                    Send Message
+                                    <div class="d-inline-flex btn-sm-square bg-white text-dark rounded-circle ms-2">
+                                        <i class="fa fa-arrow-right"></i>
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
-            <div class="col-lg-6">
-                <h1 class="display-6 mb-4"><?php echo htmlspecialchars($row['fullname']); ?></h1>
-                <p><strong>Details:</strong> <?php echo htmlspecialchars($row['details']); ?></p>
-                <p><strong>Phone:</strong> <?php echo htmlspecialchars($row['phone']); ?></p>
-                <p><strong>Parent Name:</strong> <?php echo htmlspecialchars($row['parentname']); ?></p>
-                <p><strong>Parent Address:</strong> <?php echo htmlspecialchars($row['parentaddress']); ?></p>
-                <p><strong>Permanent Address:</strong> <?php echo htmlspecialchars($row['permanentaddress']); ?></p>
-                <p><strong>Date of Birth:</strong> <?php echo htmlspecialchars($row['dob']); ?></p>
-                <p><strong>District:</strong> <?php echo htmlspecialchars($row['district']); ?></p>
-                <p><strong>Account Created At:</strong> <?php echo htmlspecialchars($row['created_at']); ?></p>
-                <p><strong>Last Updated:</strong> <?php echo htmlspecialchars($row['updated_at']); ?></p>
-            </div>
-        </div>
         </div>
     </div>
     <!-- Donate End -->
@@ -156,9 +203,9 @@ if (isset($_GET['id'])) {
     <div class="container-fluid bg-dark text-white-50 footer mt-5 pt-5 wow fadeIn" data-wow-delay="0.1s">
         <div class="container py-5">
             <div class="row g-5">
-                <div class="col-lg-3 col-md-6">
-                    <h1 class="fw-bold text-primary mb-4">Chari<span class="text-white">Team</span></h1>
-                    <p>Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita</p>
+                <div class="col-lg-4 col-md-4">
+                    <h1 class="fw-bold text-primary m-0">Vcare<span class="text-white">kids</span></h1>
+                    <p>Smart Eye is a leading provider of information technology, consulting, and business process services. Our dedicated employees offer strategic insights, technological expertise and industry experience.</p>
                     <div class="d-flex pt-2">
                         <a class="btn btn-square me-1" href=""><i class="fab fa-twitter"></i></a>
                         <a class="btn btn-square me-1" href=""><i class="fab fa-facebook-f"></i></a>
@@ -166,38 +213,31 @@ if (isset($_GET['id'])) {
                         <a class="btn btn-square me-0" href=""><i class="fab fa-linkedin-in"></i></a>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6">
+                <div class="col-lg-4 col-md-4">
                     <h5 class="text-light mb-4">Address</h5>
-                    <p><i class="fa fa-map-marker-alt me-3"></i>123 Street, New York, USA</p>
-                    <p><i class="fa fa-phone-alt me-3"></i>+012 345 67890</p>
-                    <p><i class="fa fa-envelope me-3"></i>info@example.com</p>
+                    <p><i class="fa fa-map-marker-alt me-3"></i>8-3500 McNicoll Ave, , Scarborough, ON, Canada, M1V 4C7</p>
+                    <p><i class="fa fa-phone-alt me-3"></i>+1-416-644-1113</p>
+                    <p><i class="fa fa-envelope me-3"></i>info@vcarekids.org</p>
                 </div>
-                <div class="col-lg-3 col-md-6">
+                <div class="col-lg-4 col-md-4">
                     <h5 class="text-light mb-4">Quick Links</h5>
+                    <a class="btn btn-link" href="">Home</a>
                     <a class="btn btn-link" href="">About Us</a>
                     <a class="btn btn-link" href="">Contact Us</a>
-                    <a class="btn btn-link" href="">Our Services</a>
-                    <a class="btn btn-link" href="">Terms & Condition</a>
-                    <a class="btn btn-link" href="">Support</a>
+                    <a class="btn btn-link" href="">Donation</a>
                 </div>
-                <div class="col-lg-3 col-md-6">
-                    <h5 class="text-light mb-4">Newsletter</h5>
-                    <p>Dolor amet sit justo amet elitr clita ipsum elitr est.</p>
-                    <div class="position-relative mx-auto" style="max-width: 400px;">
-                        <input class="form-control bg-transparent w-100 py-3 ps-4 pe-5" type="text" placeholder="Your email">
-                        <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">SignUp</button>
-                    </div>
-                </div>
+
             </div>
         </div>
         <div class="container-fluid copyright">
             <div class="container">
                 <div class="row">
                     <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                        &copy; <a href="#">Your Site Name</a>, All Right Reserved.
+                        &copy; <a href="#">vcarekids</a>, All Right Reserved.
                     </div>
                     <div class="col-md-6 text-center text-md-end">
-                        Designed By <a href="https://htmlcodex.com">HTML Codex</a>
+                        <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
+                        Designed By <a href="">SICODE</a>
                     </div>
                 </div>
             </div>

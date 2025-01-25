@@ -83,19 +83,16 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav ms-auto p-4 p-lg-0">
-                    <a href="index.php" class="nav-item nav-link active">Home</a>
-                    <a href="#about" class="nav-item nav-link">About</a>
-                    <a href="Causes.php" class="nav-item nav-link">Causes</a>
-                    <a href="donate.php" class="nav-item nav-link">Donate</a>
-                    <a href="contact.html" class="nav-item nav-link">Contact</a>
+                    <a href="index" class="nav-item nav-link active">Home</a>
+                    <a href="about" class="nav-item nav-link">About</a>
+                    <a href="service" class="nav-item nav-link">Activites</a>
+                    <a href="donar" class="nav-item nav-link">Donars</a>
+                    <a href="contact" class="nav-item nav-link">Contact</a>
                 </div>
                 <div class="d-none d-lg-flex ms-2">
-                    <a class="btn btn-outline-secondary py-2 px-3" href="donate.php">
+                    <a class="btn btn-outline-secondary py-2 px-3" href="donate">
                         Donate Now
                     </a>&nbsp;
-                    <a class="btn btn-outline-secondary py-2 px-3" href="login.php">
-                        Admin
-                    </a>
                 </div>
             </div>
         </nav>
@@ -145,121 +142,7 @@
         </div>
     </div>
     <!-- Carousel End -->
-    <div class="container-xxl py-5">
-        <div class="container">
-
-            <!-- event Start -->
-            <div class="row">
-                <div class="col-lg-8">
-
-                    <div class="text-center mx-auto  wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
-
-                        <h3 class="">Our Recent Activities</h3>
-                    </div>
-                    <div class="row g-4 justify-content-center">
-                        <?php
-                        $sql = "SELECT title, content, link, image FROM news ORDER BY id DESC LIMIT 2 ";
-                        $result = $con->query($sql);
-
-                        // Check if there are results
-                        if ($result->num_rows > 0) {
-                            // Output data for each row
-                            while ($row = $result->fetch_assoc()) {
-                        ?>
-
-                                <div class="col-lg-6 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-                                    <div class="causes-item d-flex flex-column bg-white border-top border-5 rounded-top overflow-hidden h-100">
-                                        <div class="text-center p-4 pt-0">
-                                            <br>
-                                            <h6 class="mb-3"><?php echo $row["title"]; ?></h6>
-                                            <p style="font-size: 12px;"><?php echo $row["content"]; ?></p>
-                                        </div>
-                                        <div class="position-relative mt-auto">
-                                            <?php
-                                            if (!empty($row['image'])) {
-                                                $imageData = base64_encode($row['image']); // Convert binary data to base64
-                                                echo "<img src='data:image/jpeg;base64," . $imageData . "' alt='News Image' class='fixed-size-image'>";
-                                            } else {
-                                                echo "<p>No image available</p>";
-                                            }
-
-                                            ?>
-
-                                        </div>
-                                        <br>
-                                        <a class="btn btn-outline-dark" href=" <?php echo $row["link"]; ?>">Read More</a>
-                                    </div>
-                                </div>
-                        <?php
-                            }
-                        } else {
-                            echo "<li>No news articles found.</li>";
-                        }
-
-                        ?>
-                    </div>
-
-
-                </div>
-                <div class="col-lg-4">
-                    <div class="container-xxl py-5">
-                        <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
-
-                            <h3 class="">Up Coming Events</h3>
-                        </div>
-                        <div class="row g-4 justify-content-center">
-                            <div class="col-lg-12 col-md-12 wow fadeInUp" data-wow-delay="0.5s">
-                                <div class="causes-item d-flex flex-column bg-white  border-5 rounded-top overflow-hidden h-100">
-                                    <div class="text-center p-4 pt-0">
-                                        <div class="row">
-                                            <br>
-                                            <div class="col-sm-12">
-                                                <?php
-                                                // Query to fetch events
-                                                $events_query = "SELECT event_name, event_date, location, advertisement_image FROM events ORDER BY event_id DESC LIMIT 1;";
-                                                $resultevent = $con->query($events_query);
-                                                ?>
-                                                <?php if ($resultevent && $resultevent->num_rows > 0): ?>
-                                                    <?php while ($rowevent = $resultevent->fetch_assoc()): ?>
-
-                                                        <div class="card h-100">
-                                                            <img src="data:image/jpeg;base64,<?= base64_encode($rowevent['advertisement_image']) ?>"
-                                                                class="card-img-top" alt="Event Image">
-                                                            <div class="card-body">
-                                                                <h5 class="card-title"><?= htmlspecialchars($rowevent['event_name']) ?></h5>
-                                                                <p class="card-text"><strong>Date:</strong> <?= htmlspecialchars($rowevent['event_date']) ?></p>
-                                                                <p class="card-text"><strong>Location:</strong> <?= htmlspecialchars($rowevent['location']) ?></p>
-                                                            </div>
-                                                        </div>
-
-                                                    <?php endwhile; ?>
-                                                <?php else: ?>
-                                                    <p class="text-center">No events found.</p>
-                                                <?php endif; ?>
-
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                    <div class="position-relative mt-auto">
-                                        <div class="causes-overlay">
-                                            <a class="btn btn-outline-light" href=" <?php echo $row["link"]; ?>">Read More</a>
-                                            <div class="d-inline-flex btn-sm-square bg-dark text-white rounded-circle ms-2">
-                                                <i class="fa fa-arrow-right"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-            <!-- event End -->
-        </div>
-    </div>
+    
 
     <!-- About Start -->
     <div class="container-xxl py-5" id="about">
@@ -319,46 +202,118 @@
     </div>
     <!-- vision End -->
 
-    <!-- Causes Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
 
-    <div class="container-xxl bg-light my-5 py-5" id="Causes">
-        <div class="container py-5">
-            <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
-                <div class="d-inline-block rounded-pill bg-secondary text-dark py-1 px-3 mb-3">Feature Causes</div>
-                <h5 class="">Every Child Deserves The Opportunity To Learn</h5>
-            </div>
-            <?php
+            <!-- event Start -->
+            <div class="row">
+                <div class="col-lg-8">
+
+                    <div class="text-center mx-auto  wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
+
+                        <h3 class="">Our Recent Activities</h3>
+                    </div>
+                    <div class="row g-4 justify-content-center">
+                        <?php
+                        $sql = "SELECT title, content, link, image FROM news ORDER BY id DESC LIMIT 2 ";
+                        $result = $con->query($sql);
+
+                        // Check if there are results
+                        if ($result->num_rows > 0) {
+                            // Output data for each row
+                            while ($row = $result->fetch_assoc()) {
+                        ?>
+
+                                <div class="col-lg-6 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+                                    <div class="causes-item d-flex flex-column bg-white border-top border-5 rounded-top overflow-hidden h-100">
+                                        <div class="text-center p-4 pt-0">
+                                            <br>
+                                            <h6 class="mb-3"><?php echo $row["title"]; ?></h6>
+                                            <p style="font-size: 12px;"><?php echo $row["content"]; ?></p>
+                                        </div>
+                                        <div class="position-relative mt-auto">
+                                            <?php
+                                            if (!empty($row['image'])) {
+                                                $imageData = base64_encode($row['image']); // Convert binary data to base64
+                                                echo "<img src='data:image/jpeg;base64," . $imageData . "' alt='News Image' class='fixed-size-image'>";
+                                            } else {
+                                                echo "<p>No image available</p>";
+                                            }
+
+                                            ?>
+
+                                        </div>
+                                        <br>
+                                        <a class="btn btn-outline-dark" href=" <?php echo $row["link"]; ?>">Read More</a>
+                                    </div>
+                                </div>
+                        <?php
+                            }
+                        } else {
+                            echo "<li>No news articles found.</li>";
+                        }
+
+                        ?>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+
+                    <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
+
+                        <h3 class="">Up Coming Events</h3>
+                    </div>
+                    <div class="row g-4 justify-content-center">
 
 
-            $sqlstudent = "SELECT id,fullname, Details, image FROM students ORDER BY id DESC LIMIT 3";
-            $resultstudent = $con->query($sqlstudent);
-            ?>
+                        <div class="col-lg-12 col-md-12 wow fadeInUp" data-wow-delay="0.5s">
+                            <div class="causes-item d-flex flex-column bg-white  border-5 rounded-top overflow-hidden h-100">
+                                <div class="text-center p-4 pt-0">
+                                    <div class="row">
+                                        <br>
+                                        <div class="col-sm-12">
+                                            <?php
+                                            // Query to fetch events
+                                            $events_query = "SELECT event_name, event_date, location, advertisement_image FROM events ORDER BY event_id DESC LIMIT 1;";
+                                            $resultevent = $con->query($events_query);
+                                            ?>
+                                            <?php if ($resultevent && $resultevent->num_rows > 0): ?>
+                                                <?php while ($rowevent = $resultevent->fetch_assoc()): ?>
 
-            <div class="row g-4 justify-content-center">
+                                                    <div class="card h-100">
+                                                        <img src="data:image/jpeg;base64,<?= base64_encode($rowevent['advertisement_image']) ?>"
+                                                            class="card-img-top" alt="Event Image">
+                                                        <div class="card-body">
+                                                            <h5 class="card-title"><?= htmlspecialchars($rowevent['event_name']) ?></h5>
+                                                            <p class="card-text"><strong>Date:</strong> <?= htmlspecialchars($rowevent['event_date']) ?></p>
+                                                            <p class="card-text"><strong>Location:</strong> <?= htmlspecialchars($rowevent['location']) ?></p>
+                                                        </div>
+                                                    </div>
 
-                <?php while ($rowstudent = $resultstudent->fetch_assoc()): ?>
-                    <div class="col-lg-3 col-md-3 wow fadeInUp" data-wow-delay="0.1s">
-                        <div class="causes-item d-flex flex-column bg-white border-top border-5 border-light rounded-top overflow-hidden h-100">
-                            <div class="text-center p-4 pt-0">
-                                <br>
-                                <h4 class="mb-3"><?php echo ($rowstudent['fullname']); ?></h4>
-                                <p><?php echo ($rowstudent['Details']); ?></p>
+                                                <?php endwhile; ?>
+                                            <?php else: ?>
+                                                <p class="text-center">No events found.</p>
+                                            <?php endif; ?>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="position-relative mt-auto">
+                                    <div class="causes-overlay">
+                                        <a class="btn btn-outline-light" href=" <?php echo $row["link"]; ?>">Read More</a>
+                                        <div class="d-inline-flex btn-sm-square bg-dark text-white rounded-circle ms-2">
+                                            <i class="fa fa-arrow-right"></i>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="position-relative mt-auto">
-                                <img class="img-fluid" src="data:image/jpeg;base64,<?php echo base64_encode($rowstudent['image']); ?>" alt="Student Image" style="height: 250px; width: 100%;">
-
-                            </div>
-                            <br>
-                            <a class="btn btn-outline-dark" href="stuprofile.php?id=<?php echo ($rowstudent['id']); ?>">
-                                Read More
-                            </a>
                         </div>
                     </div>
-                <?php endwhile; ?>
+                </div>
             </div>
+            <!-- event End -->
         </div>
     </div>
-    <!-- Causes End -->
 
 
     <!-- Donate Start -->
@@ -398,29 +353,54 @@
                     <div class="d-inline-block rounded-pill bg-secondary text-dark py-1 px-3 mb-3">Contact Us</div>
                     <h1 class="display-6 mb-5">If You Have Any Query, Please Contact Us</h1>
 
-                    <form>
+                    <?php
+                    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                        // Retrieve form data
+                        $name = $_POST['name1'];
+                        $email = $_POST['email'];
+                        $message = $_POST['message'];
+                        $status = "unread";
+
+                        // SQL query to insert the data into the database
+                        $sql = "INSERT INTO messages (name, email, message, status) VALUES ('$name', '$email', '$message', '$status')";
+
+                        if ($con->query($sql) === TRUE) {
+                    ?>
+                            <div class="alert alert-success left-icon-alert" role="alert">
+                                <strong>Message Sent Success</strong>
+                            </div>
+                    <?php
+                        } else {
+                            echo "Error: " . $sql . "<br>" . $conn->error;
+                        }
+                    }
+                    ?>
+                    <form action="" method="POST">
                         <div class="row g-3">
                             <div class="col-md-6">
                                 <div class="form-floating">
-                                    <input type="text" class="form-control" id="name" placeholder="Your Name">
+                                    <input type="text" name="name1" class="form-control" id="name" placeholder="Your Name">
                                     <label for="name">Your Name</label>
                                 </div>
                             </div>
+
                             <div class="col-md-6">
                                 <div class="form-floating">
-                                    <input type="email" class="form-control" id="email" placeholder="Your Email">
+                                    <input type="number" name="phone" class="form-control" id="name" placeholder="Your Phone Number">
+                                    <label for="name">Your Phone Number</label>
+                                </div>
+                            </div> 
+
+                            <div class="col-md-12">
+                                <div class="form-floating">
+                                    <input type="email" name="email" class="form-control" id="email" placeholder="Your Email">
                                     <label for="email">Your Email</label>
                                 </div>
                             </div>
+
                             <div class="col-12">
                                 <div class="form-floating">
-                                    <input type="text" class="form-control" id="subject" placeholder="Subject">
-                                    <label for="subject">Subject</label>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="form-floating">
-                                    <textarea class="form-control" placeholder="Leave a message here" id="message" style="height: 100px"></textarea>
+                                    <textarea class="form-control" name="message" placeholder="Leave a message here" id="message" style="height: 100px"></textarea>
                                     <label for="message">Message</label>
                                 </div>
                             </div>
@@ -436,11 +416,13 @@
                     </form>
                 </div>
                 <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s" style="min-height: 450px;">
-                    <div class="position-relative rounded overflow-hidden h-100">
-                        <iframe class="position-relative w-100 h-100"
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3001156.4288297426!2d-78.01371936852176!3d42.72876761954724!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4ccc4bf0f123a5a9%3A0xddcfc6c1de189567!2sNew%20York%2C%20USA!5e0!3m2!1sen!2sbd!4v1603794290143!5m2!1sen!2sbd"
-                            frameborder="0" style="min-height: 450px; border:0;" allowfullscreen="" aria-hidden="false"
-                            tabindex="0"></iframe>
+                    <div class="card">
+                        <div class="card-header">
+                            <h1>Help to student payments</h1>
+                        </div>
+                        <div class="card-body">
+                            <p>$100</p>
+                        </div>
                     </div>
                 </div>
             </div>

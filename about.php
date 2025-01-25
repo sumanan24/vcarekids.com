@@ -1,3 +1,10 @@
+<?php
+// Database connection
+include 'includes/config.php'; // Make sure this file contains your database connection code
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,7 +13,7 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
-    <title>ChariTeam - Free Nonprofit Website Template</title>
+    <title>Vcare Kids</title>
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -61,21 +68,16 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav ms-auto p-4 p-lg-0">
-                    <a href="index.php" class="nav-item nav-link active">Home</a>
-                    <a href="about.html" class="nav-item nav-link">About</a>
-                    <a href="causes.html" class="nav-item nav-link">Causes</a>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
-                        <div class="dropdown-menu m-0">
-                            <a href="service.html" class="dropdown-item">Service</a>
-                            <a href="donate.html" class="dropdown-item">Donate</a>
-                        </div>
-                    </div>
-                    <a href="contact.html" class="nav-item nav-link">Contact</a>
+                <a href="index" class="nav-item nav-link active">Home</a>
+                    <a href="about" class="nav-item nav-link">About</a>
+                    <a href="service" class="nav-item nav-link">Activites</a>
+                    <a href="donar" class="nav-item nav-link">Donars</a>
+                    <a href="contact" class="nav-item nav-link">Contact</a>
+                    
+                    
                 </div>
                 <div class="d-none d-lg-flex ms-2">
-                    <a class="btn btn-outline-secondary py-2 px-3" href="">Donate Now</a> &nbsp;
-                    <a class="btn btn-outline-secondary py-2 px-3" href="login.php">Admin</a>
+                    <a class="btn btn-outline-secondary py-2 px-3" href="donate">Donate Now</a> &nbsp;
                 </div>
             </div>
         </nav>
@@ -85,101 +87,18 @@
     <!-- Page Header Start -->
     <div class="container-fluid page-header mb-5 wow fadeIn" data-wow-delay="0.1s">
         <div class="container text-center">
-            <h1 class="display-4 text-white animated slideInDown mb-4">Donate</h1>
+            <h1 class="display-4 text-white animated slideInDown mb-4">Student Profile</h1>
             <nav aria-label="breadcrumb animated slideInDown">
                 <ol class="breadcrumb justify-content-center mb-0">
                     <li class="breadcrumb-item"><a class="text-white" href="#">Home</a></li>
-                    <li class="breadcrumb-item"><a class="text-white" href="#">Pages</a></li>
-                    <li class="breadcrumb-item text-light active" aria-current="page">Donate</li>
+                    <li class="breadcrumb-item text-light active" aria-current="page">Student Profile</li>
                 </ol>
             </nav>
         </div>
     </div>
     <!-- Page Header End -->
 
-    <!-- Donate Start -->
-    <div class="container-fluid py-5">
-        <div class="container">
-            <div class="row g-5 align-items-center">
-                <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
-                    <h1 class="display-6 mb-5">Make a Donation</h1>
-                    <p><b>Bank Transfer Details:</b><br>
-                    <ul>
-                        <li>Bank Name: [Your Bank Name]</li>
-                        <li> Account Name: [Your Account Name]</li>
-                        <li>Account Number: [Your Account Number]</li>
-
-                    </ul>
-                    </p>
-                    <br>
-                    <b>Paypal</b><br>
-                    <img src="img/paypal.png" alt="Paypal">
-                </div>
-                <div class="col-lg-6" data-wow-delay="0.5s">
-                    <div class="h-100 bg-dark p-5">
-                        <?php
-                        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                            require 'includes/config.php'; // Include your database configuration file
-
-                            $fullname = $_POST['fname'] ;
-                            $email = $_POST['email'] ;
-                            $amount = $_POST['amount'] ;
-
-                            if (isset($_FILES['receipt']) && $_FILES['receipt']['error'] === UPLOAD_ERR_OK) {
-                                $image = file_get_contents($_FILES['receipt']['tmp_name']);
-
-                                $sql = "INSERT INTO donation (fullname, email, amount, image) VALUES (?, ?, ?, ?)";
-                                $stmt = $con->prepare($sql);
-                                $stmt->bind_param("ssis", $fullname, $email, $amount, $image);
-
-                                if ($stmt->execute()) {
-                                    echo "<div class='alert alert-success'>Donation submitted successfully.</div>";
-                                } else {
-                                    echo "<div class='alert alert-danger'>Error: " . $stmt->error . "</div>";
-                                }
-                            } else {
-                                echo "<div class='alert alert-warning'>Please upload a valid receipt.</div>";
-                            }
-                        }
-                        ?>
-
-                        <form method="POST" enctype="multipart/form-data">
-                            <div class="row g-3">
-                                <div class="col-12">
-                                    <div class="form-floating">
-                                        <input type="text" name="fname" class="form-control" id="name" placeholder="Your Name" required>
-                                        <label for="name">Your Name</label>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="form-floating">
-                                        <input type="email" name="email" class="form-control" id="email" placeholder="Your Email" required>
-                                        <label for="email">Your Email</label>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="form-floating">
-                                        <input type="number" name="amount" class="form-control" id="amount" placeholder="Donation Amount" required>
-                                        <label for="amount">Donation Amount</label>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="form-floating">
-                                        <input type="file" name="receipt" class="form-control" id="receipt" required>
-                                        <label for="receipt">Upload Payment Receipt</label>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <button class="btn btn-light w-100 py-2">Donate Now <i class="fa fa-arrow-right ms-2"></i></button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Donate End -->
+    
 
     <!-- Footer Start -->
     <div class="container-fluid bg-dark text-white-50 footer mt-5 pt-5 wow fadeIn" data-wow-delay="0.1s">
