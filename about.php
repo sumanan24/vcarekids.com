@@ -87,18 +87,72 @@ include 'includes/config.php'; // Make sure this file contains your database con
     <!-- Page Header Start -->
     <div class="container-fluid page-header mb-5 wow fadeIn" data-wow-delay="0.1s">
         <div class="container text-center">
-            <h1 class="display-4 text-white animated slideInDown mb-4">Student Profile</h1>
+            <h1 class="display-4 text-white animated slideInDown mb-4">About Us</h1>
             <nav aria-label="breadcrumb animated slideInDown">
                 <ol class="breadcrumb justify-content-center mb-0">
-                    <li class="breadcrumb-item"><a class="text-white" href="#">Home</a></li>
-                    <li class="breadcrumb-item text-light active" aria-current="page">Student Profile</li>
+                    <li class="breadcrumb-item"><a class="text-white" href="index.php">Home</a></li>
+                    <li class="breadcrumb-item text-light active" aria-current="page">About Us</li>
                 </ol>
             </nav>
         </div>
     </div>
     <!-- Page Header End -->
+<!-- Vision Start -->
+<div class="container-xxl">
+        <div class="container">
 
-    
+            <div class="row g-4 justify-content-center">
+                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="service-item bg-white h-100 p-4 p-xl-5">
+                        <img src="img/logo.jpg" alt="" style="width: 100%;">
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                    <div class="service-item bg-white  h-100 p-4 p-xl-5">
+
+                        <h4 class="mb-3">Our Mission</h4>
+                        <p class="mb-4">Our goal is to foster a socially and economically robust society by prioritizing education as the cornerstone of empowerment. Through accessible and inclusive educational initiatives, we aim to equip individuals with the knowledge, skills, and opportunities needed to build a prosperous and equitable future for our community</p>
+
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+                    <div class="service-item bg-white  h-100 p-4 p-xl-5">
+                        <h4 class="mb-3">Our Vision</h4>
+                        <p class="mb-4">VUnited Care For Kids Inc (VanniShangam Vcarekids) is dedicated to becoming the foremost organization in fostering communities with elevated living standards through the cultivation of an education-centric ethos and fostering a self-sustaining economy. We envision a future where every individual is empowered through education, leading to self-reliance and collective prosperity.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- vision End -->
+     <!-- About Start -->
+     <div class="container-xxl py-5" id="about">
+        <div class="container">
+            <div class="row g-5">
+                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="position-relative overflow-hidden h-100" style="min-height: 400px;">
+                        <img class="position-absolute w-100 h-100 pt-5 pe-5" src="img/child2.jpg" alt="" style="object-fit: cover;">
+                        <img class="position-absolute top-0 end-0 bg-white ps-2 pb-2" src="img/child3.jpg" alt="" style="width: 200px; height: 200px;">
+                    </div>
+                </div>
+                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.5s">
+                    <div class="h-100">
+                        <div class="d-inline-block rounded-pill bg-secondary text-dark py-1 px-3 mb-3">About Us</div>
+                        <h1 class="display-6 mb-5">We Help People In Need Around The World</h1>
+                        <div class="bg-light border-bottom border-5 border-dark rounded p-4 mb-4">
+                            <p class="text-dark mb-2">Welcome to V United Care for Kids (VUCFK), a passionate and visionary organization dedicated to building a socially and economically strong society through education. Established in Canada for charitable purposes and activities, we embark on a mission to transform lives and shape a brighter future for generations to come. Religions, castes, gender discrimination, and socioeconomic status are all beneath the Kingdom of God. It accepts all people and changes their lives by implementing the moral and skill standards that the benevolent God created. ​</p>
+
+                        </div>
+
+                        <a class="btn btn-outline-dark py-2 px-3" href="" style=" width: 100%;">
+                            Contact Us
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- About End -->
 
     <!-- Footer Start -->
     <div class="container-fluid bg-dark text-white-50 footer mt-5 pt-5 wow fadeIn" data-wow-delay="0.1s">
@@ -130,6 +184,8 @@ include 'includes/config.php'; // Make sure this file contains your database con
 
             </div>
         </div>
+
+        
         <div class="container-fluid copyright">
             <div class="container">
                 <div class="row">
