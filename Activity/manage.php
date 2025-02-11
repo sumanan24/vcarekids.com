@@ -38,7 +38,7 @@ if (isset($_GET['delete_id'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Dashboard - SB Admin</title>
+    <title>Vcarekids</title>
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
     <link href="../css/styles.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
@@ -59,7 +59,7 @@ if (isset($_GET['delete_id'])) {
                 <div class="container-fluid px-4">
                     <div class="row">
                         <div class="col-md-10">
-                            <h1 class="mt-4">News</h1>
+                            <h1 class="mt-4">Activities</h1>
                         </div>
                         <div class="col-md-2">
                             <br><a href="new.php" class="btn btn-dark mb-3 btn-sm" style="width: 100%;">Add New</a>
@@ -68,7 +68,7 @@ if (isset($_GET['delete_id'])) {
 
                     <ol class="breadcrumb mb-4">
                         <li class="breadcrumb-item active"><a href="../Dashboard/Dashboard.php">Dashboard</a></li>
-                        <li class="breadcrumb-item active">News</li>
+                        <li class="breadcrumb-item active">Activities</li>
                     </ol>
 
                     <?php if (isset($message)) { ?>

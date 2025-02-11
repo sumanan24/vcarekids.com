@@ -1,11 +1,9 @@
 <?php
 include_once '../includes/config.php';
 
-// Fetch student records
 $query = "SELECT id, fullname, district, image ,permanentaddress,phone,Details FROM students";
 $result = $con->query($query);
 
-// Handle deletion
 if (isset($_GET['delete_id'])) {
     $delete_id = intval($_GET['delete_id']);
     $delete_query = "DELETE FROM students WHERE id = ?";
@@ -30,7 +28,6 @@ if (isset($_GET['delete_id'])) {
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -82,26 +79,22 @@ if (isset($_GET['delete_id'])) {
                                 <th>No</th>
                                 <th>Full Name</th>
                                 <Th>phone No</Th>
-                                <th>Date of Birth</th>
+                                <th>Details</th>
                                 <th>District</th>
-                                <th>Address</th>
                                 <th>Image</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php 
-                            $x=1;
+                            <?php
+                            $x = 1;
                             while ($row = $result->fetch_assoc()) { ?>
                                 <tr>
-                                    <td><?php echo $x++;?></td>
+                                    <td><?php echo $x++; ?></td>
                                     <td><?= htmlspecialchars($row['fullname']); ?></td>
                                     <td><?= htmlspecialchars($row['phone']); ?></td>
                                     <td><?= htmlspecialchars($row['Details']); ?></td>
-
                                     <td><?= htmlspecialchars($row['district']); ?></td>
-                                    <td><?= htmlspecialchars($row['permanentaddress']); ?></td>
-
                                     <td>
                                         <?php if (!empty($row['image'])) { ?>
                                             <img src="data:image/jpeg;base64,<?= base64_encode($row['image']); ?>" alt="Student Image" style="width: 60px; height: 60px; border-radius: 90%;">
@@ -112,14 +105,13 @@ if (isset($_GET['delete_id'])) {
                                     <td>
                                         <div style="display: flex; justify-content: space-between; align-items: center; gap: 10px;">
                                             <div>
-                                                
+
                                             </div>
                                             <div>
-                                            <a href="edit.php?id=<?= $row['id']; ?>" class="btn btn-warning btn-sm">Edit</a>
-                                            <a href="?delete_id=<?= $row['id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this student?');">Delete</a>
-                                            <a href="document.php?id=<?= $row['id']; ?>" class="btn btn-info btn-sm">Add Document</a>
-                                           
-                                        </div>
+                                                <a href="edit.php?id=<?= $row['id']; ?>" class="btn btn-warning btn-sm">Edit</a>
+                                                <a href="?delete_id=<?= $row['id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this student?');">Delete</a>
+                                                <a href="document.php?id=<?= $row['id']; ?>" class="btn btn-info btn-sm">Add Document</a>
+                                            </div>
                                         </div>
                                     </td>
                                 </tr>

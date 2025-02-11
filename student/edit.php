@@ -12,7 +12,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $permanentaddress = trim($_POST['permanentaddress']);
     $dob = trim($_POST['dob']);
     $district = trim($_POST['district']);
-    $updated_at = date('Y-m-d H:i:s');
+    $category = trim($_POST['category']);
+    $donar_id = trim($_POST['donar_id']);
+    if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
+        $image = file_get_contents($_FILES['image']['tmp_name']);
+    } 
+    $created_at = date('Y-m-d H:i:s');
+    $updated_at = $created_at;
 
     // Validate required fields
     if (
@@ -85,11 +91,14 @@ $stmt->execute();
 $result = $stmt->get_result();
 $student = $result->fetch_assoc();
 $stmt->close();
-$con->close();
+
 
 if (!$student) {
     die("Error: Student not found.");
 }
+
+$donorQuery = "SELECT id, donarfullname FROM donars";
+$donorResult = $con->query($donorQuery);
 ?>
 
 <!DOCTYPE html>
@@ -130,55 +139,115 @@ if (!$student) {
                         <div class="card-body">
                             <form method="POST" enctype="multipart/form-data">
                                 <input type="hidden" name="id" value="<?php echo $student['id']; ?>">
-                                <div class="mb-3">
-                                    <label for="fullname" class="form-label">Full Name</label>
-                                    <input type="text" class="form-control" id="fullname" name="fullname" value="<?php echo $student['fullname']; ?>" required>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="fullname" class="form-label">Full Name</label>
+                                            <input type="text" class="form-control" id="fullname" name="fullname" value="<?php echo $student['fullname']; ?>" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="phone" class="form-label">Phone Number</label>
+                                            <input type="number" class="form-control" id="phone" name="phone" value="<?php echo $student['phone']; ?>" required>
+                                        </div>
+                                    </div>
                                 </div>
+
                                 <div class="mb-3">
                                     <label for="Details" class="form-label">Details</label>
                                     <textarea class="form-control" id="Details" name="Details" rows="3" required><?php echo $student['Details']; ?></textarea>
                                 </div>
-                                <div class="mb-3">
-                                    <label for="phone" class="form-label">Phone Number</label>
-                                    <input type="number" class="form-control" id="phone" name="phone" value="<?php echo $student['phone']; ?>" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="parentname" class="form-label">Parent Name</label>
-                                    <input type="text" class="form-control" id="parentname" name="parentname" value="<?php echo $student['parentname']; ?>" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="parentaddress" class="form-label">Parent Address</label>
-                                    <textarea class="form-control" id="parentaddress" name="parentaddress" rows="2" required><?php echo $student['parentaddress']; ?></textarea>
-                                </div>
+
                                 <div class="mb-3">
                                     <label for="permanentaddress" class="form-label">Permanent Address</label>
                                     <textarea class="form-control" id="permanentaddress" name="permanentaddress" rows="2" required><?php echo $student['permanentaddress']; ?></textarea>
                                 </div>
-                                <div class="mb-3">
-                                    <label for="dob" class="form-label">Date of Birth</label>
-                                    <input type="date" class="form-control" id="dob" name="dob" value="<?php echo $student['dob']; ?>" required>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="parentname" class="form-label">Parent Name</label>
+                                            <input type="text" class="form-control" id="parentname" name="parentname" value="<?php echo $student['parentname']; ?>" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="dob" class="form-label">Date of Birth</label>
+                                            <input type="date" class="form-control" id="dob" name="dob" value="<?php echo $student['dob']; ?>" required>
+                                        </div>
+                                    </div>
                                 </div>
+
                                 <div class="mb-3">
-                                    <label for="district" class="form-label">District</label>
-                                    <select name="district" id="district" class="form-control">
-                                        <option value="" disabled>Select District</option>
-                                        <?php
-                                        $districts = ["colombo", "gampaha", "kalutara", "kandy", "matale", "nuwara_eliya", "galle", "matara", "hambantota", "jaffna", "kilinochchi", "mannar", "vavuniya", "mullaitivu", "batticaloa", "ampara", "trincomalee", "kurunegala", "puttalam", "anuradhapura", "polonnaruwa", "badulla", "monaragala", "ratnapura", "kegalle"];
-                                        foreach ($districts as $district) {
-                                            $selected = $district == $student['district'] ? 'selected' : '';
-                                            echo "<option value='$district' $selected>" . ucfirst(str_replace('_', ' ', $district)) . "</option>";
-                                        }
-                                        ?>
-                                    </select>
+                                    <label for="parentaddress" class="form-label">Parent Address</label>
+                                    <textarea class="form-control" id="parentaddress" name="parentaddress" rows="2" required><?php echo $student['parentaddress']; ?></textarea>
                                 </div>
-                                <div class="mb-3">
-                                    <label for="image" class="form-label">Image</label>
-                                    <input type="file" class="form-control" id="image" name="image" accept="image/*">
-                                    <?php if ($student['image']) : ?>
-                                        <img src="data:image/jpeg;base64,<?php echo base64_encode($student['image']); ?>" alt="Student Image" class="img-thumbnail mt-2" width="150">
-                                    <?php endif; ?>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="category" class="form-label">Category</label>
+                                            <select name="category" id="category" class="form-control" required>
+                                                <option value="" selected disabled>Select Category</option>
+                                                <option value="bicycle_donation">Bicycle Donation</option>
+                                                <option value="computer_donation">Computer Donation</option>
+                                                <option value="scholarship_payment">Scholarship Payment</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="donar_id" class="form-label">Donor</label>
+                                            <select name="donar_id" id="donar_id" class="form-control" required>
+                                                <option value="" selected disabled>Select Donor</option>
+                                                <?php while ($row = $donorResult->fetch_assoc()) { ?>
+                                                    <option value="<?php echo $row['id']; ?>"><?php echo $row['donarfullname']; ?></option>
+                                                <?php } ?>
+                                            </select>
+                                        </div>
+                                    </div>
                                 </div>
-                                <button type="submit" class="btn btn-primary">Update</button>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="district" class="form-label">District</label>
+                                            <select name="district" id="district" class="form-control">
+                                                <option value="" disabled>Select District</option>
+                                                <?php
+                                                $districts = ["colombo", "gampaha", "kalutara", "kandy", "matale", "nuwara_eliya", "galle", "matara", "hambantota", "jaffna", "kilinochchi", "mannar", "vavuniya", "mullaitivu", "batticaloa", "ampara", "trincomalee", "kurunegala", "puttalam", "anuradhapura", "polonnaruwa", "badulla", "monaragala", "ratnapura", "kegalle"];
+                                                foreach ($districts as $district) {
+                                                    $selected = $district == $student['district'] ? 'selected' : '';
+                                                    echo "<option value='$district' $selected>" . ucfirst(str_replace('_', ' ', $district)) . "</option>";
+                                                }
+                                                ?>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="image" class="form-label">Image</label>
+                                            <input type="file" class="form-control" id="image" name="image" accept="image/*">
+                                            <?php if ($student['image']) : ?>
+                                                <img src="data:image/jpeg;base64,<?php echo base64_encode($student['image']); ?>" alt="Student Image" class="img-thumbnail mt-2" width="150">
+                                            <?php endif; ?>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="row">
+                                    <div class="col-md-10"></div>
+                                    <div class="col-md-2">
+                                        <button type="submit" class="btn btn-primary" style="width: 100%;">Update</button>
+                                    </div>
+                                </div>
                             </form>
                         </div>
                     </div>

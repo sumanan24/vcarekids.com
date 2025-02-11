@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Dashboard - SB Admin</title>
+    <title>Vcarekids</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
     <link href="../css/styles.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
@@ -50,10 +50,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid px-4">
-                    <h1 class="mt-4">News</h1>
+                    <h1 class="mt-4">Activity</h1>
                     <ol class="breadcrumb mb-4">
                         <li class="breadcrumb-item active"><a href="../Dashboard/Dashboard.php">Dashboard</a></li>
-                        <li class="breadcrumb-item active"><a href="manage.php">News</a></li>
+                        <li class="breadcrumb-item active"><a href="manage.php">Activties</a></li>
                         <li class="breadcrumb-item active">Create</li>
                     </ol>
                     <div class="card mt-4">
