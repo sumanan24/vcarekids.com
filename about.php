@@ -33,6 +33,92 @@ include 'includes/config.php'; // Make sure this file contains your database con
 
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
+    <style>
+        .apply-section {
+            padding: 15px;
+            background: #c8e6c9;
+            border-left: 5px solid #388e3c;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+
+        .apply-section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .apply-section li {
+            font-size: 16px;
+            margin: 5px 0;
+        }
+
+        .apply-section a {
+            text-decoration: none;
+            font-weight: bold;
+            color: #388e3c;
+        }
+
+        .apply-section a:hover {
+            text-decoration: underline;
+        }
+
+        .fixed-size-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+
+        .img1 {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+
+        .donor-marquee {
+            width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            background-color: yellow;
+            padding: 10px;
+            text-transform: capitalize;
+            font-size: 20px;
+            color: black;
+            animation: blink-border 1s infinite alternate;
+        }
+
+        .donor-marquee span {
+            display: inline-block;
+            animation: marquee 10s linear infinite;
+        }
+
+        @keyframes marquee {
+            from {
+                transform: translateX(100%);
+            }
+
+            to {
+                transform: translateX(-100%);
+            }
+        }
+
+        @keyframes blink-border {
+            0% {
+                border-color: red;
+            }
+
+            50% {
+                border-color: blue;
+            }
+
+            100% {
+                border-color: green;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -59,6 +145,24 @@ include 'includes/config.php'; // Make sure this file contains your database con
             </div>
         </div>
 
+        <div class="blinking-text">
+            <!-- <p style="text-align: center; font-size: 18px;" class="p-2">Our Donars</p> -->
+            <div class="donor-marquee">
+                <span>Our Honorable Donors:
+                    <?php
+                    $sql = "SELECT donarfullname FROM donars";
+                    $result = $con->query($sql);
+                    if ($result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {
+                            echo  "<b>" . $row["donarfullname"] . "</b> ( 02 Students ) |  ";
+                        }
+                    }
+                    ?>
+
+                </span>
+            </div>
+        </div>
+
         <nav class="navbar navbar-expand-lg navbar-dark py-lg-0 px-lg-5 wow fadeIn" data-wow-delay="0.1s">
             <a href="index.html" class="navbar-brand ms-4 ms-lg-0">
                 <h1 class="fw-bold text-primary m-0">VanniShangam<span class="text-white">Vcarekids</span></h1>
@@ -68,8 +172,8 @@ include 'includes/config.php'; // Make sure this file contains your database con
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav ms-auto p-4 p-lg-0">
-                    <a href="index.php" class="nav-item nav-link active">Home</a>
-                    <a href="about.php" class="nav-item nav-link">About</a>
+                    <a href="index.php" class="nav-item nav-link">Home</a>
+                    <a href="about.php" class="nav-item nav-link active">About</a>
                     <a href="service.php" class="nav-item nav-link">Activites</a>
                     <a href="donar.php" class="nav-item nav-link">Donars</a>
                     <a href="contact.php" class="nav-item nav-link">Contact</a>
@@ -203,7 +307,8 @@ include 'includes/config.php'; // Make sure this file contains your database con
     <!-- Footer End -->
 
     <!-- Back to Top -->
-    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+    <a href="#" class="btn btn-sm btn-dark btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+
 
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>

@@ -59,7 +59,6 @@
             text-decoration: underline;
         }
 
-
         .fixed-size-image {
             width: 100%;
             height: 200px;
@@ -84,7 +83,6 @@
             padding: 10px;
             text-transform: capitalize;
             font-size: 20px;
-
             color: black;
             animation: blink-border 1s infinite alternate;
         }
@@ -127,7 +125,6 @@
     </div>
     <!-- Spinner End -->
 
-
     <!-- Navbar Start -->
     <div class="container-fluid fixed-top px-0 wow fadeIn" data-wow-delay="0.1s">
         <div class="top-bar text-white-50 row gx-0 align-items-center d-none d-lg-flex">
@@ -165,7 +162,6 @@
         <nav class="navbar navbar-expand-lg navbar-dark py-lg-0 px-lg-5 wow fadeIn" data-wow-delay="0.1s">
             <a href="index.html" class="navbar-brand ms-4 ms-lg-0">
                 <h1 class="fw-bold text-primary m-0"> VanniShangam<span class="text-white">Vcarekids</span></h1>
-
             </a>
             <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                 <span class="navbar-toggler-icon"></span>
@@ -187,7 +183,6 @@
         </nav>
     </div>
     <!-- Navbar End -->
-
 
     <!-- Carousel Start -->
     <div class="container-fluid p-0 ">
@@ -235,26 +230,21 @@
     <hr>
     <div class="container-xxl ">
         <div class="container">
-
             <!-- event Start -->
             <div class="row">
                 <div class="col-lg-8">
-
                     <div class="text-center mx-auto  wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
-
                         <h3 class="">Emereny Cases</h3>
                     </div>
                     <div class="row g-4 justify-content-center">
                         <?php
                         $sql = "SELECT title, content, link, image FROM news ORDER BY id DESC LIMIT 2 ";
                         $result = $con->query($sql);
-
                         // Check if there are results
                         if ($result->num_rows > 0) {
                             // Output data for each row
                             while ($row = $result->fetch_assoc()) {
                         ?>
-
                                 <div class="col-lg-6 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
                                     <div class="causes-item d-flex flex-column bg-white border-top border-5 rounded-top overflow-hidden h-100">
                                         <div class="text-center p-4 pt-0">
@@ -270,9 +260,7 @@
                                             } else {
                                                 echo "<p>No image available</p>";
                                             }
-
                                             ?>
-
                                         </div>
                                         <br>
                                         <a class="btn btn-outline-dark" href=" <?php echo $row["link"]; ?>">Read More</a>
@@ -288,14 +276,10 @@
                     </div>
                 </div>
                 <div class="col-lg-4">
-
                     <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
-
                         <h3 class="">Up Coming Events</h3>
                     </div>
                     <div class="row g-4 justify-content-center">
-
-
                         <div class="col-lg-12 col-md-12 wow fadeInUp" data-wow-delay="0.5s">
                             <div class="causes-item d-flex flex-column bg-white  border-5 rounded-top overflow-hidden h-100">
                                 <div class="text-center p-4 pt-0">
@@ -309,7 +293,6 @@
                                             ?>
                                             <?php if ($resultevent && $resultevent->num_rows > 0): ?>
                                                 <?php while ($rowevent = $resultevent->fetch_assoc()): ?>
-
                                                     <div class="card h-100">
                                                         <img src="data:image/jpeg;base64,<?= base64_encode($rowevent['advertisement_image']) ?>"
                                                             class="card-img-top" alt="Event Image">
@@ -319,14 +302,11 @@
                                                             <p class="card-text"><strong>Location:</strong> <?= htmlspecialchars($rowevent['location']) ?></p>
                                                         </div>
                                                     </div>
-
                                                 <?php endwhile; ?>
                                             <?php else: ?>
                                                 <p class="text-center">No events found.</p>
                                             <?php endif; ?>
-
                                         </div>
-
                                     </div>
                                 </div>
                                 <div class="position-relative mt-auto">
@@ -345,10 +325,6 @@
             <!-- event End -->
         </div>
     </div>
-
-
-
-
 
     <!-- Donate Start -->
     <div class="container-fluid donate my-5 py-5" data-parallax="scroll" data-image-src="img/child3.jpg">
@@ -378,32 +354,6 @@
         </div>
     </div>
     <!-- Donate End -->
-
-
-    <!-- help Start -->
-
-    <div class="container-xxl bg-light my-5 py-5" id="Causes">
-        <div class="container">
-            <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
-
-                <h2>Vanni Changam - Help Request</h2>
-            </div>
-
-            <div class="row g-4 justify-content-center">
-
-                <section class="apply-section">
-                    <h2>📄 Download Application Forms</h2>
-                    <ul>
-                        <li>🚲 <a href="files/Bicycle Donation Form 2025.pdf" download>Download Bicycle Application Form</a></li>
-                        <li>💻 <a href="files/Computer Donation Form 2021.pdf" download>Download Computer Application Form</a></li>
-                        <li>🎓 <a href="files/Scholarship New Form 2019.pdf" download>Download Scholarship Application Form</a></li>
-                    </ul>
-                    <p>📩 Send the completed form to: <strong>[Your Email Address]</strong></p>
-                </section>
-            </div>
-        </div>
-    </div>
-    <!-- help End -->
 
     <!-- Contact Start -->
     <div class="container-fluid">
@@ -525,7 +475,7 @@
                 </div>
                 <div class="col-lg-4 col-md-4">
                     <h5 class="text-light mb-4">Address</h5>
-                    <p><i class="fa fa-map-marker-alt me-3"></i>8-3500 McNicoll Ave, , Scarborough, ON, Canada, M1V 4C7</p>
+                    <p><i class="fa fa-map-marker-alt me-3"></i>8-3500 McNicoll Ave,Scarborough,ON,Canada,M1V 4C7</p>
                     <p><i class="fa fa-phone-alt me-3"></i>+1-416-644-1113</p>
                     <p><i class="fa fa-envelope me-3"></i>info@vcarekids.org</p>
                 </div>

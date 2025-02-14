@@ -113,8 +113,20 @@ $donorResult = $con->query($donorQuery);
 
                                 <!-- 2nd row start -->
                                 <div class="mb-3">
-                                    <label for="Details" class="form-label">Details</label>
-                                    <textarea class="form-control" id="Details" name="Details" rows="3" required></textarea>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label for="Details" class="form-label">Details</label>
+                                            <textarea class="form-control" id="Details" name="Details" rows="3" required></textarea>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="permanentaddress" class="form-label">Permanent Address</label>
+                                                <textarea class="form-control" id="permanentaddress" name="permanentaddress" rows="3" required></textarea>
+                                            </div>
+                                        </div>
+
+                                    </div>
                                 </div>
                                 <!-- 2nd row end -->
 
@@ -126,28 +138,35 @@ $donorResult = $con->query($donorQuery);
                                             <input type="text" class="form-control" id="parentname" name="parentname" required>
                                         </div>
                                     </div>
+
                                     <div class="col-md-6">
                                         <div class="mb-3">
-                                            <label for="dob" class="form-label">Date of Birth</label>
-                                            <input type="date" class="form-control" id="dob" name="dob" required>
+                                            <label for="category" class="form-label">Category</label>
+                                            <select name="category" id="category" class="form-control" required>
+                                                <option value="" selected disabled>Select Category</option>
+                                                <option value="bicycle_donation">Bicycle Donation</option>
+                                                <option value="computer_donation">Computer Donation</option>
+                                                <option value="scholarship_payment">Scholarship Payment</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
                                 <!-- 3rd row end -->
 
-                                <div class="mb-3">
-                                    <label for="parentaddress" class="form-label">Parent Address</label>
-                                    <textarea class="form-control" id="parentaddress" name="parentaddress" rows="2" required></textarea>
-                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="parentaddress" class="form-label">Parent Address</label>
+                                            <textarea class="form-control" id="parentaddress" name="parentaddress" rows="2" required></textarea>
+                                        </div>
+                                    </div>
 
-                                <div class="mb-3">
-                                    <label for="permanentaddress" class="form-label">Permanent Address</label>
-                                    <textarea class="form-control" id="permanentaddress" name="permanentaddress" rows="2" required></textarea>
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="permanentaddress" class="form-label">School/University Name</label>
-                                    <textarea class="form-control" id="permanentaddress" name="permanentaddress" rows="2" required></textarea>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="permanentaddress" class="form-label">School/University Name</label>
+                                            <textarea class="form-control" id="permanentaddress" name="permanentaddress" rows="2" required></textarea>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div class="row">
@@ -157,6 +176,7 @@ $donorResult = $con->query($donorQuery);
                                             <input type="file" class="form-control" id="image" name="image" required>
                                         </div>
                                     </div>
+
                                     <div class="col-md-6">
                                         <div class="mb-3">
                                             <label for="district" class="form-label">District</label>
@@ -202,20 +222,17 @@ $donorResult = $con->query($donorQuery);
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="mb-3">
-                                            <label for="category" class="form-label">Category</label>
-                                            <select name="category" id="category" class="form-control" required>
-                                                <option value="" selected disabled>Select Category</option>
-                                                <option value="bicycle_donation">Bicycle Donation</option>
-                                                <option value="computer_donation">Computer Donation</option>
-                                                <option value="scholarship_payment">Scholarship Payment</option>
-                                            </select>
+                                            <label for="dob" class="form-label">Date of Birth</label>
+                                            <input type="date" class="form-control" id="dob" name="dob" required>
                                         </div>
                                     </div>
+
                                     <div class="col-md-6">
                                         <div class="mb-3">
                                             <label for="donar_id" class="form-label">Donor</label>
                                             <select name="donar_id" id="donar_id" class="form-control" required>
                                                 <option value="" selected disabled>Select Donor</option>
+                                                <option value="Not-Assign">Not Assign</option>
                                                 <?php while ($row = $donorResult->fetch_assoc()) { ?>
                                                     <option value="<?php echo $row['id']; ?>"><?php echo $row['donarfullname']; ?></option>
                                                 <?php } ?>
