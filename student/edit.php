@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $donar_id = trim($_POST['donar_id']);
     if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
         $image = file_get_contents($_FILES['image']['tmp_name']);
-    } 
+    }
     $created_at = date('Y-m-d H:i:s');
     $updated_at = $created_at;
 
@@ -35,10 +35,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     if ($image) {
-        $query = "UPDATE students SET fullname = ?, Details = ?, phone = ?, parentname = ?, parentaddress = ?, permanentaddress = ?, dob = ?, district = ?, image = ?, updated_at = ? WHERE id = ?";
+        $query = "UPDATE students SET fullname = ?, Details = ?, phone = ?, parentname = ?, parentaddress = ?, permanentaddress = ?, dob = ?, district = ?,category=?,donar_id=?, image = ?, updated_at = ? WHERE id = ?";
         $stmt = $con->prepare($query);
         $stmt->bind_param(
-            'ssssssssssi',
+            'ssssssssssssi',
             $fullname,
             $Details,
             $phone,
@@ -47,15 +47,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $permanentaddress,
             $dob,
             $district,
+            $category,
+            $donar_id,
             $image,
             $updated_at,
             $id
         );
     } else {
-        $query = "UPDATE students SET fullname = ?, Details = ?, phone = ?, parentname = ?, parentaddress = ?, permanentaddress = ?, dob = ?, district = ?, updated_at = ? WHERE id = ?";
+        $query = "UPDATE students SET fullname = ?, Details = ?, phone = ?, parentname = ?, parentaddress = ?, permanentaddress = ?, dob = ?, district = ?,category=?,donar_id=?, updated_at = ? WHERE id = ?";
         $stmt = $con->prepare($query);
         $stmt->bind_param(
-            'sssssssssi',
+            'sssssssssssi',
             $fullname,
             $Details,
             $phone,
@@ -64,6 +66,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $permanentaddress,
             $dob,
             $district,
+            $category,
+            $donar_id,
             $updated_at,
             $id
         );
@@ -192,7 +196,7 @@ $donorResult = $con->query($donorQuery);
                                         <div class="mb-3">
                                             <label for="category" class="form-label">Category</label>
                                             <select name="category" id="category" class="form-control" required>
-                                                <option value="" selected disabled>Select Category</option>
+                                                <option value="<?php echo $student['category'];  ?>" selected ><?php echo $student['category'];  ?></option>
                                                 <option value="bicycle_donation">Bicycle Donation</option>
                                                 <option value="computer_donation">Computer Donation</option>
                                                 <option value="scholarship_payment">Scholarship Payment</option>
@@ -202,10 +206,9 @@ $donorResult = $con->query($donorQuery);
                                     <div class="col-md-6">
                                         <div class="mb-3">
                                             <label for="donar_id" class="form-label">Donor</label>
-                                            <select name="donar_id" id="donar_id" class="form-control" required>
-                                                <option value="" selected disabled>Select Donor</option>
+                                            <select name="donar_id" class="form-control" required>
                                                 <?php while ($row = $donorResult->fetch_assoc()) { ?>
-                                                    <option value="<?php echo $row['id']; ?>"><?php echo $row['donarfullname']; ?></option>
+                                                    <option value="<?php echo $row['id']; ?>" <?php echo ($student['donar_id'] == $row['id']) ? 'selected' : ''; ?>><?php echo $row['donarfullname']; ?></option>
                                                 <?php } ?>
                                             </select>
                                         </div>

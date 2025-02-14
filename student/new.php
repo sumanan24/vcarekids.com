@@ -51,7 +51,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo "Error: " . $stmt->error;
     }
     $stmt->close();
-    
 }
 
 // Fetch donors for dropdown
@@ -146,6 +145,11 @@ $donorResult = $con->query($donorQuery);
                                     <textarea class="form-control" id="permanentaddress" name="permanentaddress" rows="2" required></textarea>
                                 </div>
 
+                                <div class="mb-3">
+                                    <label for="permanentaddress" class="form-label">School/University Name</label>
+                                    <textarea class="form-control" id="permanentaddress" name="permanentaddress" rows="2" required></textarea>
+                                </div>
+
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="mb-3">
@@ -159,7 +163,37 @@ $donorResult = $con->query($donorQuery);
                                             <select name="district" id="district" class="form-control" required>
                                                 <option value="" selected disabled>Select District</option>
                                                 <option value="colombo">Colombo</option>
+                                                <option value="gampaha">Gampaha</option>
+                                                <option value="kalutara">Kalutara</option>
                                                 <option value="kandy">Kandy</option>
+                                                <option value="matale">Matale</option>
+                                                <option value="nuwara_eliya">Nuwara Eliya</option>
+                                                <option value="galle">Galle</option>
+                                                <option value="matara">Matara</option>
+                                                <option value="hambantota">Hambantota</option>
+                                                <option value="jaffna">Jaffna</option>
+                                                <option value="kilinochchi">Kilinochchi</option>
+                                                <option value="mannar">Mannar</option>
+                                                <option value="vavuniya">Vavuniya</option>
+                                                <option value="mullaitivu">Mullaitivu</option>
+                                                <option value="batticaloa">Batticaloa</option>
+                                                <option value="ampara">Ampara</option>
+                                                <option value="trincomalee">Trincomalee</option>
+                                                <option value="kurunegala">Kurunegala</option>
+                                                <option value="puttalam">Puttalam</option>
+                                                <option value="anuradhapura">Anuradhapura</option>
+                                                <option value="polonnaruwa">Polonnaruwa</option>
+                                                <option value="badulla">Badulla</option>
+                                                <option value="moneragala">Moneragala</option>
+                                                <option value="ratnapura">Ratnapura</option>
+                                                <option value="kegalle">Kegalle</option>
+                                                <option value="matara">Matara</option>
+                                                <option value="polonnaruwa">Polonnaruwa</option>
+                                                <option value="mullaitivu">Mullaitivu</option>
+                                                <option value="sabaragamuwa">Sabaragamuwa</option>
+                                                <option value="north_central">North Central</option>
+                                                <option value="north_western">North Western</option>
+
                                             </select>
                                         </div>
                                     </div>

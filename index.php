@@ -31,6 +31,35 @@
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
     <style>
+        .apply-section {
+            padding: 15px;
+            background: #c8e6c9;
+            border-left: 5px solid #388e3c;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+
+        .apply-section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .apply-section li {
+            font-size: 16px;
+            margin: 5px 0;
+        }
+
+        .apply-section a {
+            text-decoration: none;
+            font-weight: bold;
+            color: #388e3c;
+        }
+
+        .apply-section a:hover {
+            text-decoration: underline;
+        }
+
+
         .fixed-size-image {
             width: 100%;
             height: 200px;
@@ -47,23 +76,45 @@
             border-radius: 8px;
         }
 
-        .blinking-text {
-            display: inline-block;
+        .donor-marquee {
             width: 100%;
-            animation: blinkHighlight 3s infinite;
+            white-space: nowrap;
+            overflow: hidden;
+            background-color: yellow;
+            padding: 10px;
+            text-transform: capitalize;
+            font-size: 20px;
+
+            color: black;
+            animation: blink-border 1s infinite alternate;
         }
 
-        @keyframes blinkHighlight {
+        .donor-marquee span {
+            display: inline-block;
+            animation: marquee 10s linear infinite;
+        }
 
-            0%,
-            100% {
-                background-color: black;
-                color: white;
+        @keyframes marquee {
+            from {
+                transform: translateX(100%);
+            }
+
+            to {
+                transform: translateX(-100%);
+            }
+        }
+
+        @keyframes blink-border {
+            0% {
+                border-color: red;
             }
 
             50% {
-                background-color: white;
-                color: black;
+                border-color: blue;
+            }
+
+            100% {
+                border-color: green;
             }
         }
     </style>
@@ -92,6 +143,24 @@
                 <a class="text-white-50 ms-3" href=""><i class="fab fa-instagram"></i></a>
             </div>
         </div>
+
+        <div class="blinking-text">
+        <!-- <p style="text-align: center; font-size: 18px;" class="p-2">Our Donars</p> -->
+        <div class="donor-marquee">
+            <span>Our Honorable Donors:
+                <?php
+                $sql = "SELECT donarfullname FROM donars";
+                $result = $con->query($sql);
+                if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        echo  "<b>" . $row["donarfullname"] . "</b> ( 02 Students ) |  ";
+                    }
+                }
+                ?>
+
+            </span>
+        </div>
+    </div>
 
         <nav class="navbar navbar-expand-lg navbar-dark py-lg-0 px-lg-5 wow fadeIn" data-wow-delay="0.1s">
             <a href="index.html" class="navbar-brand ms-4 ms-lg-0">
@@ -162,21 +231,7 @@
         </div>
     </div>
     <!-- Carousel End -->
-    <div class="blinking-text">
-        <p style="text-align: center; font-size: 18px;" class="p-2">Our Donars</p>
-        <marquee behavior="" direction="">
-            <?php
-            $sql = "SELECT donarfullname FROM donars";
-            $result = $con->query($sql);
-            if ($result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
-                    echo  $row["donarfullname"]."  *  " ;
-                }
-            }
-            ?>
-
-        </marquee>
-    </div>
+    
     <hr>
     <div class="container-xxl ">
         <div class="container">
@@ -187,7 +242,7 @@
 
                     <div class="text-center mx-auto  wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
 
-                        <h3 class="">Our Recent Activities</h3>
+                        <h3 class="">Emereny Cases</h3>
                     </div>
                     <div class="row g-4 justify-content-center">
                         <?php
@@ -292,6 +347,9 @@
     </div>
 
 
+
+
+
     <!-- Donate Start -->
     <div class="container-fluid donate my-5 py-5" data-parallax="scroll" data-image-src="img/child3.jpg">
         <div class="container py-5">
@@ -321,13 +379,42 @@
     </div>
     <!-- Donate End -->
 
+
+    <!-- help Start -->
+
+    <div class="container-xxl bg-light my-5 py-5" id="Causes">
+        <div class="container">
+            <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
+
+                <h2>Vanni Changam - Help Request</h2>
+            </div>
+
+            <div class="row g-4 justify-content-center">
+
+                <section class="apply-section">
+                    <h2>📄 Download Application Forms</h2>
+                    <ul>
+                        <li>🚲 <a href="files/Bicycle Donation Form 2025.pdf" download>Download Bicycle Application Form</a></li>
+                        <li>💻 <a href="files/Computer Donation Form 2021.pdf" download>Download Computer Application Form</a></li>
+                        <li>🎓 <a href="files/Scholarship New Form 2019.pdf" download>Download Scholarship Application Form</a></li>
+                    </ul>
+                    <p>📩 Send the completed form to: <strong>[Your Email Address]</strong></p>
+                </section>
+            </div>
+        </div>
+    </div>
+    <!-- help End -->
+
     <!-- Contact Start -->
     <div class="container-fluid">
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
                     <div class="d-inline-block rounded-pill bg-secondary text-dark py-1 px-3 mb-3">Contact Us</div>
-                    <h1 class="display-6 mb-5">If You Have Any Query, Please Contact Us</h1>
+                    <section class="contact">
+                        <h2>Interested in Donating? Contact Us</h2>
+                        <p>If you are interested in supporting any of these initiatives, please reach out to us.</p>
+                    </section>
 
                     <?php
                     if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -393,11 +480,24 @@
                 </div>
                 <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s" style="min-height: 450px;">
                     <div class="card">
-                        <div class="card-header">
-                            <h1>Help to student payments</h1>
-                        </div>
-                        <div class="card-body">
-                            <p>$100</p>
+                        <div class="container">
+                            <h3>Support Vanni Changam – Empower Students for a Better Future!</h3>
+                            <hr>
+                            <section class="donation-section">
+                                <h4>🚲 Bicycle Donation Program</h4>
+                                <p style="font-size: 14px;">Many students in rural areas struggle with long commutes to school. A bicycle can significantly ease their travel, ensuring they reach their classes on time with less fatigue. Your donation can be a life-changing gift for a student in need.</p>
+                            </section>
+
+                            <section class="donation-section">
+                                <h4>💻 Computer Donation Program</h4>
+                                <p style="font-size: 14px;">Technology is a crucial part of education today. By donating <strong>new or used functional computers</strong>, you can help students gain ICT skills and access online learning resources, opening doors to a brighter future.</p>
+                            </section>
+
+                            <section class="donation-section">
+                                <h4>🎓 Scholarship Payment Support</h4>
+                                <p style="font-size: 14px;">Many talented students face financial difficulties that prevent them from continuing their education. Your contribution to the <strong>Scholarship Fund</strong> will help cover tuition fees, study materials, and other educational expenses, enabling them to focus on learning.</p>
+                            </section>
+
                         </div>
                     </div>
                 </div>
