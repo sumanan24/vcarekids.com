@@ -145,22 +145,22 @@
         </div>
 
         <div class="blinking-text">
-        <!-- <p style="text-align: center; font-size: 18px;" class="p-2">Our Donars</p> -->
-        <div class="donor-marquee">
-            <span>Our Honorable Donors:
-                <?php
-                $sql = "SELECT donarfullname FROM donars";
-                $result = $con->query($sql);
-                if ($result->num_rows > 0) {
-                    while ($row = $result->fetch_assoc()) {
-                        echo  "<b>" . $row["donarfullname"] . "</b> ( 02 Students ) |  ";
+            <!-- <p style="text-align: center; font-size: 18px;" class="p-2">Our Donars</p> -->
+            <div class="donor-marquee">
+                <span>Our Honorable Donors:
+                    <?php
+                    $sql = "SELECT donarfullname FROM donars";
+                    $result = $con->query($sql);
+                    if ($result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {
+                            echo  "<b>" . $row["donarfullname"] . "</b> ( 02 Students ) |  ";
+                        }
                     }
-                }
-                ?>
+                    ?>
 
-            </span>
+                </span>
+            </div>
         </div>
-    </div>
 
         <nav class="navbar navbar-expand-lg navbar-dark py-lg-0 px-lg-5 wow fadeIn" data-wow-delay="0.1s">
             <a href="index.html" class="navbar-brand ms-4 ms-lg-0">
@@ -231,7 +231,7 @@
         </div>
     </div>
     <!-- Carousel End -->
-    
+
     <hr>
     <div class="container-xxl ">
         <div class="container">
