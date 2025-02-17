@@ -1,10 +1,12 @@
 <?php
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     include_once '../includes/config.php';
 
     // Get form data and trim to remove unnecessary whitespace
     $fullname = trim($_POST['fullname']);
     $Details = trim($_POST['Details']);
+    $status= trim($_POST['Casestatus']);
     $phone = trim($_POST['phone']);
     $parentname = trim($_POST['parentname']);
     $parentaddress = trim($_POST['parentaddress']);
@@ -13,45 +15,77 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $district = trim($_POST['district']);
     $category = trim($_POST['category']);
     $donar_id = trim($_POST['donar_id']);
+    $gender = trim($_POST['gender']);
+    $grade = trim($_POST['grade']);
+    $schoolname = trim($_POST['schoolname']);
     $image = file_get_contents($_FILES['image']['tmp_name']);
+    $familyincome = trim($_POST['familyincome']);
+    $parentjob = trim($_POST['parentjob']);
+    $bankname = trim($_POST['bankname']);
+    $bankbranch = trim($_POST['bankbranch']);
+    $accountnumber = trim($_POST['accountnumber']);
+    $holdername = trim($_POST['holdername']);
     $created_at = date('Y-m-d H:i:s');
     $updated_at = $created_at;
 
     // Validate required fields
     if (
         empty($fullname) || empty($Details) || empty($phone) || empty($parentname) ||
-        empty($parentaddress) || empty($permanentaddress) || empty($dob) || empty($district) || empty($category) || empty($donar_id)
+        empty($parentaddress) || empty($permanentaddress) || empty($dob) || empty($district) || empty($category) || empty($donar_id) ||
+        empty($gender) || empty($grade) || empty($schoolname) || empty($image)
     ) {
         die("Error: All fields are required.");
     }
 
-    $query = "INSERT INTO students (fullname, Details, phone, parentname, parentaddress, permanentaddress, dob, district, category, donar_id, image, created_at, updated_at) 
-              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    $stmt = $con->prepare($query);
-    $stmt->bind_param(
-        'sssssssssssss',
-        $fullname,
-        $Details,
-        $phone,
-        $parentname,
-        $parentaddress,
-        $permanentaddress,
-        $dob,
-        $district,
-        $category,
-        $donar_id,
-        $image,
-        $created_at,
-        $updated_at
-    );
+    // Insert query to include new fields (family income, bank details, etc.)
+    $query = "INSERT INTO students 
+(fullname, Details, Casestatus ,phone, parentname, parentaddress, permanentaddress, dob, district, category, donar_id, image, gender, grade, schoolname, familyincome, parentjob, bankname, bankbranch, accountnumber, holdername) 
+VALUES (?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-    if ($stmt->execute()) {
-        header("Location: manage.php?success=1");
-    } else {
-        echo "Error: " . $stmt->error;
-    }
+// Prepare and bind parameters
+$stmt = $con->prepare($query);
+
+if (!$stmt) {
+    die("Prepare failed: " . $con->error);
+}
+
+$stmt->bind_param(
+    'sssssssssssssssssssss',
+    $fullname,
+    $Details,
+    $status,
+    $phone,
+    $parentname,
+    $parentaddress,
+    $permanentaddress,
+    $dob,
+    $district,
+    $category,
+    $donar_id,
+    $image,
+    $gender,
+    $grade,
+    $schoolname,
+    $familyincome,
+    $parentjob,
+    $bankname,
+    $bankbranch,
+    $accountnumber,
+    $holdername
+);
+
+// Execute the statement
+if ($stmt->execute()) {
+    echo "Student record added successfully!";
+} else {
+    echo "Error: " . $stmt->error;
+}
+
+    // Close the statement
     $stmt->close();
 }
+
+
 
 // Fetch donors for dropdown
 include_once '../includes/config.php';
@@ -95,6 +129,47 @@ $donorResult = $con->query($donorQuery);
                         <div class="card-body">
                             <form method="POST" enctype="multipart/form-data">
                                 <!-- 1st row start -->
+                                <hr>
+                                <h3><b>Category Details</b></h3>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="category" class="form-label">Category</label>
+                                            <select name="category" id="category" class="form-control" required>
+                                                <option value="" selected disabled>Select Category</option>
+                                                <option value="bicycle_donation">Bicycle Donation</option>
+                                                <option value="computer_donation">Computer Donation</option>
+                                                <option value="scholarship_payment">Scholarship Payment</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label for="category" class="form-label">Status</label>
+                                        <select name="Casestatus" class="form-control" required>
+                                            <option value="" selected disabled>Select Status</option>
+                                            <option value="Emergency">Emergency</option>
+                                            <option value="Not_Emergency">Not_Emergency</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="donar_id" class="form-label">Donor</label>
+                                            <select name="donar_id" id="donar_id" class="form-control" required>
+                                                <option value="" selected disabled>Select Donor</option>
+                                                <option value="Not-Assign">Not Assign</option>
+                                                <?php while ($row = $donorResult->fetch_assoc()) { ?>
+                                                    <option value="<?php echo $row['id']; ?>"><?php echo $row['donarfullname']; ?></option>
+                                                <?php } ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <h3><b>Student Personal Details</b></h3>
+                                <hr>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="mb-3">
@@ -115,7 +190,7 @@ $donorResult = $con->query($donorQuery);
                                 <div class="mb-3">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <label for="Details" class="form-label">Details</label>
+                                            <label for="Details" class="form-label">Studnet Info</label>
                                             <textarea class="form-control" id="Details" name="Details" rows="3" required></textarea>
                                         </div>
 
@@ -125,46 +200,42 @@ $donorResult = $con->query($donorQuery);
                                                 <textarea class="form-control" id="permanentaddress" name="permanentaddress" rows="3" required></textarea>
                                             </div>
                                         </div>
-
                                     </div>
                                 </div>
                                 <!-- 2nd row end -->
 
-                                <!-- 3rd row start -->
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="mb-3">
-                                            <label for="parentname" class="form-label">Parent Name</label>
-                                            <input type="text" class="form-control" id="parentname" name="parentname" required>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <div class="mb-3">
-                                            <label for="category" class="form-label">Category</label>
-                                            <select name="category" id="category" class="form-control" required>
-                                                <option value="" selected disabled>Select Category</option>
-                                                <option value="bicycle_donation">Bicycle Donation</option>
-                                                <option value="computer_donation">Computer Donation</option>
-                                                <option value="scholarship_payment">Scholarship Payment</option>
+                                            <label for="dob" class="form-label">Gender</label>
+                                            <select name="gender" id="" class="form-control" name="gender">
+                                                <option value="" selected disabled>Select Gender</option>
+                                                <option value="Male">Male</option>
+                                                <option value="Female">Female</option>
                                             </select>
                                         </div>
                                     </div>
+
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="dob" class="form-label">Study Grade</label>
+                                            <input type="text" class="form-control" name="grade" required>
+                                        </div>
+                                    </div>
                                 </div>
-                                <!-- 3rd row end -->
 
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="mb-3">
-                                            <label for="parentaddress" class="form-label">Parent Address</label>
-                                            <textarea class="form-control" id="parentaddress" name="parentaddress" rows="2" required></textarea>
+                                            <label for="permanentaddress" class="form-label">School/University Name</label>
+                                            <textarea class="form-control" id="permanentaddress" name="schoolname" rows="2" required></textarea>
                                         </div>
                                     </div>
 
                                     <div class="col-md-6">
                                         <div class="mb-3">
-                                            <label for="permanentaddress" class="form-label">School/University Name</label>
-                                            <textarea class="form-control" id="permanentaddress" name="permanentaddress" rows="2" required></textarea>
+                                            <label for="dob" class="form-label">Date of Birth</label>
+                                            <input type="date" class="form-control" id="dob" name="dob" required>
                                         </div>
                                     </div>
                                 </div>
@@ -213,8 +284,65 @@ $donorResult = $con->query($donorQuery);
                                                 <option value="sabaragamuwa">Sabaragamuwa</option>
                                                 <option value="north_central">North Central</option>
                                                 <option value="north_western">North Western</option>
-
                                             </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <h3><b>Parents Details</b></h3>
+                                <hr>
+                                <!-- 3rd row start -->
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="parentname" class="form-label">Parent Name</label>
+                                            <input type="text" class="form-control" id="parentname" name="parentname" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="parentaddress" class="form-label">Parent Address</label>
+                                            <textarea class="form-control" id="parentaddress" name="parentaddress" rows="2" required></textarea>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <!-- 3rd row end -->
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="parentname" class="form-label">Family Income</label>
+                                            <input type="text" class="form-control" name="familyincome" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="parentname" class="form-label">Parent Job</label>
+                                            <input type="text" class="form-control" name="parentjob" required>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                <hr>
+                                <h3><b>Bank Details</b></h3>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="parentname" class="form-label">Bank Name</label>
+                                            <input type="text" class="form-control" name="bankname" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="parentname" class="form-label">Bank Branch</label>
+                                            <input type="text" class="form-control" name="bankbranch" required>
                                         </div>
                                     </div>
                                 </div>
@@ -222,28 +350,22 @@ $donorResult = $con->query($donorQuery);
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="mb-3">
-                                            <label for="dob" class="form-label">Date of Birth</label>
-                                            <input type="date" class="form-control" id="dob" name="dob" required>
+                                            <label for="parentname" class="form-label">Account Number</label>
+                                            <input type="text" class="form-control" name="accountnumber" required>
                                         </div>
                                     </div>
 
                                     <div class="col-md-6">
                                         <div class="mb-3">
-                                            <label for="donar_id" class="form-label">Donor</label>
-                                            <select name="donar_id" id="donar_id" class="form-control" required>
-                                                <option value="" selected disabled>Select Donor</option>
-                                                <option value="Not-Assign">Not Assign</option>
-                                                <?php while ($row = $donorResult->fetch_assoc()) { ?>
-                                                    <option value="<?php echo $row['id']; ?>"><?php echo $row['donarfullname']; ?></option>
-                                                <?php } ?>
-                                            </select>
+                                            <label for="parentname" class="form-label">Account Holder Name</label>
+                                            <input type="text" class="form-control" name="holdername" required>
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-md-10"></div>
-                                    <div class="col-md-2">
+                                    <div class="col-md-9"></div>
+                                    <div class="col-md-3">
                                         <button type="submit" class="btn btn-success" style="width: 100%;">Submit</button>
                                     </div>
                                 </div>

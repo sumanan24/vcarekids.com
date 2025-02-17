@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+<html lang="en">
 <?php
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     include_once '../includes/config.php';
@@ -7,13 +9,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = $_POST['email'];
     $phone = $_POST['phone'];
     $country = $_POST['country'];
-    $created_at = date('Y-m-d H:i:s');
-    $updated_at = $created_at;
+    $address = $_POST['address'];
+
+    // Handle photo upload
+    $photo = null;
+    if (isset($_FILES['photo']) && $_FILES['photo']['error'] == 0) {
+        $photo = file_get_contents($_FILES['photo']['tmp_name']);
+    }
 
     // Prepare SQL query to insert the donor
-    $query = "INSERT INTO donars (donarfullname, email, phone, country, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?)";
+    $query = "INSERT INTO donars (donarfullname, email, phone, country, address, photo) 
+              VALUES (?, ?, ?, ?, ?, ?)";
     $stmt = $con->prepare($query);
-    $stmt->bind_param("ssssss", $donar_fullname, $email, $phone, $country, $created_at, $updated_at);
+    $stmt->bind_param("ssssss", $donar_fullname, $email, $phone, $country, $address, $photo);
 
     // Execute the query and handle success or error
     if ($stmt->execute()) {
@@ -25,9 +33,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $con->close();
 }
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
 
 <head>
     <meta charset="utf-8" />
@@ -62,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     </ol>
                     <div class="card mt-4">
                         <div class="card-body">
-                            <form method="POST">
+                            <form method="POST" enctype="multipart/form-data">
                                 <div class="mb-3">
                                     <label for="donar_fullname" class="form-label">Donor Full Name</label>
                                     <input type="text" class="form-control" id="donar_fullname" name="donar_fullname" required>
@@ -78,6 +83,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 <div class="mb-3">
                                     <label for="country" class="form-label">Country</label>
                                     <input type="text" class="form-control" id="country" name="country" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="address" class="form-label">Address</label>
+                                    <input type="text" class="form-control" id="address" name="address" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="photo" class="form-label">Photo</label>
+                                    <input type="file" class="form-control" id="photo" name="photo" accept="image/*" required>
                                 </div>
                                 <button type="submit" class="btn btn-success">Submit</button>
                             </form>

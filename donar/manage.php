@@ -2,7 +2,7 @@
 include_once '../includes/config.php';
 
 // Fetch donor records
-$query = "SELECT id, donarfullname, email, phone, country FROM donars";
+$query = "SELECT id, donarfullname, email, phone, country,photo FROM donars";
 $result = $con->query($query);
 
 // Handle deletion
@@ -84,6 +84,7 @@ if (isset($_GET['delete_id'])) {
                                 <th>Email</th>
                                 <th>Phone</th>
                                 <th>Country</th>
+                                <th>image</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -98,6 +99,13 @@ if (isset($_GET['delete_id'])) {
                                     <td><?= $row['email']; ?></td>
                                     <td><?= $row['phone']; ?></td>
                                     <td><?= $row['country']; ?></td>
+                                    <td>
+                                    <?php if (!empty($row['photo'])) { ?>
+                                            <img src="data:image/jpeg;base64,<?= base64_encode($row['photo']); ?>" alt="Student Image" style="width: 60px; height: 60px; border-radius: 90%;">
+                                        <?php } else { ?>
+                                            No Image
+                                        <?php } ?>
+                                    </td>
                                     <td>
                                         <a href="edit.php?id=<?= $row['id']; ?>" class="btn btn-warning btn-sm">Edit</a>
                                         <a href="?delete_id=<?= $row['id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this donor?');">Delete</a>
