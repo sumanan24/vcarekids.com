@@ -168,9 +168,9 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav ms-auto p-4 p-lg-0">
-                    <a href="index.php" class="nav-item nav-link active">Home</a>
+                    <a href="index.php" class="nav-item nav-link ">Home</a>
                     <a href="about.php" class="nav-item nav-link">About</a>
-                    <a href="service.php" class="nav-item nav-link">Activites</a>
+                    <a href="service.php" class="nav-item nav-link active">Activites</a>
                     <a href="donar.php" class="nav-item nav-link">Donars</a>
                     <a href="contact.php" class="nav-item nav-link">Contact</a>
                 </div>
@@ -184,131 +184,20 @@
     </div>
     <!-- Navbar End -->
 
-    <!-- Carousel Start -->
-    <div class="container-fluid p-0 ">
-        <div id="header-carousel" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <img class="w-100" src="img/sli2.jpg" alt="Image">
-                    <div class="carousel-caption">
-                        <div class="container">
-                            <div class="row justify-content-center">
-                                <div class="col-lg-7 pt-5">
-                                    <h1 class="display-4 text-white mb-3 animated slideInDown">Let's Change The World With Humanity</h1>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <img class="w-100" src="img/sli1.jpg" alt="Image">
-                    <div class="carousel-caption">
-                        <div class="container">
-                            <div class="row justify-content-center">
-                                <div class="col-lg-7 pt-5">
-                                    <h1 class="display-4 text-white mb-3 animated slideInDown">Let's Save More Lifes With Our Helping Hand</h1>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#header-carousel"
-                data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#header-carousel"
-                data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
+   <!-- Page Header Start -->
+   <div class="container-fluid page-header mb-5 wow fadeIn" data-wow-delay="0.1s">
+        <div class="container text-center">
+            <h1 class="display-4 text-white animated slideInDown mb-4">Activities</h1>
+            <nav aria-label="breadcrumb animated slideInDown">
+                <ol class="breadcrumb justify-content-center mb-0">
+                    <li class="breadcrumb-item"><a class="text-white" href="#">Home</a></li>
+                    <li class="breadcrumb-item text-light active" aria-current="page">Activities</li>
+                </ol>
+            </nav>
         </div>
     </div>
-    <!-- Carousel End -->
+    <!-- Page Header End -->
 
-    <hr>
-    <div class="container-xxl ">
-        <div class="container">
-            <!-- event Start -->
-            <div class="container my-4">
-    <h2 class="text-dark text-center fw-bold">🔥 Emergency Cases 🔥</h2>
-    <p class="text-center text-muted">A devastating fire has affected families. Your donation can provide food, shelter, and medical aid.</p>
-
-    <div class="row justify-content-center">
-        
-        <!-- Case 1: Family Needs Shelter -->
-        <div class="col-lg-4 col-md-6 col-sm-12 text-center">
-            <div class="card shadow-lg p-3 border-dark" style="border-width: 3px; height: 200px;">
-                
-                <div class="card-body">
-                    <h5 class="card-title text-dark fw-bold">🚑 Family Needs Shelter</h5>
-                    <p class="text-muted">A family of five has lost their home. Urgent support is needed for temporary housing.</p>
-                    <a href="donate.php" class="btn btn-dark">Donate Now</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Case 2: Medical Assistance for Victims -->
-        <div class="col-lg-4 col-md-6 col-sm-12 text-center">
-            <div class="card shadow-lg p-3 border-dark" style="border-width: 3px; height: 200px;">
-                
-                <div class="card-body">
-                    <h5 class="card-title text-dark fw-bold">🏥 Medical Assistance</h5>
-                    <p class="text-muted">Several people suffered burns and injuries. Help provide medical treatment.</p>
-                    <a href="donate.php" class="btn btn-dark">Donate Now</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Case 3: Food & Essentials -->
-        <div class="col-lg-4 col-md-6 col-sm-12 text-center">
-            <div class="card shadow-lg p-3 border-dark" style="border-width: 3px; height: 200px;">
-                
-                    <div class="card-body">
-                    <h5 class="card-title text-dark fw-bold">🍞 Food & Essentials</h5>
-                    <p class="text-muted">Victims need food, water, and basic necessities. Help us provide relief.</p>
-                    <a href="donate.php" class="btn btn-dark">Donate Now</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-</div>
-
-            <!-- event End -->
-        </div>
-    </div>
-
-    <!-- Donate Start -->
-    <div class="container-fluid donate my-5 py-5" data-parallax="scroll" data-image-src="img/child3.jpg">
-        <div class="container py-5">
-            <div class="row g-5 align-items-center">
-                <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
-                    <div class="d-inline-block rounded-pill bg-secondary text-dark py-1 px-3 mb-3">Donate Now</div>
-                    <h1 class="display-6 text-white mb-5">Thanks For The Results Achieved With You</h1>
-                </div>
-                <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
-                    <div class="h-100 bg-white p-5">
-                        <form>
-                            <div class="row g-3">
-                                <div class="col-12">
-                                    <a href="donate.php" class="btn btn-dark px-5" style="height: 60px;">
-                                        Donate Now
-                                        <div class="d-inline-flex btn-sm-square bg-dark text-light rounded-circle ms-2">
-                                            <i class="fa fa-arrow-right"></i>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Donate End -->
 
     <div class="container-xxl ">
         <div class="container">
@@ -316,11 +205,11 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="text-center mx-auto  wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
-                        <h3 class="">Our Recent Activities</h3>
+                        
                     </div>
                     <div class="row g-4 justify-content-center">
                         <?php
-                        $sql = "SELECT title, content, link, image FROM news ORDER BY id DESC LIMIT 3 ";
+                        $sql = "SELECT title, content, link, image FROM news ORDER BY id DESC ";
                         $result = $con->query($sql);
                         // Check if there are results
                         if ($result->num_rows > 0) {
@@ -362,114 +251,8 @@
             <!-- event End -->
         </div>
     </div>
-    <br>
-    <hr>
-    <!-- Contact Start -->
-    <div class="container-fluid">
-        <div class="text-center mx-auto  wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
-            <h3 class="">Contact Us</h3>
-            
-        </div>
-        <hr>
-        <div class="container">
-            <div class="row">
-
-                <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
-                    <div class="d-inline-block rounded-pill bg-secondary text-dark py-1 px-3 mb-3">Contact Us</div>
-                    <section class="contact">
-                        <h2>Interested in Donating? Contact Us</h2>
-                        <p>If you are interested in supporting any of these initiatives, please reach out to us.</p>
-                    </section>
-
-                    <?php
-                    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                        // Retrieve form data
-                        $name = $_POST['name1'];
-                        $email = $_POST['email'];
-                        $message = $_POST['message'];
-                        $status = "unread";
-
-                        // SQL query to insert the data into the database
-                        $sql = "INSERT INTO messages (name, email, message, status) VALUES ('$name', '$email', '$message', '$status')";
-
-                        if ($con->query($sql) === TRUE) {
-                    ?>
-                            <div class="alert alert-success left-icon-alert" role="alert">
-                                <strong>Message Sent Success</strong>
-                            </div>
-                    <?php
-                        } else {
-                            echo "Error: " . $sql . "<br>" . $conn->error;
-                        }
-                    }
-                    ?>
-                    <form action="" method="POST">
-                        <div class="row g-3">
-                            <div class="col-md-6">
-                                <div class="form-floating">
-                                    <input type="text" name="name1" class="form-control" id="name" placeholder="Your Name">
-                                    <label for="name">Your Name</label>
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="form-floating">
-                                    <input type="number" name="phone" class="form-control" id="name" placeholder="Your Phone Number">
-                                    <label for="name">Your Phone Number</label>
-                                </div>
-                            </div>
-
-                            <div class="col-md-12">
-                                <div class="form-floating">
-                                    <input type="email" name="email" class="form-control" id="email" placeholder="Your Email">
-                                    <label for="email">Your Email</label>
-                                </div>
-                            </div>
-
-                            <div class="col-12">
-                                <div class="form-floating">
-                                    <textarea class="form-control" name="message" placeholder="Leave a message here" id="message" style="height: 100px"></textarea>
-                                    <label for="message">Message</label>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <button class="btn btn-dark py-2 px-3 me-3">
-                                    Send Message
-                                    <div class="d-inline-flex btn-sm-square bg-white text-dark rounded-circle ms-2">
-                                        <i class="fa fa-arrow-right"></i>
-                                    </div>
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s" style="min-height: 450px;">
-                    <div class="card">
-                        <div class="container">
-                            <h3>Support Vanni Changam – Empower Students for a Better Future!</h3>
-                            <hr>
-                            <section class="donation-section">
-                                <h4>🚲 Bicycle Donation Program</h4>
-                                <p style="font-size: 14px;">Many students in rural areas struggle with long commutes to school. A bicycle can significantly ease their travel, ensuring they reach their classes on time with less fatigue. Your donation can be a life-changing gift for a student in need.</p>
-                            </section>
-
-                            <section class="donation-section">
-                                <h4>💻 Computer Donation Program</h4>
-                                <p style="font-size: 14px;">Technology is a crucial part of education today. By donating <strong>new or used functional computers</strong>, you can help students gain ICT skills and access online learning resources, opening doors to a brighter future.</p>
-                            </section>
-
-                            <section class="donation-section">
-                                <h4>🎓 Scholarship Payment Support</h4>
-                                <p style="font-size: 14px;">Many talented students face financial difficulties that prevent them from continuing their education. Your contribution to the <strong>Scholarship Fund</strong> will help cover tuition fees, study materials, and other educational expenses, enabling them to focus on learning.</p>
-                            </section>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Contact End -->
+   
+    
 
 
 
