@@ -32,7 +32,7 @@ if (isset($_GET['delete_id'])) {
 <html lang="en">
 
 <head>
-   
+
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -84,7 +84,14 @@ if (isset($_GET['delete_id'])) {
                                 <th>Title</th>
                                 <th>Content</th>
                                 <th>Link</th>
-                                <th>Actions</th>
+                                <?php
+                                if ($_SESSION['role'] == 'admin') {
+                                ?>
+                                    <th>Actions</th>
+                                <?php
+                                }
+                                ?>
+
                             </tr>
                         </thead>
                         <tbody>
@@ -96,10 +103,16 @@ if (isset($_GET['delete_id'])) {
                                     <td><?= $row['title']; ?></td>
                                     <td><?= substr($row['content'], 0, 50); ?>...</td>
                                     <td><a href="<?= $row['link']; ?>" target="_blank">Link</a></td>
-                                    <td>
-                                        <a href="edit.php?id=<?= $row['id']; ?>" class="btn btn-warning btn-sm">Edit</a>
-                                        <a href="?delete_id=<?= $row['id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this news item?');">Delete</a>
-                                    </td>
+                                    <?php
+                                    if ($_SESSION['role'] == 'admin') {
+                                    ?>
+                                        <td>
+                                            <a href="edit.php?id=<?= $row['id']; ?>" class="btn btn-warning btn-sm">Edit</a>
+                                            <a href="?delete_id=<?= $row['id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this news item?');">Delete</a>
+                                        </td>
+                                    <?php
+                                    }
+                                    ?>
                                 </tr>
                             <?php } ?>
                         </tbody>

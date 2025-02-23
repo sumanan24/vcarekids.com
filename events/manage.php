@@ -84,7 +84,13 @@ if (isset($_GET['delete_id'])) {
                                 <th>Event Date</th>
                                 <th>Location</th>
                                 <th>Advertisement</th>
-                                <th>Actions</th>
+                                <?php
+                                if ($_SESSION['role'] == 'admin') {
+                                ?>
+                                    <th>Actions</th>
+                                <?php
+                                }
+                                ?>
                             </tr>
                         </thead>
                         <tbody>
@@ -104,10 +110,16 @@ if (isset($_GET['delete_id'])) {
                                     <td>
                                         <img src="data:<?= $image_type ?>;base64,<?= $image_data ?>" alt="Advertisement Image" width="100" height="100">
                                     </td>
-                                    <td>
-                                        <a href="edit.php?id=<?= $row['event_id']; ?>" class="btn btn-warning btn-sm">Edit</a>
-                                        <a href="?delete_id=<?= $row['event_id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this event?');">Delete</a>
-                                    </td>
+                                    <?php
+                                    if ($_SESSION['role'] == 'admin') {
+                                    ?>
+                                        <td>
+                                            <a href="edit.php?id=<?= $row['id']; ?>" class="btn btn-warning btn-sm">Edit</a>
+                                            <a href="?delete_id=<?= $row['id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this news item?');">Delete</a>
+                                        </td>
+                                    <?php
+                                    }
+                                    ?>
                                 </tr>
                             <?php } ?>
                         </tbody>

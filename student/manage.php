@@ -83,7 +83,7 @@ if (isset($_GET['delete_id'])) {
                                 <th>District</th>
                                 <th>School</th>
                                 <th>Image</th>
-                                <th></th>
+                              
                             </tr>
                         </thead>
                         <tbody>
@@ -104,18 +104,19 @@ if (isset($_GET['delete_id'])) {
                                             No Image
                                         <?php } ?>
                                     </td>
-                                    <td>
-                                        <div style="display: flex; justify-content: space-between; align-items: center; gap: 10px;">
-                                            <div>
 
-                                            </div>
-                                            <div>
-                                                <a href="edit.php?id=<?= $row['id']; ?>" class="btn btn-warning btn-sm">Edit</a>
-                                                <a href="?delete_id=<?= $row['id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this student?');">Delete</a>
-                                                <a href="document.php?id=<?= $row['id']; ?>" class="btn btn-info btn-sm">Add Document</a>
-                                            </div>
-                                        </div>
-                                    </td>
+                                    <?php
+                                    if ($_SESSION['role'] == 'admin') {
+                                    ?>
+                                        <td>
+                                            <a href="edit.php?id=<?= $row['id']; ?>" class="btn btn-warning btn-sm">Edit</a>
+                                            <a href="?delete_id=<?= $row['id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this news item?');">Delete</a>
+                                            <a href="document.php?id=<?= $row['id']; ?>" class="btn btn-info btn-sm">Add Document</a>
+                                        </td>
+                                    <?php
+                                    }
+                                    ?>
+                                    
                                 </tr>
                             <?php } ?>
                         </tbody>

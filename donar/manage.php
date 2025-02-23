@@ -85,7 +85,13 @@ if (isset($_GET['delete_id'])) {
                                 <th>Phone</th>
                                 <th>Country</th>
                                 <th>image</th>
-                                <th>Actions</th>
+                                <?php
+                                if ($_SESSION['role'] == 'admin') {
+                                ?>
+                                    <th>Actions</th>
+                                <?php
+                                }
+                                ?>
                             </tr>
                         </thead>
                         <tbody>
@@ -106,10 +112,16 @@ if (isset($_GET['delete_id'])) {
                                             No Image
                                         <?php } ?>
                                     </td>
-                                    <td>
-                                        <a href="edit.php?id=<?= $row['id']; ?>" class="btn btn-warning btn-sm">Edit</a>
-                                        <a href="?delete_id=<?= $row['id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this donor?');">Delete</a>
-                                    </td>
+                                    <?php
+                                    if ($_SESSION['role'] == 'admin') {
+                                    ?>
+                                        <td>
+                                            <a href="edit.php?id=<?= $row['id']; ?>" class="btn btn-warning btn-sm">Edit</a>
+                                            <a href="?delete_id=<?= $row['id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this news item?');">Delete</a>
+                                        </td>
+                                    <?php
+                                    }
+                                    ?>
                                 </tr>
                             <?php } ?>
                         </tbody>

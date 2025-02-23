@@ -1,10 +1,19 @@
 <?php
-session_start(); 
+session_start();
 if (!isset($_SESSION['email'])) {
     header("Location: ../admin_Login.php"); // Redirect to the dashboard if already logged in
     exit();
 }
 ?>
+
+<style>
+    .user-info {
+        position: fixed;
+        bottom: 20px;
+        left: 10%;
+        color:antiquewhite;
+    }
+</style>
 <div id="layoutSidenav_nav">
     <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
         <div class="sb-sidenav-menu">
@@ -77,6 +86,10 @@ if (!isset($_SESSION['email'])) {
                     <i class="fas fa-message"></i>
                     &nbsp; Messages
                 </a>
+
+                <div class="user-info">
+                    Logged in as: <span id="username"><?php echo $_SESSION['email']; ?></span>
+                </div>
 
             </div>
         </div>
