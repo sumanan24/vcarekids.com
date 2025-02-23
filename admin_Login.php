@@ -23,8 +23,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $user = $stmt->fetch();
 
     if ($user) {
+        $_SESSION['email'] = $user['email'];
         $_SESSION['user_id'] = $user['id'];
-        $_SESSION['user_name'] = $user['name'];
+        $_SESSION['role'] = $user['usertype'];
         header("Location: Dashboard/Dashboard.php");
         exit;
     } else {

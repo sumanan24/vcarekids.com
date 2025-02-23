@@ -1,7 +1,7 @@
 <?php
 include_once '../includes/config.php';
 
-$query = "SELECT id, fullname, district, image ,permanentaddress,phone,Details FROM students";
+$query = "SELECT id, fullname, district, image ,permanentaddress,phone,Details,schoolname FROM students";
 $result = $con->query($query);
 
 if (isset($_GET['delete_id'])) {
@@ -81,6 +81,7 @@ if (isset($_GET['delete_id'])) {
                                 <Th>phone No</Th>
                                 <th>Details</th>
                                 <th>District</th>
+                                <th>School</th>
                                 <th>Image</th>
                                 <th></th>
                             </tr>
@@ -95,6 +96,7 @@ if (isset($_GET['delete_id'])) {
                                     <td><?= htmlspecialchars($row['phone']); ?></td>
                                     <td><?= htmlspecialchars($row['Details']); ?></td>
                                     <td><?= htmlspecialchars($row['district']); ?></td>
+                                    <td><?= htmlspecialchars($row['schoolname']); ?></td>
                                     <td>
                                         <?php if (!empty($row['image'])) { ?>
                                             <img src="data:image/jpeg;base64,<?= base64_encode($row['image']); ?>" alt="Student Image" style="width: 60px; height: 60px; border-radius: 90%;">

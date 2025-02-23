@@ -1,7 +1,7 @@
 <?php
-
-if (isset($_SESSION['user_id'])) {
-    header("Location: ../login.php"); // Redirect to the dashboard if already logged in
+session_start(); 
+if (!isset($_SESSION['email'])) {
+    header("Location: ../admin_Login.php"); // Redirect to the dashboard if already logged in
     exit();
 }
 ?>
