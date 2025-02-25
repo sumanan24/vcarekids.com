@@ -18,6 +18,21 @@ $total_pages = ceil($total_records / $limit); // Total pages required
 $query = "SELECT id, name, email, message, status, created_at FROM messages ORDER BY created_at DESC LIMIT ?, ?";
 $stmt = $con->prepare($query);
 
+$sql = "SELECT COUNT(*) AS total_students FROM students";
+$result = $con->query($sql);
+$rowstu = $result->fetch_assoc();
+$total_students = $rowstu['total_students'];
+
+$sql1 = "SELECT COUNT(*) AS total_donars FROM donars";
+$result = $con->query($sql1);
+$rowdonar = $result->fetch_assoc();
+$total_donars = $rowdonar['total_donars'];
+
+$sql2 = "SELECT COUNT(*) AS total_news FROM news";
+$result = $con->query($sql2);
+$rownews = $result->fetch_assoc();
+$total_news = $rownews['total_news'];
+
 if (!$stmt) {
     die('Prepare failed: ' . $con->error);
 }
@@ -61,33 +76,42 @@ $result = $stmt->get_result();
                     <div class="row">
                         <div class="col-xl-3 col-md-6">
                             <div class="card bg-primary text-white mb-4">
-                                <div class="card-body">Primary Card</div>
+                                <div class="card-body">
+                                    <h5 class="card-title">Students</h5>
+                                    <h2><?php echo $total_students; ?></h2>
+                                </div>
                                 <div class="card-footer d-flex align-items-center justify-content-between">
-                                    <a class="small text-white stretched-link" href="#">View Details</a>
+                                    <a class="small text-white stretched-link" href="../student/manage.php">View Details</a>
                                     <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-xl-3 col-md-6">
                             <div class="card bg-warning text-white mb-4">
-                                <div class="card-body">Warning Card</div>
+                                <div class="card-body">
+                                    <h5 class="card-title">Donars</h5>
+                                    <h2><?php echo $total_donars; ?></h2>
+                                </div>
                                 <div class="card-footer d-flex align-items-center justify-content-between">
-                                    <a class="small text-white stretched-link" href="#">View Details</a>
+                                    <a class="small text-white stretched-link" href="../donar/manage.php">View Details</a>
                                     <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-xl-3 col-md-6">
                             <div class="card bg-success text-white mb-4">
-                                <div class="card-body">Success Card</div>
+                                <div class="card-body">
+                                    <h5 class="card-title">Activities</h5>
+                                    <h2><?php echo $total_news; ?></h2>
+                                </div>
                                 <div class="card-footer d-flex align-items-center justify-content-between">
-                                    <a class="small text-white stretched-link" href="#">View Details</a>
+                                    <a class="small text-white stretched-link" href="../Activity/manage.php">View Details</a>
                                     <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-xl-3 col-md-6">
-                            <div class="card bg-danger text-white mb-4">
+                            <div class="card bg-info text-white mb-4">
                                 <div class="card-body">Danger Card</div>
                                 <div class="card-footer d-flex align-items-center justify-content-between">
                                     <a class="small text-white stretched-link" href="#">View Details</a>

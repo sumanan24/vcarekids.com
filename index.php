@@ -75,20 +75,33 @@
             border-radius: 8px;
         }
 
+
         .donor-marquee {
-            width: 100%;
+            display: flex;
+            align-items: center;
+            background:rgb(250, 250, 0);
+            padding: 10px;
             white-space: nowrap;
             overflow: hidden;
-            background-color: yellow;
-            padding: 10px;
-            text-transform: capitalize;
-            font-size: 20px;
-            color: black;
-            animation: blink-border 1s infinite alternate;
         }
 
-        .donor-marquee span {
+        .donor-title {
+            font-weight: bold;
+            flex-shrink: 0;
+            /* Keeps title fixed */
+            margin-right: 10px;
+            /* Spacing between title and scrolling text */
+        }
+
+        .marquee-container {
+            overflow: hidden;
+            flex-grow: 1;
+            position: relative;
+        }
+
+        .marquee-content {
             display: inline-block;
+            white-space: nowrap;
             animation: marquee 10s linear infinite;
         }
 
@@ -99,20 +112,6 @@
 
             to {
                 transform: translateX(-100%);
-            }
-        }
-
-        @keyframes blink-border {
-            0% {
-                border-color: red;
-            }
-
-            50% {
-                border-color: blue;
-            }
-
-            100% {
-                border-color: green;
             }
         }
     </style>
@@ -144,19 +143,25 @@
         <div class="blinking-text">
             <!-- <p style="text-align: center; font-size: 18px;" class="p-2">Our Donars</p> -->
             <div class="donor-marquee">
-                <span>Our Honorable Donors:
-                    <?php
-                    $sql = "SELECT donarfullname FROM donars";
-                    $result = $con->query($sql);
-                    if ($result->num_rows > 0) {
-                        while ($row = $result->fetch_assoc()) {
-                            echo  "<b>" . $row["donarfullname"] . "</b> ( 02 Students ) |  ";
+                <span class="donor-title">Our Honorable Donors:</span>
+                <div class="marquee-container">
+                    <div class="marquee-content">
+                        <?php
+                        $sql = "SELECT donars.donarfullname, COUNT(students.donar_id) AS student_count FROM donars LEFT JOIN students ON students.donar_id = donars.id GROUP BY donars.id, donars.donarfullname;";
+                        $result = $con->query($sql);
+                        if ($result->num_rows > 0) {
+                            while ($row = $result->fetch_assoc()) {
+                                if($row["student_count"]>=1)
+                                {
+                                    echo "<b>" . $row["donarfullname"] . "</b> (".$row["student_count"]. " Students) | ";
+                                }
+                            }
                         }
-                    }
-                    ?>
-
-                </span>
+                        ?>
+                    </div>
+                </div>
             </div>
+
         </div>
 
         <nav class="navbar navbar-expand-lg navbar-dark py-lg-0 px-lg-5 wow fadeIn" data-wow-delay="0.1s">
@@ -232,53 +237,53 @@
         <div class="container">
             <!-- event Start -->
             <div class="container my-4">
-    <h2 class="text-dark text-center fw-bold">🔥 Emergency Cases 🔥</h2>
-    <p class="text-center text-muted">A devastating fire has affected families. Your donation can provide food, shelter, and medical aid.</p>
+                <h2 class="text-dark text-center fw-bold">🔥 Emergency Cases 🔥</h2>
+                <p class="text-center text-muted">A devastating fire has affected families. Your donation can provide food, shelter, and medical aid.</p>
 
-    <div class="row justify-content-center">
-        
-        <!-- Case 1: Family Needs Shelter -->
-        <div class="col-lg-4 col-md-6 col-sm-12 text-center">
-            <div class="card shadow-lg p-3 border-dark" style="border-width: 3px; height: 200px;">
-                
-                <div class="card-body">
-                    <h5 class="card-title text-dark fw-bold">🚑 Family Needs Shelter</h5>
-                    <p class="text-muted">A family of five has lost their home. Urgent support is needed for temporary housing.</p>
-                    <a href="donate.php" class="btn btn-dark">Donate Now</a>
-                </div>
-            </div>
-        </div>
+                <div class="row justify-content-center">
 
-        <!-- Case 2: Medical Assistance for Victims -->
-        <div class="col-lg-4 col-md-6 col-sm-12 text-center">
-            <div class="card shadow-lg p-3 border-dark" style="border-width: 3px; height: 200px;">
-                
-                <div class="card-body">
-                    <h5 class="card-title text-dark fw-bold">🏥 Medical Assistance</h5>
-                    <p class="text-muted">Several people suffered burns and injuries. Help provide medical treatment.</p>
-                    <a href="donate.php" class="btn btn-dark">Donate Now</a>
-                </div>
-            </div>
-        </div>
+                    <!-- Case 1: Family Needs Shelter -->
+                    <div class="col-lg-4 col-md-6 col-sm-12 text-center">
+                        <div class="card shadow-lg p-3 border-dark" style="border-width: 3px; height: 200px;">
 
-        <!-- Case 3: Food & Essentials -->
-        <div class="col-lg-4 col-md-6 col-sm-12 text-center">
-            <div class="card shadow-lg p-3 border-dark" style="border-width: 3px; height: 200px;">
-                
-                    <div class="card-body">
-                    <h5 class="card-title text-dark fw-bold">🍞 Food & Essentials</h5>
-                    <p class="text-muted">Victims need food, water, and basic necessities. Help us provide relief.</p>
-                    <a href="donate.php" class="btn btn-dark">Donate Now</a>
+                            <div class="card-body">
+                                <h5 class="card-title text-dark fw-bold">🚑 Family Needs Shelter</h5>
+                                <p class="text-muted">A family of five has lost their home. Urgent support is needed for temporary housing.</p>
+                                <a href="donate.php" class="btn btn-dark">Donate Now</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Case 2: Medical Assistance for Victims -->
+                    <div class="col-lg-4 col-md-6 col-sm-12 text-center">
+                        <div class="card shadow-lg p-3 border-dark" style="border-width: 3px; height: 200px;">
+
+                            <div class="card-body">
+                                <h5 class="card-title text-dark fw-bold">🏥 Medical Assistance</h5>
+                                <p class="text-muted">Several people suffered burns and injuries. Help provide medical treatment.</p>
+                                <a href="donate.php" class="btn btn-dark">Donate Now</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Case 3: Food & Essentials -->
+                    <div class="col-lg-4 col-md-6 col-sm-12 text-center">
+                        <div class="card shadow-lg p-3 border-dark" style="border-width: 3px; height: 200px;">
+
+                            <div class="card-body">
+                                <h5 class="card-title text-dark fw-bold">🍞 Food & Essentials</h5>
+                                <p class="text-muted">Victims need food, water, and basic necessities. Help us provide relief.</p>
+                                <a href="donate.php" class="btn btn-dark">Donate Now</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
+
             </div>
         </div>
 
+        <!-- event End -->
     </div>
-</div>
-
-            <!-- event End -->
-        </div>
     </div>
 
     <!-- Donate Start -->
@@ -368,7 +373,7 @@
     <div class="container-fluid">
         <div class="text-center mx-auto  wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
             <h3 class="">Contact Us</h3>
-            
+
         </div>
         <hr>
         <div class="container">

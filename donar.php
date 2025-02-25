@@ -30,6 +30,8 @@
 
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <style>
         .apply-section {
             padding: 15px;
@@ -154,7 +156,6 @@
                         }
                     }
                     ?>
-
                 </span>
             </div>
         </div>
@@ -170,8 +171,8 @@
                 <div class="navbar-nav ms-auto p-4 p-lg-0">
                     <a href="index.php" class="nav-item nav-link ">Home</a>
                     <a href="about.php" class="nav-item nav-link">About</a>
-                    <a href="service.php" class="nav-item nav-link active">Activites</a>
-                    <a href="donar.php" class="nav-item nav-link">Donars</a>
+                    <a href="service.php" class="nav-item nav-link ">Activites</a>
+                    <a href="donar.php" class="nav-item nav-link active">Donars</a>
                     <a href="contact.php" class="nav-item nav-link">Contact</a>
                 </div>
                 <div class="d-none d-lg-flex ms-2">
@@ -197,118 +198,124 @@
         </div>
     </div>
     <!-- Page Header End -->
-    <div class="container">
-    <?php
-    $categories = ["bicycle_donation", "computer_donation", "scholarship_payment"];
 
-    foreach ($categories as $category) {
-        // Fetch donors based on category
-        $sql = "SELECT d.donarfullname, d.Country, d.photo, COUNT(s.id) AS studentcount 
+    <div class="container">
+        <input type="text" id="searchDonar" class="form-control mb-3" placeholder="Search Donors by Name...">
+        <div id="donorResults">
+            <!-- Search results will be displayed here -->
+        </div>
+
+        <?php
+        $categories = ["bicycle_donation", "computer_donation", "scholarship_payment"];
+
+        foreach ($categories as $category) {
+            // Fetch donors based on category
+            $sql = "SELECT d.donarfullname, d.Country, d.photo, COUNT(s.id) AS studentcount 
                 FROM donars d 
                 JOIN students s ON d.id = s.donar_id 
                 WHERE s.category = '$category' 
                 GROUP BY d.id 
                 ORDER BY COUNT(s.id) DESC;";
 
-        $result = $con->query($sql);
+            $result = $con->query($sql);
 
-        // Display category only if there are donors
-        if ($result->num_rows > 0) {
-    ?>
-            <h3 class='text-dark my-4'><?php echo $category; ?></h3>
-            <div class='row g-4 justify-content-center'>
-                <?php
-
-                while ($row = $result->fetch_assoc()) {
-                ?>
-                    <div class="col-lg-3 col-md-6 col-sm-12">
-                        <div class="card shadow-lg text-center p-3" style=" height: 350px; width: 100%;">
-                            <!-- Donor Image (Circular) -->
-                            <div class="d-flex justify-content-center">
-                                <img src="<?php echo !empty($row['photo']) ? 'data:image/jpeg;base64,' . base64_encode($row['photo']) : 'default-donor.jpg'; ?>"
-                                    alt="Donor Image"
-                                    class="rounded-circle"
-                                    style="width: 150px; height: 150px; object-fit: cover; border: 3px solid #ddd;">
-                            </div>
-
-                            <div class="card-body">
-                                <h5 class="card-title fw-bold"><?php echo htmlspecialchars($row['donarfullname']); ?></h5>
-                                <p class="text-muted"><?php echo htmlspecialchars($row['Country']); ?></p>
-                                <span class="badge bg-dark">Sponsored Students: <?php echo $row['studentcount']; ?></span>
-                            </div>
-                        </div>
-                    </div>
-        <?php
-                }
-                echo "</div>"; // Close row
-            }
-        }
+            // Display category only if there are donors
+            if ($result->num_rows > 0) {
         ?>
-    </div>
+                <h3 class='text-dark my-4'><?php echo $category; ?></h3>
+                <div class='row g-4 justify-content-center'>
+                    <?php
 
+                    while ($row = $result->fetch_assoc()) {
+                    ?>
+                        <div class="col-lg-3 col-md-6 col-sm-12">
+                            <div class="card shadow-lg text-center p-3" style=" height: 350px; width: 100%;">
+                                <!-- Donor Image (Circular) -->
+                                <div class="d-flex justify-content-center">
+                                    <img src="<?php echo !empty($row['photo']) ? 'data:image/jpeg;base64,' . base64_encode($row['photo']) : 'default-donor.jpg'; ?>"
+                                        alt="Donor Image"
+                                        class="rounded-circle"
+                                        style="width: 150px; height: 150px; object-fit: cover; border: 3px solid #ddd;">
+                                </div>
 
-        <!-- Footer Start -->
-        <div class="container-fluid bg-dark text-white-50 footer mt-5 pt-5 wow fadeIn" data-wow-delay="0.1s">
-            <div class="container py-5">
-                <div class="row g-5">
-                    <div class="col-lg-4 col-md-4">
-                        <h1 class="fw-bold text-primary m-0">Vcare<span class="text-white">kids</span></h1>
-                        <p>Smart Eye is a leading provider of information technology, consulting, and business process services. Our dedicated employees offer strategic insights, technological expertise and industry experience.</p>
-                        <div class="d-flex pt-2">
-                            <a class="btn btn-square me-1" href=""><i class="fab fa-twitter"></i></a>
-                            <a class="btn btn-square me-1" href=""><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-square me-1" href=""><i class="fab fa-youtube"></i></a>
-                            <a class="btn btn-square me-0" href=""><i class="fab fa-linkedin-in"></i></a>
+                                <div class="card-body">
+                                    <h5 class="card-title fw-bold"><?php echo htmlspecialchars($row['donarfullname']); ?></h5>
+                                    <p class="text-muted"><?php echo htmlspecialchars($row['Country']); ?></p>
+                                    <span class="badge bg-dark">Sponsored Students: <?php echo $row['studentcount']; ?></span>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4">
-                        <h5 class="text-light mb-4">Address</h5>
-                        <p><i class="fa fa-map-marker-alt me-3"></i>8-3500 McNicoll Ave,Scarborough,ON,Canada,M1V 4C7</p>
-                        <p><i class="fa fa-phone-alt me-3"></i>+1-416-644-1113</p>
-                        <p><i class="fa fa-envelope me-3"></i>info@vcarekids.org</p>
-                    </div>
-                    <div class="col-lg-4 col-md-4">
-                        <h5 class="text-light mb-4">Quick Links</h5>
-                        <a class="btn btn-link" href="">Home</a>
-                        <a class="btn btn-link" href="">About Us</a>
-                        <a class="btn btn-link" href="">Contact Us</a>
-                        <a class="btn btn-link" href="">Donation</a>
-                    </div>
-
+            <?php
+                    }
+                    echo "</div>"; // Close row
+                }
+            }
+            ?>
                 </div>
-            </div>
-            <div class="container-fluid copyright">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                            &copy; <a href="#">vcarekids</a>, All Right Reserved.
+
+
+                <!-- Footer Start -->
+                <div class="container-fluid bg-dark text-white-50 footer mt-5 pt-5 wow fadeIn" data-wow-delay="0.1s">
+                    <div class="container py-5">
+                        <div class="row g-5">
+                            <div class="col-lg-4 col-md-4">
+                                <h1 class="fw-bold text-primary m-0">Vcare<span class="text-white">kids</span></h1>
+                                <p>Smart Eye is a leading provider of information technology, consulting, and business process services. Our dedicated employees offer strategic insights, technological expertise and industry experience.</p>
+                                <div class="d-flex pt-2">
+                                    <a class="btn btn-square me-1" href=""><i class="fab fa-twitter"></i></a>
+                                    <a class="btn btn-square me-1" href=""><i class="fab fa-facebook-f"></i></a>
+                                    <a class="btn btn-square me-1" href=""><i class="fab fa-youtube"></i></a>
+                                    <a class="btn btn-square me-0" href=""><i class="fab fa-linkedin-in"></i></a>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4">
+                                <h5 class="text-light mb-4">Address</h5>
+                                <p><i class="fa fa-map-marker-alt me-3"></i>8-3500 McNicoll Ave,Scarborough,ON,Canada,M1V 4C7</p>
+                                <p><i class="fa fa-phone-alt me-3"></i>+1-416-644-1113</p>
+                                <p><i class="fa fa-envelope me-3"></i>info@vcarekids.org</p>
+                            </div>
+                            <div class="col-lg-4 col-md-4">
+                                <h5 class="text-light mb-4">Quick Links</h5>
+                                <a class="btn btn-link" href="">Home</a>
+                                <a class="btn btn-link" href="">About Us</a>
+                                <a class="btn btn-link" href="">Contact Us</a>
+                                <a class="btn btn-link" href="">Donation</a>
+                            </div>
+
                         </div>
-                        <div class="col-md-6 text-center text-md-end">
-                            <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-                            Designed By <a href="">SICODE</a>
+                    </div>
+                    <div class="container-fluid copyright">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                                    &copy; <a href="#">vcarekids</a>, All Right Reserved.
+                                </div>
+                                <div class="col-md-6 text-center text-md-end">
+                                    <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
+                                    Designed By <a href="">SICODE</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <!-- Footer End -->
+                <!-- Footer End -->
 
 
-        <!-- Back to Top -->
-        <a href="#" class="btn btn-sm btn-dark btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+                <!-- Back to Top -->
+                <a href="#" class="btn btn-sm btn-dark btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
 
 
-        <!-- JavaScript Libraries -->
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="lib/wow/wow.min.js"></script>
-        <script src="lib/easing/easing.min.js"></script>
-        <script src="lib/waypoints/waypoints.min.js"></script>
-        <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-        <script src="lib/parallax/parallax.min.js"></script>
+                <!-- JavaScript Libraries -->
+                <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+                <script src="lib/wow/wow.min.js"></script>
+                <script src="lib/easing/easing.min.js"></script>
+                <script src="lib/waypoints/waypoints.min.js"></script>
+                <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+                <script src="lib/parallax/parallax.min.js"></script>
 
-        <!-- Template Javascript -->
-        <script src="js/main.js"></script>
+                <!-- Template Javascript -->
+                <script src="js/main.js"></script>
 </body>
 
 </html>

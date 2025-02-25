@@ -78,20 +78,33 @@ include 'includes/config.php'; // Make sure this file contains your database con
             border-radius: 8px;
         }
 
+        
         .donor-marquee {
-            width: 100%;
+            display: flex;
+            align-items: center;
+            background:rgb(250, 250, 0);
+            padding: 10px;
             white-space: nowrap;
             overflow: hidden;
-            background-color: yellow;
-            padding: 10px;
-            text-transform: capitalize;
-            font-size: 20px;
-            color: black;
-            animation: blink-border 1s infinite alternate;
         }
 
-        .donor-marquee span {
+        .donor-title {
+            font-weight: bold;
+            flex-shrink: 0;
+            /* Keeps title fixed */
+            margin-right: 10px;
+            /* Spacing between title and scrolling text */
+        }
+
+        .marquee-container {
+            overflow: hidden;
+            flex-grow: 1;
+            position: relative;
+        }
+
+        .marquee-content {
             display: inline-block;
+            white-space: nowrap;
             animation: marquee 10s linear infinite;
         }
 
@@ -102,20 +115,6 @@ include 'includes/config.php'; // Make sure this file contains your database con
 
             to {
                 transform: translateX(-100%);
-            }
-        }
-
-        @keyframes blink-border {
-            0% {
-                border-color: red;
-            }
-
-            50% {
-                border-color: blue;
-            }
-
-            100% {
-                border-color: green;
             }
         }
     </style>
@@ -148,18 +147,23 @@ include 'includes/config.php'; // Make sure this file contains your database con
         <div class="blinking-text">
             <!-- <p style="text-align: center; font-size: 18px;" class="p-2">Our Donars</p> -->
             <div class="donor-marquee">
-                <span>Our Honorable Donors:
+                <span class="donor-title">Our Honorable Donors:</span>
+                <div class="marquee-container">
+                    <div class="marquee-content">
                     <?php
-                    $sql = "SELECT donarfullname FROM donars";
-                    $result = $con->query($sql);
-                    if ($result->num_rows > 0) {
-                        while ($row = $result->fetch_assoc()) {
-                            echo  "<b>" . $row["donarfullname"] . "</b> ( 02 Students ) |  ";
+                        $sql = "SELECT donars.donarfullname, COUNT(students.donar_id) AS student_count FROM donars LEFT JOIN students ON students.donar_id = donars.id GROUP BY donars.id, donars.donarfullname;";
+                        $result = $con->query($sql);
+                        if ($result->num_rows > 0) {
+                            while ($row = $result->fetch_assoc()) {
+                                if($row["student_count"]>=1)
+                                {
+                                    echo "<b>" . $row["donarfullname"] . "</b> (".$row["student_count"]. " Students) | ";
+                                }
+                            }
                         }
-                    }
-                    ?>
-
-                </span>
+                        ?>
+                    </div>
+                </div>
             </div>
         </div>
 

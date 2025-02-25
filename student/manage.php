@@ -1,8 +1,19 @@
 <?php
 include_once '../includes/config.php';
-
-$query = "SELECT id, fullname, district, image ,permanentaddress,phone,Details,schoolname FROM students";
+$query;
+if (isset($_POST['filter'])) {
+    $filter = $_POST['Casestatus'];
+    if ($filter == 'Emergency') {
+        $query = "SELECT id, fullname, district, image, permanentaddress, phone, Details, schoolname FROM students WHERE Casestatus='Emergency'";
+    } else if ($filter == 'Not_Emergency') {
+        $query = "SELECT id, fullname, district, image, permanentaddress, phone, Details, schoolname FROM students WHERE Casestatus='Not_Emergency'"; 
+    }
+} else {
+    $query = "SELECT id, fullname, district, image, permanentaddress, phone, Details, schoolname FROM students";
+}
 $result = $con->query($query);
+
+
 
 if (isset($_GET['delete_id'])) {
     $delete_id = intval($_GET['delete_id']);
@@ -28,6 +39,7 @@ if (isset($_GET['delete_id'])) {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -73,6 +85,23 @@ if (isset($_GET['delete_id'])) {
                         </div>
                     <?php } ?>
 
+                    <form action="" method="POST">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <label for="category" class="form-label">Status</label>
+                                <select name="Casestatus" class="form-control" required>
+                                    <option value="" selected>All Studnets</option>
+                                    <option value="Emergency">Emergency</option>
+                                    <option value="Not_Emergency">Not_Emergency</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="category" class="form-label">Search</label> <br>
+                                <input type="submit" name="filter" class="btn btn-primary">
+                            </div>
+                        </div>
+                    </form>
+                    <br>
                     <table class="table table-bordered" id="datatablesSimple">
                         <thead>
                             <tr>
@@ -83,7 +112,7 @@ if (isset($_GET['delete_id'])) {
                                 <th>District</th>
                                 <th>School</th>
                                 <th>Image</th>
-                              
+
                             </tr>
                         </thead>
                         <tbody>
@@ -116,7 +145,7 @@ if (isset($_GET['delete_id'])) {
                                     <?php
                                     }
                                     ?>
-                                    
+
                                 </tr>
                             <?php } ?>
                         </tbody>
