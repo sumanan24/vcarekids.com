@@ -1,12 +1,12 @@
 <?php
 include_once '../includes/config.php';
 
-// Check if the form is submitted for updating
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Get form data and trim to remove unnecessary whitespace
     $id = $_POST['id']; // Hidden input field for student ID
     $fullname = trim($_POST['fullname']);
     $Details = trim($_POST['Details']);
+    $Casestatus = trim($_POST['Casestatus']);
     $phone = trim($_POST['phone']);
     $parentname = trim($_POST['parentname']);
     $parentaddress = trim($_POST['parentaddress']);
@@ -26,105 +26,42 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $holdername = trim($_POST['holdername']);
     $updated_at = date('Y-m-d H:i:s');
 
-    // Handle image upload if a new image is provided
-    if ($_FILES['image']['size'] > 0) {
-        $image = file_get_contents($_FILES['image']['tmp_name']);
-        $image_query = ", image = ?";
-    } else {
-        $image_query = "";
-    }
-
     // Validate required fields
     if (
         empty($fullname) || empty($Details) || empty($phone) || empty($parentname) ||
-        empty($parentaddress) || empty($permanentaddress) || empty($dob) || empty($district) || empty($category) || empty($donar_id) ||
-        empty($gender) || empty($grade) || empty($schoolname)
+        empty($parentaddress) || empty($permanentaddress) || empty($dob) || empty($district) ||
+        empty($category) || empty($donar_id) || empty($gender) || empty($grade) || empty($schoolname)
     ) {
-        die("Error: All fields are required.");
+        die("Error: All required fields must be filled.");
+    }
+
+    // Handle image upload
+    $image_query = "";
+    $params = [&$fullname, &$Details, &$Casestatus, &$phone, &$parentname, &$parentaddress, &$permanentaddress,
+               &$dob, &$district, &$category, &$donar_id, &$gender, &$grade, &$schoolname, &$familyincome, 
+               &$parentjob, &$bankname, &$bankbranch, &$accountnumber, &$holdername, &$id];
+    $types = "ssssssssssssssssssssi";
+
+    if ($_FILES['image']['size'] > 0) {
+        $image = file_get_contents($_FILES['image']['tmp_name']);
+        $image_query = ", image = ?";
+        $params[] = &$image;
+        $types .= "b"; // 'b' for blob data
     }
 
     // Update query
-    $query = "UPDATE students SET 
-        fullname = ?, 
-        Details = ?, 
-        phone = ?, 
-        parentname = ?, 
-        parentaddress = ?, 
-        permanentaddress = ?, 
-        dob = ?, 
-        district = ?, 
-        category = ?, 
-        donar_id = ?, 
-        gender = ?, 
-        grade = ?, 
-        schoolname = ?, 
-        familyincome = ?, 
-        parentjob = ?, 
-        bankname = ?, 
-        bankbranch = ?, 
-        accountnumber = ?, 
-        holdername = ? 
-      
-        $image_query 
-        WHERE id = ?";
+    $query = "UPDATE students SET fullname = ?, Details = ?, Casestatus = ?, phone = ?, parentname = ?, 
+        parentaddress = ?, permanentaddress = ?, dob = ?, district = ?, category = ?, donar_id = ?, 
+        gender = ?, grade = ?, schoolname = ?, familyincome = ?, parentjob = ?, bankname = ?, bankbranch = ?, 
+        accountnumber = ?, holdername = ? $image_query WHERE id = ?";
 
     // Prepare and bind parameters
     $stmt = $con->prepare($query);
-
     if (!$stmt) {
         die("Prepare failed: " . $con->error);
     }
 
-    if ($_FILES['image']['size'] > 0) {
-        $stmt->bind_param(
-            'ssssssssssssssssssssi',
-            $fullname,
-            $Details,
-            $phone,
-            $parentname,
-            $parentaddress,
-            $permanentaddress,
-            $dob,
-            $district,
-            $category,
-            $donar_id,
-            $gender,
-            $grade,
-            $schoolname,
-            $familyincome,
-            $parentjob,
-            $bankname,
-            $bankbranch,
-            $accountnumber,
-            $holdername,
-            $image,
-            $id
-        );
-    } else {
-        $stmt->bind_param(
-            'sssssssssssssssssssi',
-            $fullname,
-            $Details,
-            $phone,
-            $parentname,
-            $parentaddress,
-            $permanentaddress,
-            $dob,
-            $district,
-            $category,
-            $donar_id,
-            $gender,
-            $grade,
-            $schoolname,
-            $familyincome,
-            $parentjob,
-            $bankname,
-            $bankbranch,
-            $accountnumber,
-            $holdername,
-            $id
-        );
-    }
+    $stmt->bind_param($types, ...$params);
 
     // Execute the statement
     if ($stmt->execute()) {
@@ -136,6 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Close the statement
     $stmt->close();
 }
+
 
 // Fetch student data for editing
 if (isset($_GET['id'])) {
