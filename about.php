@@ -78,11 +78,11 @@ include 'includes/config.php'; // Make sure this file contains your database con
             border-radius: 8px;
         }
 
-        
+
         .donor-marquee {
             display: flex;
             align-items: center;
-            background:rgb(250, 250, 0);
+            background: rgb(250, 250, 0);
             padding: 10px;
             white-space: nowrap;
             overflow: hidden;
@@ -150,14 +150,13 @@ include 'includes/config.php'; // Make sure this file contains your database con
                 <span class="donor-title">Our Honorable Donors:</span>
                 <div class="marquee-container">
                     <div class="marquee-content">
-                    <?php
+                        <?php
                         $sql = "SELECT donars.donarfullname, COUNT(students.donar_id) AS student_count FROM donars LEFT JOIN students ON students.donar_id = donars.id GROUP BY donars.id, donars.donarfullname;";
                         $result = $con->query($sql);
                         if ($result->num_rows > 0) {
                             while ($row = $result->fetch_assoc()) {
-                                if($row["student_count"]>=1)
-                                {
-                                    echo "<b>" . $row["donarfullname"] . "</b> (".$row["student_count"]. " Students) | ";
+                                if ($row["student_count"] >= 1) {
+                                    echo "<b>" . $row["donarfullname"] . "</b> (" . $row["student_count"] . " Students) | ";
                                 }
                             }
                         }
@@ -205,8 +204,8 @@ include 'includes/config.php'; // Make sure this file contains your database con
         </div>
     </div>
     <!-- Page Header End -->
-<!-- Vision Start -->
-<div class="container-xxl">
+    <!-- Vision Start -->
+    <div class="container-xxl">
         <div class="container">
 
             <div class="row g-4 justify-content-center">
@@ -233,8 +232,8 @@ include 'includes/config.php'; // Make sure this file contains your database con
         </div>
     </div>
     <!-- vision End -->
-     <!-- About Start -->
-     <div class="container-xxl py-5" id="about">
+    <!-- About Start -->
+    <div class="container-xxl py-5" id="about">
         <div class="container">
             <div class="row g-5">
                 <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
@@ -293,7 +292,7 @@ include 'includes/config.php'; // Make sure this file contains your database con
             </div>
         </div>
 
-        
+
         <div class="container-fluid copyright">
             <div class="container">
                 <div class="row">

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<?php include('includes/config.php') ?>
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -26,6 +26,46 @@
 
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
+    <style>
+        .donor-marquee {
+            display: flex;
+            align-items: center;
+            background: rgb(250, 250, 0);
+            padding: 10px;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        .donor-title {
+            font-weight: bold;
+            flex-shrink: 0;
+            /* Keeps title fixed */
+            margin-right: 10px;
+            /* Spacing between title and scrolling text */
+        }
+
+        .marquee-container {
+            overflow: hidden;
+            flex-grow: 1;
+            position: relative;
+        }
+
+        .marquee-content {
+            display: inline-block;
+            white-space: nowrap;
+            animation: marquee 10s linear infinite;
+        }
+
+        @keyframes marquee {
+            from {
+                transform: translateX(100%);
+            }
+
+            to {
+                transform: translateX(-100%);
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -51,7 +91,28 @@
                 <a class="text-white-50 ms-3" href=""><i class="fab fa-instagram"></i></a>
             </div>
         </div>
+        <div class="blinking-text">
+            <!-- <p style="text-align: center; font-size: 18px;" class="p-2">Our Donars</p> -->
+            <div class="donor-marquee">
+                <span class="donor-title">Our Honorable Donors:</span>
+                <div class="marquee-container">
+                    <div class="marquee-content">
+                        <?php
+                        $sql = "SELECT donars.donarfullname, COUNT(students.donar_id) AS student_count FROM donars LEFT JOIN students ON students.donar_id = donars.id GROUP BY donars.id, donars.donarfullname;";
+                        $result = $con->query($sql);
+                        if ($result->num_rows > 0) {
+                            while ($row = $result->fetch_assoc()) {
+                                if ($row["student_count"] >= 1) {
+                                    echo "<b>" . $row["donarfullname"] . "</b> (" . $row["student_count"] . " Students) | ";
+                                }
+                            }
+                        }
+                        ?>
+                    </div>
+                </div>
+            </div>
 
+        </div>
         <nav class="navbar navbar-expand-lg navbar-dark py-lg-0 px-lg-5 wow fadeIn" data-wow-delay="0.1s">
             <a href="index.html" class="navbar-brand ms-4 ms-lg-0">
                 <h1 class="fw-bold text-primary m-0">VanniShangam<span class="text-white">Vcarekids</span></h1>
@@ -84,7 +145,6 @@
             <nav aria-label="breadcrumb animated slideInDown">
                 <ol class="breadcrumb justify-content-center mb-0">
                     <li class="breadcrumb-item"><a class="text-white" href="#">Home</a></li>
-                    <li class="breadcrumb-item"><a class="text-white" href="#">Pages</a></li>
                     <li class="breadcrumb-item text-light active" aria-current="page">Donate</li>
                 </ol>
             </nav>

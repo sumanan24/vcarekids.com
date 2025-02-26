@@ -79,7 +79,7 @@
         .donor-marquee {
             display: flex;
             align-items: center;
-            background:rgb(250, 250, 0);
+            background: rgb(250, 250, 0);
             padding: 10px;
             white-space: nowrap;
             overflow: hidden;
@@ -151,9 +151,8 @@
                         $result = $con->query($sql);
                         if ($result->num_rows > 0) {
                             while ($row = $result->fetch_assoc()) {
-                                if($row["student_count"]>=1)
-                                {
-                                    echo "<b>" . $row["donarfullname"] . "</b> (".$row["student_count"]. " Students) | ";
+                                if ($row["student_count"] >= 1) {
+                                    echo "<b>" . $row["donarfullname"] . "</b> (" . $row["student_count"] . " Students) | ";
                                 }
                             }
                         }
@@ -238,47 +237,28 @@
             <!-- event Start -->
             <div class="container my-4">
                 <h2 class="text-dark text-center fw-bold">🔥 Emergency Cases 🔥</h2>
-                <p class="text-center text-muted">A devastating fire has affected families. Your donation can provide food, shelter, and medical aid.</p>
+                <p class="text-center text-muted">Your donation can provide urgent relief and save lives in emergency situations</p>
 
                 <div class="row justify-content-center">
 
-                    <!-- Case 1: Family Needs Shelter -->
-                    <div class="col-lg-4 col-md-6 col-sm-12 text-center">
-                        <div class="card shadow-lg p-3 border-dark" style="border-width: 3px; height: 200px;">
-
-                            <div class="card-body">
-                                <h5 class="card-title text-dark fw-bold">Family Needs Shelter</h5>
-                                <p class="text-muted">A family of five has lost their home. Urgent support is needed for temporary housing.</p>
-                                <a href="donate.php" class="btn btn-dark">Donate Now</a>
+                    <?php
+                    $query = "SELECT * FROM cases ORDER BY id DESC limit 3"; // Fetch all cases, newest first
+                    $result = $con->query($query);
+                    ?>
+                    <?php while ($case = $result->fetch_assoc()): ?>
+                        <div class="col-lg-4 col-md-6 col-sm-12 text-center">
+                            <div class="card shadow-lg p-3 border-dark" style="border-width: 3px; height: 200px;">
+                                <div class="card-body">
+                                    <h5 class="card-title text-dark fw-bold"><?php echo htmlspecialchars($case['title']); ?></h5>
+                                    <p class="text-muted" style="font-size: 14px;">
+                                        <?php echo htmlspecialchars(substr($case['content'], 0, 100)); ?>...
+                                    </p>
+                                    <a href="donate.php?case_id=<?php echo $case['id']; ?>" class="btn btn-dark">Donate Now</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-
-                    <!-- Case 2: Medical Assistance for Victims -->
-                    <div class="col-lg-4 col-md-6 col-sm-12 text-center">
-                        <div class="card shadow-lg p-3 border-dark" style="border-width: 3px; height: 200px;">
-
-                            <div class="card-body">
-                                <h5 class="card-title text-dark fw-bold">Medical Assistance</h5>
-                                <p class="text-muted">Several people suffered burns and injuries. Help provide medical treatment.</p>
-                                <a href="donate.php" class="btn btn-dark">Donate Now</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Case 3: Food & Essentials -->
-                    <div class="col-lg-4 col-md-6 col-sm-12 text-center">
-                        <div class="card shadow-lg p-3 border-dark" style="border-width: 3px; height: 200px;">
-
-                            <div class="card-body">
-                                <h5 class="card-title text-dark fw-bold">Food & Essentials</h5>
-                                <p class="text-muted">Victims need food, water, and basic necessities. Help us provide relief.</p>
-                                <a href="donate.php" class="btn btn-dark">Donate Now</a>
-                            </div>
-                        </div>
-                    </div>
+                    <?php endwhile; ?>
                 </div>
-
             </div>
         </div>
 
@@ -323,6 +303,7 @@
                     <div class="text-center mx-auto  wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
                         <h3 class="">Our Recent Activities</h3>
                     </div>
+                    <br>
                     <div class="row g-4 justify-content-center">
                         <?php
                         $sql = "SELECT title, content, link, image FROM news ORDER BY id DESC LIMIT 3 ";
@@ -369,13 +350,65 @@
     </div>
     <br>
     <hr>
+
+    <div class="container-xxl">
+    <div class="container">
+        <!-- Upcoming Events Start -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
+                    <h3 class="">Upcoming Events</h3>
+                </div>
+                <br>
+                <div class="row g-4 justify-content-center">
+                    <?php
+                    $sql = "SELECT event_name, event_date, location, advertisement_image FROM events ORDER BY event_date ASC LIMIT 3";
+                    $result = $con->query($sql);
+                    
+                    if ($result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {
+                    ?>
+                            <div class="col-lg-4 col-md-4 wow fadeInUp" data-wow-delay="0.5s">
+                                <div class="causes-item d-flex flex-column bg-white border-top border-5 rounded-top overflow-hidden h-100">
+                                    <div class="text-center p-4 pt-0">
+                                        <br>
+                                        <h6 class="mb-3"><?php echo htmlspecialchars($row["event_name"]); ?></h6>
+                                        <p style="font-size: 14px;"><strong>Date:</strong> <?php echo htmlspecialchars($row["event_date"]); ?></p>
+                                        <p style="font-size: 12px;"><strong>Location:</strong> <?php echo htmlspecialchars($row["location"]); ?></p>
+                                    </div>
+                                    <div class="position-relative mt-auto text-center">
+                                        <?php
+                                        if (!empty($row['advertisement_image'])) {
+                                            $imageData = base64_encode($row['advertisement_image']);
+                                            echo "<img src='data:image/jpeg;base64," . $imageData . "' alt='Event Image' class='fixed-size-image' style='height:300px;'>";
+                                        } else {
+                                            echo "<p>No image available</p>";
+                                        }
+                                        ?>
+                                    </div>
+                                    <br>
+                                </div>
+                            </div>
+                    <?php
+                        }
+                    } else {
+                        echo "<p class='text-center'>No upcoming events found.</p>";
+                    }
+                    ?>
+                </div>
+            </div>
+        </div>
+        <!-- Upcoming Events End -->
+    </div>
+</div>
+<hr>
+<br>
     <!-- Contact Start -->
     <div class="container-fluid">
         <div class="text-center mx-auto  wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
             <h3 class="">Contact Us</h3>
-
-        </div>
-        <hr>
+        </div> <br>
+     
         <div class="container">
             <div class="row">
 
