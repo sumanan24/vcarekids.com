@@ -71,7 +71,7 @@ if (isset($_GET['delete_id'])) {
     }
 
     thead {
-        background-color: white;
+        background-color: darkgray;
         color: black;
     }
 
@@ -145,7 +145,6 @@ if (isset($_GET['delete_id'])) {
                                         <th>No</th>
                                         <th>Full Name</th>
                                         <th>Phone No</th>
-                                        <th>Details</th>
                                         <th>District</th>
                                         <th>School</th>
                                         <th>Image</th>

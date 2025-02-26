@@ -28,7 +28,6 @@ while ($row = $result->fetch_assoc()) {
             <td>{$x}</td>
             <td>" . htmlspecialchars($row['fullname']) . "</td>
             <td>" . htmlspecialchars($row['phone']) . "</td>
-            <td>" . htmlspecialchars($row['Details']) . "</td>
             <td>" . htmlspecialchars($row['district']) . "</td>
             <td>" . htmlspecialchars($row['schoolname']) . "</td>
             <td>";
@@ -41,12 +40,16 @@ while ($row = $result->fetch_assoc()) {
 
     if ($_SESSION['role'] == 'admin') {
         echo "<td>
-                <a href='edit.php?id={$row['id']}' class='btn btn-warning btn-sm'>Edit</a>
-                <a href='delete_student.php?delete_id={$row['id']}' class='btn btn-danger btn-sm' onclick='return confirm(\"Are you sure you want to delete this student?\");'>Delete</a>
-                <a href='document.php?id={$row['id']}' class='btn btn-info btn-sm'>Add Document</a>
+                <a href='edit.php?id={$row['id']}' class='btn btn-warning btn-sm'><i class='fa fa-edit'></i></a>
+                <a href='delete_student.php?delete_id={$row['id']}' class='btn btn-danger btn-sm' onclick='return confirm(\"Are you sure you want to delete this student?\");'><i class='fa fa-trash'></i></a>
+                <a href='document.php?id={$row['id']}' class='btn btn-info btn-sm'><i class='fa fa-file'></i></a>
+                <a href='donation.php?id={$row['id']}' class='btn btn-primary btn-sm'><i class='fa fa-hand-holding-dollar'></i></a>
               </td>";
     } else {
-        echo "<td>-</td>";
+        echo "<td>
+        <a href='document.php?id={$row['id']}' class='btn btn-info btn-sm'>Add Document</a>
+        <a href='donation.php?id={$row['id']}' class='btn btn-info btn-sm'>Donation</a>
+        </td>";
     }
 
     echo "</tr>";
