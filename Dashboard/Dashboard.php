@@ -15,7 +15,7 @@ $total_records = $total_row['total'];
 $total_pages = ceil($total_records / $limit); // Total pages required
 
 // Query to fetch messages with pagination
-$query = "SELECT id, name, email, message, status, created_at FROM messages ORDER BY created_at DESC LIMIT ?, ?";
+$query = "SELECT id, name, email, message, status, created_at FROM messages where status='unread' ORDER BY created_at DESC LIMIT ?, ?";
 $stmt = $con->prepare($query);
 
 $sql = "SELECT COUNT(*) AS total_students FROM students";

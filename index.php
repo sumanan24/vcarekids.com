@@ -247,7 +247,7 @@
                         <div class="card shadow-lg p-3 border-dark" style="border-width: 3px; height: 200px;">
 
                             <div class="card-body">
-                                <h5 class="card-title text-dark fw-bold">🚑 Family Needs Shelter</h5>
+                                <h5 class="card-title text-dark fw-bold">Family Needs Shelter</h5>
                                 <p class="text-muted">A family of five has lost their home. Urgent support is needed for temporary housing.</p>
                                 <a href="donate.php" class="btn btn-dark">Donate Now</a>
                             </div>
@@ -259,7 +259,7 @@
                         <div class="card shadow-lg p-3 border-dark" style="border-width: 3px; height: 200px;">
 
                             <div class="card-body">
-                                <h5 class="card-title text-dark fw-bold">🏥 Medical Assistance</h5>
+                                <h5 class="card-title text-dark fw-bold">Medical Assistance</h5>
                                 <p class="text-muted">Several people suffered burns and injuries. Help provide medical treatment.</p>
                                 <a href="donate.php" class="btn btn-dark">Donate Now</a>
                             </div>
@@ -271,7 +271,7 @@
                         <div class="card shadow-lg p-3 border-dark" style="border-width: 3px; height: 200px;">
 
                             <div class="card-body">
-                                <h5 class="card-title text-dark fw-bold">🍞 Food & Essentials</h5>
+                                <h5 class="card-title text-dark fw-bold">Food & Essentials</h5>
                                 <p class="text-muted">Victims need food, water, and basic necessities. Help us provide relief.</p>
                                 <a href="donate.php" class="btn btn-dark">Donate Now</a>
                             </div>

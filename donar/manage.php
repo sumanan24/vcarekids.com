@@ -75,7 +75,6 @@ if (isset($_GET['delete_id'])) {
                             <strong>Well done!</strong><?php echo htmlentities($message); ?>
                         </div><?php }
                     ?>
-
                     <table class="table table-bordered" id="datatablesSimple">
                         <thead>
                             <tr>
