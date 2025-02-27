@@ -44,6 +44,7 @@ while ($row = $result->fetch_assoc()) {
                 <a href='delete_student.php?delete_id={$row['id']}' class='btn btn-danger btn-sm' onclick='return confirm(\"Are you sure you want to delete this student?\");'><i class='fa fa-trash'></i></a>
                 <a href='document.php?id={$row['id']}' class='btn btn-info btn-sm'><i class='fa fa-file'></i></a>
                 <a href='donation.php?id={$row['id']}' class='btn btn-primary btn-sm'><i class='fa fa-hand-holding-dollar'></i></a>
+                <a href='profile.php?id={$row['id']}' class='btn btn-primary btn-sm'><i class='fa fa-user'></i></a>
               </td>";
     } else {
         echo "<td>
