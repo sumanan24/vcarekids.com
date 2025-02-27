@@ -77,6 +77,19 @@ if (!isset($_SESSION['email'])) {
                 </div>
 
 
+                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#case" aria-expanded="false" aria-controls="collapseLayouts">
+                    <div class="sb-nav-link-icon"><i class="fas fa-triangle-exclamation"></i></div>
+                    Cases
+                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+                <div class="collapse" id="case" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                    <nav class="sb-sidenav-menu-nested nav">
+                        <a class="nav-link" href="../cases/new.php"><i class="fa fa-bars"></i> &nbsp;&nbsp;New</a>
+                        <a class="nav-link" href="../cases/manage.php"><i class="fa fa-server"></i> &nbsp;&nbsp;Manage</a>
+                    </nav>
+                </div>
+
+
                 <a class="nav-link collapsed" href="../donation/manage.php">
                     <i class="fas fa-donate"></i>
                     &nbsp; Donations
