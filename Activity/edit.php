@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt->bind_param($types, ...$params);
 
     if ($stmt->execute()) {
-        header("Location: manage.php?success=1");
+        header("Location: manage.php");
     } else {
         echo "Error: " . $stmt->error;
     }

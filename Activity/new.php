@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt->bind_param("ssssss", $title, $content, $link, $image, $created_at, $updated_at);
 
     if ($stmt->execute()) {
-        header("Location: manage.php?success=1");
+        header("Location: manage.php");
     } else {
         echo "Error: " . $stmt->error;
     }

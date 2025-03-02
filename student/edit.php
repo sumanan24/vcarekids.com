@@ -65,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // Execute the statement
     if ($stmt->execute()) {
-        echo "Student record updated successfully!";
+        header("Location: manage.php");
     } else {
         echo "Error: " . $stmt->error;
     }

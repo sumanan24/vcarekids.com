@@ -143,9 +143,9 @@
         <div class="blinking-text">
             <!-- <p style="text-align: center; font-size: 18px;" class="p-2">Our Donars</p> -->
             <div class="donor-marquee">
-                <span class="donor-title">Our Honorable Donors:</span>
+                <span class="donor-title" style="color:black;">Our Honorable Donors:</span>
                 <div class="marquee-container">
-                    <div class="marquee-content">
+                    <div class="marquee-content" style="color:black;">
                         <?php
                         $sql = "SELECT donars.donarfullname, COUNT(students.donar_id) AS student_count FROM donars LEFT JOIN students ON students.donar_id = donars.id GROUP BY donars.id, donars.donarfullname;";
                         $result = $con->query($sql);
@@ -164,7 +164,7 @@
         </div>
 
         <nav class="navbar navbar-expand-lg navbar-dark py-lg-0 px-lg-5 wow fadeIn" data-wow-delay="0.1s">
-            <a href="index.html" class="navbar-brand ms-4 ms-lg-0">
+            <a href="index.php" class="navbar-brand ms-4 ms-lg-0">
                 <h1 class="fw-bold text-primary m-0"> VanniShangam<span class="text-white">Vcarekids</span></h1>
             </a>
             <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">

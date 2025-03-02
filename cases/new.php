@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // Execute the query and handle success or error
     if ($stmt->execute()) {
-        header("Location: manage_cases.php?success=1");
+        header("Location: manage_cases.php");
     } else {
         echo "Error: " . $stmt->error;
     }

@@ -77,6 +77,7 @@ $stmt->bind_param(
 // Execute the statement
 if ($stmt->execute()) {
     echo "Student record added successfully!";
+    header("Location: manage.php");
 } else {
     echo "Error: " . $stmt->error;
 }

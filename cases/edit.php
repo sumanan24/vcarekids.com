@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // Execute the query and handle success or error
     if ($stmt->execute()) {
-        header("Location: manage.php?success=1");
+        header("Location: manage.php");
         exit;
     } else {
         echo "Error: " . $stmt->error;

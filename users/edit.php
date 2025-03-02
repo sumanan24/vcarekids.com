@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     if ($stmt->execute()) {
-        header("Location: manage.php?success=1");
+        header("Location: manage.php");
     } else {
         echo "Error: " . $stmt->error;
     }
