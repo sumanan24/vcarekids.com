@@ -29,7 +29,9 @@
     <link href="css/bootstrap1.css" rel="stylesheet">
 
     <!-- Template Stylesheet -->
-    <link rel="stylesheet" href="styles.css?v=2">
+    <link rel="stylesheet" href="css/style.css?v=2">
+
+    <link href="" rel="stylesheet">
     <style>
         .apply-section {
             padding: 15px;
