@@ -30,8 +30,6 @@
 
     <!-- Template Stylesheet -->
     <link rel="stylesheet" href="css/style.css?v=2">
-
-    <link href="" rel="stylesheet">
     <style>
         .apply-section {
             padding: 15px;
