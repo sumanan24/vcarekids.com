@@ -33,6 +33,12 @@ $result = $con->query($sql2);
 $rownews = $result->fetch_assoc();
 $total_news = $rownews['total_news'];
 
+
+$sql3 = "SELECT COUNT(*) AS total_events FROM events";
+$result = $con->query($sql3);
+$rowevent = $result->fetch_assoc();
+$total_events = $rowevent['total_events'];
+
 if (!$stmt) {
     die('Prepare failed: ' . $con->error);
 }
@@ -112,9 +118,12 @@ $result = $stmt->get_result();
                         </div>
                         <div class="col-xl-3 col-md-6">
                             <div class="card bg-info text-white mb-4">
-                                <div class="card-body">Danger Card</div>
+                                <div class="card-body">
+                                <h5 class="card-title">Events</h5>
+                                <h2><?php echo $total_events; ?></h2>
+                                </div>
                                 <div class="card-footer d-flex align-items-center justify-content-between">
-                                    <a class="small text-white stretched-link" href="#">View Details</a>
+                                    <a class="small text-white stretched-link" href="../events/manage.php">View Details</a>
                                     <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                 </div>
                             </div>
