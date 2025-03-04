@@ -88,9 +88,7 @@
         .donor-title {
             font-weight: bold;
             flex-shrink: 0;
-            /* Keeps title fixed */
             margin-right: 10px;
-            /* Spacing between title and scrolling text */
         }
 
         .marquee-container {
@@ -103,6 +101,23 @@
             display: inline-block;
             white-space: nowrap;
             animation: marquee 10s linear infinite;
+        }
+
+        .text-outline-stroke {
+            font-size: 46px;
+            font-weight: bold;
+            color: white;
+            -webkit-text-stroke: 1px black;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 3);
+        }
+
+        @media screen and (max-width: 768px) {
+            .text-outline-stroke {
+                font-size: 25px;
+                font-weight: bold;
+                color: white;
+                -webkit-text-stroke: 1px black;
+            }
         }
 
         @keyframes marquee {
@@ -132,11 +147,7 @@
                 <small class="ms-4"><i class="fa fa-envelope me-2"></i>info@vcarekids.org</small>
             </div>
             <div class="col-lg-6 px-5 text-end">
-                <small>Follow us:</small>
-                <a class="text-white-50 ms-3" href=""><i class="fab fa-facebook-f"></i></a>
-                <a class="text-white-50 ms-3" href=""><i class="fab fa-twitter"></i></a>
-                <a class="text-white-50 ms-3" href=""><i class="fab fa-linkedin-in"></i></a>
-                <a class="text-white-50 ms-3" href=""><i class="fab fa-instagram"></i></a>
+                <a class="text-white-50 ms-3" href="https://www.facebook.com/vcarekids"><i class="fab fa-facebook-f"></i> Facebook</a>
             </div>
         </div>
 
@@ -165,7 +176,7 @@
 
         <nav class="navbar navbar-expand-lg navbar-dark py-lg-0 px-lg-5 wow fadeIn" data-wow-delay="0.1s">
             <a href="index.php" class="navbar-brand ms-4 ms-lg-0">
-                <h1 class="fw-bold text-primary m-0"> VanniShangam<span class="text-white">Vcarekids</span></h1>
+                <h1 class="fw-bold m-0 text-outline-stroke" style="color: #bf423c;"> VanniShangam<span class="text-white">Vcarekids</span></h1>
             </a>
             <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                 <span class="navbar-toggler-icon"></span>
@@ -235,34 +246,72 @@
     <div class="container-xxl ">
         <div class="container">
             <!-- event Start -->
-            <div class="container my-4">
-                <h2 class="text-dark text-center fw-bold">🔥 Emergency Cases 🔥</h2>
-                <p class="text-center text-muted">Your donation can provide urgent relief and save lives in emergency situations</p>
+            <div class="row justify-content-center">
+                <div class="col-lg-4 col-md-12 col-sm-12 text-center">
+                    <div class="row g-4 justify-content-center">
+                        <?php
+                        $sql = "SELECT event_name, event_date, location, advertisement_image FROM events ORDER BY event_date ASC LIMIT 1";
+                        $result = $con->query($sql);
 
-                <div class="row justify-content-center">
-
-                    <?php
-                    $query = "SELECT * FROM cases ORDER BY id DESC limit 3"; // Fetch all cases, newest first
-                    $result = $con->query($query);
-                    ?>
-                    <?php while ($case = $result->fetch_assoc()): ?>
-                        <div class="col-lg-4 col-md-6 col-sm-12 text-center">
-                            <div class="card shadow-lg p-3 border-dark" style="border-width: 3px; height: 200px;">
-                                <div class="card-body">
-                                    <h5 class="card-title text-dark fw-bold"><?php echo htmlspecialchars($case['title']); ?></h5>
-                                    <p class="text-muted" style="font-size: 14px;">
-                                        <?php echo htmlspecialchars(substr($case['content'], 0, 100)); ?>...
-                                    </p>
-                                    <a href="donate.php?case_id=<?php echo $case['id']; ?>" class="btn btn-dark">Donate Now</a>
+                        if ($result->num_rows > 0) {
+                            while ($row = $result->fetch_assoc()) {
+                        ?>
+                                <div class="col-lg-12 col-md-12 wow fadeInUp" data-wow-delay="0.5s">
+                                    <div class="causes-item d-flex flex-column bg-white  rounded-top overflow-hidden h-100">
+                                        
+                                        <div class="position-relative mt-auto text-center">
+                                            <?php
+                                            if (!empty($row['advertisement_image'])) {
+                                                $imageData = base64_encode($row['advertisement_image']);
+                                                echo "<img src='data:image/jpeg;base64," . $imageData . "' alt='Event Image' class='fixed-size-image' style='height:600px;'>";
+                                            } else {
+                                                echo "<p>No image available</p>";
+                                            }
+                                            ?>
+                                        </div>
+                                        <br>
+                                    </div>
                                 </div>
-                            </div>
+                        <?php
+                            }
+                        } else {
+                            echo "<p class='text-center'>No upcoming events found.</p>";
+                        }
+                        ?>
+                    </div>
+                </div>
+
+                <div class="col-lg-8 col-md-12 col-sm-12 text-center">
+                    <div class="container my-4">
+                        <h2 class="text-dark text-center fw-bold">🔥 Emergency Cases 🔥</h2>
+                        <p class="text-center text-muted">Your donation can provide urgent relief and save lives in emergency situations</p>
+                        <div class="row">
+                            <?php
+                            $query = "SELECT * FROM cases ORDER BY id DESC limit 4"; // Fetch all cases, newest first
+                            $result = $con->query($query);
+                            ?>
+                            <?php while ($case = $result->fetch_assoc()): ?>
+                                <div class="col-lg-6 col-md-6 col-sm-12 text-center">
+                                    <div class="card shadow-lg p-3 border-dark" style="border-width: 3px; height: 200px;">
+                                        <div class="card-body">
+                                            <h5 class="card-title text-dark fw-bold"><?php echo htmlspecialchars($case['title']); ?></h5>
+                                            <p class="text-muted" style="font-size: 14px;">
+                                                <?php echo htmlspecialchars(substr($case['content'], 0, 100)); ?>...
+                                            </p>
+                                            <a href="donate.php?case_id=<?php echo $case['id']; ?>" class="btn btn-dark">Donate Now</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php endwhile; ?>
                         </div>
-                    <?php endwhile; ?>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- event End -->
+    </div>
+
+    <!-- event End -->
     </div>
     </div>
 
@@ -352,63 +401,28 @@
     <hr>
 
     <div class="container-xxl">
-    <div class="container">
-        <!-- Upcoming Events Start -->
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
-                    <h3 class="">Upcoming Events</h3>
-                </div>
-                <br>
-                <div class="row g-4 justify-content-center">
-                    <?php
-                    $sql = "SELECT event_name, event_date, location, advertisement_image FROM events ORDER BY event_date ASC LIMIT 3";
-                    $result = $con->query($sql);
-                    
-                    if ($result->num_rows > 0) {
-                        while ($row = $result->fetch_assoc()) {
-                    ?>
-                            <div class="col-lg-4 col-md-4 wow fadeInUp" data-wow-delay="0.5s">
-                                <div class="causes-item d-flex flex-column bg-white border-top border-5 rounded-top overflow-hidden h-100">
-                                    <div class="text-center p-4 pt-0">
-                                        <br>
-                                        <h6 class="mb-3"><?php echo htmlspecialchars($row["event_name"]); ?></h6>
-                                        <p style="font-size: 14px;"><strong>Date:</strong> <?php echo htmlspecialchars($row["event_date"]); ?></p>
-                                        <p style="font-size: 12px;"><strong>Location:</strong> <?php echo htmlspecialchars($row["location"]); ?></p>
-                                    </div>
-                                    <div class="position-relative mt-auto text-center">
-                                        <?php
-                                        if (!empty($row['advertisement_image'])) {
-                                            $imageData = base64_encode($row['advertisement_image']);
-                                            echo "<img src='data:image/jpeg;base64," . $imageData . "' alt='Event Image' class='fixed-size-image' style='height:300px;'>";
-                                        } else {
-                                            echo "<p>No image available</p>";
-                                        }
-                                        ?>
-                                    </div>
-                                    <br>
-                                </div>
-                            </div>
-                    <?php
-                        }
-                    } else {
-                        echo "<p class='text-center'>No upcoming events found.</p>";
-                    }
-                    ?>
+        <div class="container">
+            <!-- Upcoming Events Start -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
+                        <h3 class="">Upcoming Events</h3>
+                    </div>
+                    <br>
+
                 </div>
             </div>
+            <!-- Upcoming Events End -->
         </div>
-        <!-- Upcoming Events End -->
     </div>
-</div>
-<hr>
-<br>
+    <hr>
+    <br>
     <!-- Contact Start -->
     <div class="container-fluid">
         <div class="text-center mx-auto  wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
             <h3 class="">Contact Us</h3>
         </div> <br>
-     
+
         <div class="container">
             <div class="row">
 
@@ -517,13 +531,10 @@
         <div class="container py-5">
             <div class="row g-5">
                 <div class="col-lg-4 col-md-4">
-                    <h1 class="fw-bold text-primary m-0">Vcare<span class="text-white">kids</span></h1>
+                    <h1 class="fw-bold  m-0" style="color: #bf423c;">Vcare<span class="text-white"> Kids</span></h1>
                     <p>Smart Eye is a leading provider of information technology, consulting, and business process services. Our dedicated employees offer strategic insights, technological expertise and industry experience.</p>
                     <div class="d-flex pt-2">
-                        <a class="btn btn-square me-1" href=""><i class="fab fa-twitter"></i></a>
-                        <a class="btn btn-square me-1" href=""><i class="fab fa-facebook-f"></i></a>
-                        <a class="btn btn-square me-1" href=""><i class="fab fa-youtube"></i></a>
-                        <a class="btn btn-square me-0" href=""><i class="fab fa-linkedin-in"></i></a>
+                        <a class="btn btn-square me-1" href="https://www.facebook.com/vcarekids"><i class="fab fa-facebook-f"></i></a>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4">
@@ -534,12 +545,12 @@
                 </div>
                 <div class="col-lg-4 col-md-4">
                     <h5 class="text-light mb-4">Quick Links</h5>
-                    <a class="btn btn-link" href="">Home</a>
-                    <a class="btn btn-link" href="">About Us</a>
-                    <a class="btn btn-link" href="">Contact Us</a>
-                    <a class="btn btn-link" href="">Donation</a>
+                    <a class="btn btn-link" href="index.php">Home</a>
+                    <a class="btn btn-link" href="about.php">About Us</a>
+                    <a class="btn btn-link" href="donar.php">Donars</a>
+                    <a class="btn btn-link" href="service.php">Activities</a>
+                    <a class="btn btn-link" href="contact.php">Contact Us</a>
                 </div>
-
             </div>
         </div>
         <div class="container-fluid copyright">
