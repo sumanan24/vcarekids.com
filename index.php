@@ -294,7 +294,7 @@
                             ?>
                             <?php while ($case = $result->fetch_assoc()): ?>
                                 <div class="col-lg-6 col-md-6 col-sm-12 text-center">
-                                    <div class="card shadow-lg p-3 border-dark" style="border-width: 3px; height: 200px;">
+                                    <div class="card shadow-lg p-3 border-dark" style="border-width: 3px; height: 200px; margin-bottom: 10px;">
                                         <div class="card-body">
                                             <h5 class="card-title text-dark fw-bold"><?php echo htmlspecialchars($case['title']); ?></h5>
                                             <p class="text-muted" style="font-size: 14px;">
