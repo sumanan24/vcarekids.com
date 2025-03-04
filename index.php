@@ -111,6 +111,8 @@
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 3);
         }
 
+        
+
         @media screen and (max-width: 768px) {
             .text-outline-stroke {
                 font-size: 25px;
@@ -183,7 +185,7 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav ms-auto p-4 p-lg-0">
-                    <a href="index.php" class="nav-item nav-link active">Home</a>
+                    <a href="index.php" class="nav-item nav-link active" style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 3);">Home</a>
                     <a href="about.php" class="nav-item nav-link">About</a>
                     <a href="service.php" class="nav-item nav-link">Activites</a>
                     <a href="donar.php" class="nav-item nav-link">Donars</a>
