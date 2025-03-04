@@ -79,7 +79,7 @@
         .donor-marquee {
             display: flex;
             align-items: center;
-            background: rgb(250, 250, 0);
+            background: #bf423c;
             padding: 10px;
             white-space: nowrap;
             overflow: hidden;
