@@ -399,23 +399,6 @@
     </div>
     <br>
     <hr>
-
-    <div class="container-xxl">
-        <div class="container">
-            <!-- Upcoming Events Start -->
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
-                        <h3 class="">Upcoming Events</h3>
-                    </div>
-                    <br>
-
-                </div>
-            </div>
-            <!-- Upcoming Events End -->
-        </div>
-    </div>
-    <hr>
     <br>
     <!-- Contact Start -->
     <div class="container-fluid">
