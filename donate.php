@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php include('includes/config.php') ?>
+
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -30,7 +31,7 @@
         .donor-marquee {
             display: flex;
             align-items: center;
-            background: #bf423c;
+            background: #4f0504;
             padding: 10px;
             white-space: nowrap;
             overflow: hidden;
@@ -65,6 +66,7 @@
                 transform: translateX(-100%);
             }
         }
+
         .text-outline-stroke {
             font-size: 46px;
             font-weight: bold;
@@ -72,10 +74,10 @@
             -webkit-text-stroke: 1px black;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 3);
         }
-        .paypal
-        {
-            width: 40%;
-        }
+
+
+
+
 
         @media screen and (max-width: 768px) {
             .text-outline-stroke {
@@ -84,10 +86,10 @@
                 color: white;
                 -webkit-text-stroke: 1px black;
             }
-            .paypal
-        {
-            width: 100%;
-        }
+
+            .paypal {
+                width: 5px;
+            }
         }
     </style>
 </head>
@@ -105,7 +107,7 @@
         <div class="top-bar text-white-50 row gx-0 align-items-center d-none d-lg-flex">
             <div class="col-lg-6 px-5 text-start">
                 <small><i class="fa fa-phone me-2"></i>+1-416-644-1113</small>
-                <small class="ms-4"><i class="fa fa-envelope me-2"></i>info@vcarekids.org</small>
+                <small class="ms-4"><i class="fa fa-envelope me-2"></i>Vunitedcare4kids@gmail.com</small>
             </div>
             <div class="col-lg-6 px-5 text-end">
                 <a class="text-white-50 ms-3" href="https://www.facebook.com/vcarekids"><i class="fab fa-facebook-f"></i> Facebook</a>
@@ -114,9 +116,9 @@
         <div class="blinking-text">
             <!-- <p style="text-align: center; font-size: 18px;" class="p-2">Our Donars</p> -->
             <div class="donor-marquee">
-                <span class="donor-title" style="color:black;">Our Honorable Donors:</span>
+                <span class="donor-title" style="color:white;">Our Honorable Donors:</span>
                 <div class="marquee-container">
-                    <div class="marquee-content" style="color:black;">
+                    <div class="marquee-content" style="color:white;">
                         <?php
                         $sql = "SELECT donars.donarfullname, COUNT(students.donar_id) AS student_count FROM donars LEFT JOIN students ON students.donar_id = donars.id GROUP BY donars.id, donars.donarfullname;";
                         $result = $con->query($sql);
@@ -135,7 +137,7 @@
 
         <nav class="navbar navbar-expand-lg navbar-dark py-lg-0 px-lg-5 wow fadeIn" data-wow-delay="0.1s">
             <a href="index.php" class="navbar-brand ms-4 ms-lg-0">
-                <h1 class="fw-bold m-0 text-outline-stroke" style="color: #bf423c;"> VanniShangam<span class="text-white">Vcarekids</span></h1>
+                <h1 class="fw-bold m-0 text-outline-stroke" style="color: white;"> VanniShangam<span class="text-white">Vcarekids</span></h1>
             </a>
             <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                 <span class="navbar-toggler-icon"></span>
@@ -143,7 +145,7 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav ms-auto p-4 p-lg-0">
                     <a href="index.php" class="nav-item nav-link">Home</a>
-                    <a href="about.php" class="nav-item nav-link " >About</a>
+                    <a href="about.php" class="nav-item nav-link ">About</a>
                     <a href="service.php" class="nav-item nav-link">Activites</a>
                     <a href="donar.php" class="nav-item nav-link">Donars</a>
                     <a href="contact.php" class="nav-item nav-link " style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 3);">Contact</a>
@@ -173,12 +175,25 @@
     <!-- Page Header End -->
 
     <!-- Donate Start -->
-    <div class="container-fluid py-5">
+    <div class="container-fluid ">
         <div class="container">
             <div class="row g-5 align-items-center">
                 <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
+                    <p class="lead">Donate using our PayPal QR code</p>
+                    <img src="img/qrcode.png" style="width: 70%;">
+                    <br>
+                    <p class="lead">For cheque <br>
+                        <b style="font-weight: bold; color:#4f0504;">Vunited Care For Kids Inc.</b>
+                    </p>
+
+                    <br>
+                    <p class="lead">For e transfer <br>
+                        <b style="font-weight: bold; color:#4f0504;"> Vunitedcare4kids@gmail.com</b>
+                    </p>
+
+
                     
-                    <img src="img/qrcode.png"  class="Paypal" >
+                   
                 </div>
                 <div class="col-lg-6" data-wow-delay="0.5s">
                     <div class="h-100 bg-dark p-5">
@@ -186,9 +201,9 @@
                         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             require 'includes/config.php'; // Include your database configuration file
 
-                            $fullname = $_POST['fname'] ;
-                            $email = $_POST['email'] ;
-                            $amount = $_POST['amount'] ;
+                            $fullname = $_POST['fname'];
+                            $email = $_POST['email'];
+                            $amount = $_POST['amount'];
 
                             if (isset($_FILES['receipt']) && $_FILES['receipt']['error'] === UPLOAD_ERR_OK) {
                                 $image = file_get_contents($_FILES['receipt']['tmp_name']);
@@ -231,7 +246,7 @@
                                 <div class="col-12">
                                     <div class="form-floating">
                                         <input type="file" name="receipt" class="form-control" id="receipt" required>
-                                        <label for="receipt">Upload Paypal Payment Receipt</label>
+                                        <label for="receipt" style="color: #4f0504;">Upload Paid Payment Receipt</label>
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -251,7 +266,7 @@
         <div class="container py-5">
             <div class="row g-5">
                 <div class="col-lg-4 col-md-4">
-                    <h1 class="fw-bold  m-0" style="color: #bf423c;">Vcare<span class="text-white"> Kids</span></h1>
+                    <h1 class="fw-bold  m-0" style="color: white;">Vcare<span class="text-white"> Kids</span></h1>
                     <p>Smart Eye is a leading provider of information technology, consulting, and business process services. Our dedicated employees offer strategic insights, technological expertise and industry experience.</p>
                     <div class="d-flex pt-2">
                         <a class="btn btn-square me-1" href="https://www.facebook.com/vcarekids"><i class="fab fa-facebook-f"></i></a>
@@ -261,7 +276,7 @@
                     <h5 class="text-light mb-4">Address</h5>
                     <p><i class="fa fa-map-marker-alt me-3"></i>8-3500 McNicoll Ave,Scarborough,ON,Canada,M1V 4C7</p>
                     <p><i class="fa fa-phone-alt me-3"></i>+1-416-644-1113</p>
-                    <p><i class="fa fa-envelope me-3"></i>info@vcarekids.org</p>
+                    <p><i class="fa fa-envelope me-3"></i>Vunitedcare4kids@gmail.com</p>
                 </div>
                 <div class="col-lg-4 col-md-4">
                     <h5 class="text-light mb-4">Quick Links</h5>
