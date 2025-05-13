@@ -8,6 +8,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $Details = trim($_POST['Details']);
     $status= trim($_POST['Casestatus']);
     $phone = trim($_POST['phone']);
+    $whatsapp_number = trim($_POST['whatsapp_number']);
+    $parent_phone_number = trim($_POST['parent_phone_number']);
     $parentname = trim($_POST['parentname']);
     $parentaddress = trim($_POST['parentaddress']);
     $permanentaddress = trim($_POST['permanentaddress']);
@@ -30,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // Validate required fields
     if (
-        empty($fullname) || empty($Details) || empty($phone) || empty($parentname) ||
+        empty($fullname) || empty($Details) || empty($phone) || empty($whatsapp_number) || empty($parent_phone_number) || empty($parentname) ||
         empty($parentaddress) || empty($permanentaddress) || empty($dob) || empty($district) || empty($category) || empty($donar_id) ||
         empty($gender) || empty($grade) || empty($schoolname) || empty($image)
     ) {
@@ -39,8 +41,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // Insert query to include new fields (family income, bank details, etc.)
     $query = "INSERT INTO students 
-(fullname, Details, Casestatus ,phone, parentname, parentaddress, permanentaddress, dob, district, category, donar_id, image, gender, grade, schoolname, familyincome, parentjob, bankname, bankbranch, accountnumber, holdername) 
-VALUES (?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+(fullname, Details, Casestatus ,phone, whatsapp_number, parent_phone_number, parentname, parentaddress, permanentaddress, dob, district, category, donar_id, image, gender, grade, schoolname, familyincome, parentjob, bankname, bankbranch, accountnumber, holdername) 
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 // Prepare and bind parameters
 $stmt = $con->prepare($query);
@@ -50,11 +52,13 @@ if (!$stmt) {
 }
 
 $stmt->bind_param(
-    'sssssssssssssssssssss',
+    'sssssssssssssssssssssss',
     $fullname,
     $Details,
     $status,
     $phone,
+    $whatsapp_number,
+    $parent_phone_number,
     $parentname,
     $parentaddress,
     $permanentaddress,
@@ -181,7 +185,14 @@ $donorResult = $con->query($donorQuery);
                                     <div class="col-md-6">
                                         <div class="mb-3">
                                             <label for="phone" class="form-label">Phone Number</label>
-                                            <input type="number" class="form-control" id="phone" name="phone" required>
+                                            <input type="text" class="form-control" id="phone" name="phone" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="whatsapp_number" class="form-label">WhatsApp Number</label>
+                                            <input type="text" class="form-control" name="whatsapp_number" required>
                                         </div>
                                     </div>
                                 </div>
@@ -239,6 +250,7 @@ $donorResult = $con->query($donorQuery);
                                             <input type="date" class="form-control" id="dob" name="dob" required>
                                         </div>
                                     </div>
+
                                 </div>
 
                                 <div class="row">
@@ -327,7 +339,16 @@ $donorResult = $con->query($donorQuery);
                                     </div>
                                 </div>
 
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="parent_phone_number" class="form-label">Parent Phone Number</label>
+                                            <input type="text" class="form-control" name="parent_phone_number" required>
+                                        </div>
+                                    </div>
+                                </div>
 
+                        
 
                                 <hr>
                                 <h3><b>Bank Details</b></h3>

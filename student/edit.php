@@ -8,6 +8,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $Details = trim($_POST['Details']);
     $Casestatus = trim($_POST['Casestatus']);
     $phone = trim($_POST['phone']);
+    $whatsapp_number = trim($_POST['whatsapp_number']);
+    $parent_phone_number = trim($_POST['parent_phone_number']);
     $parentname = trim($_POST['parentname']);
     $parentaddress = trim($_POST['parentaddress']);
     $permanentaddress = trim($_POST['permanentaddress']);
@@ -28,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // Validate required fields
     if (
-        empty($fullname) || empty($Details) || empty($phone) || empty($parentname) ||
+        empty($fullname) || empty($Details) || empty($phone) || empty($whatsapp_number) || empty($parent_phone_number) || empty($parentname) ||
         empty($parentaddress) || empty($permanentaddress) || empty($dob) || empty($district) ||
         empty($category) || empty($donar_id) || empty($gender) || empty($grade) || empty($schoolname)
     ) {
@@ -37,10 +39,32 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // Handle image upload
     $image_query = "";
-    $params = [&$fullname, &$Details, &$Casestatus, &$phone, &$parentname, &$parentaddress, &$permanentaddress,
-               &$dob, &$district, &$category, &$donar_id, &$gender, &$grade, &$schoolname, &$familyincome, 
-               &$parentjob, &$bankname, &$bankbranch, &$accountnumber, &$holdername, &$id];
-    $types = "ssssssssssssssssssssi";
+    $params = [
+        &$fullname,
+        &$Details,
+        &$Casestatus,
+        &$phone,
+        &$whatsapp_number,
+        &$parent_phone_number,
+        &$parentname,
+        &$parentaddress,
+        &$permanentaddress,
+        &$dob,
+        &$district,
+        &$category,
+        &$donar_id,
+        &$gender,
+        &$grade,
+        &$schoolname,
+        &$familyincome,
+        &$parentjob,
+        &$bankname,
+        &$bankbranch,
+        &$accountnumber,
+        &$holdername,
+        &$id
+    ];
+    $types = "ssssssssssssssssssssssi";
 
     if ($_FILES['image']['size'] > 0) {
         $image = file_get_contents($_FILES['image']['tmp_name']);
@@ -50,7 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     // Update query
-    $query = "UPDATE students SET fullname = ?, Details = ?, Casestatus = ?, phone = ?, parentname = ?, 
+    $query = "UPDATE students SET fullname = ?, Details = ?, Casestatus = ?, phone = ?, whatsapp_number = ?, parent_phone_number = ?, parentname = ?, 
         parentaddress = ?, permanentaddress = ?, dob = ?, district = ?, category = ?, donar_id = ?, 
         gender = ?, grade = ?, schoolname = ?, familyincome = ?, parentjob = ?, bankname = ?, bankbranch = ?, 
         accountnumber = ?, holdername = ? $image_query WHERE id = ?";
@@ -189,12 +213,19 @@ $donorResult = $con->query($donorQuery);
                                     <div class="col-md-6">
                                         <div class="mb-3">
                                             <label for="phone" class="form-label">Phone Number</label>
-                                            <input type="number" class="form-control" id="phone" name="phone" value="<?php echo $student['phone']; ?>" required>
+                                            <input type="text" class="form-control" id="phone" name="phone" value="<?php echo $student['phone']; ?>" required>
                                         </div>
                                     </div>
                                 </div>
                                 <!-- 1st row end -->
-
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="whatsapp_number" class="form-label">WhatsApp Number</label>
+                                            <input type="text" class="form-control" name="whatsapp_number" value="<?php echo $student['whatsapp_number']; ?>" required>
+                                        </div>
+                                    </div>
+                                </div>
                                 <!-- 2nd row start -->
                                 <div class="mb-3">
                                     <div class="row">
@@ -264,7 +295,7 @@ $donorResult = $con->query($donorQuery);
                                         <div class="mb-3">
                                             <label for="district" class="form-label">District</label>
                                             <select name="district" id="district" class="form-control" required>
-                                            <?php
+                                                <?php
                                                 $districts = ["colombo", "gampaha", "kalutara", "kandy", "matale", "nuwara_eliya", "galle", "matara", "hambantota", "jaffna", "kilinochchi", "mannar", "vavuniya", "mullaitivu", "batticaloa", "ampara", "trincomalee", "kurunegala", "puttalam", "anuradhapura", "polonnaruwa", "badulla", "monaragala", "ratnapura", "kegalle"];
                                                 foreach ($districts as $district) {
                                                     $selected = $district == $student['district'] ? 'selected' : '';
@@ -311,6 +342,17 @@ $donorResult = $con->query($donorQuery);
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="parent_phone_number" class="form-label">Parent Phone Number</label>
+                                            <input type="text" class="form-control" name="parent_phone_number" value="<?php echo $student['parent_phone_number']; ?>" required>
+                                        </div>
+                                    </div>
+                                </div>
+
+
 
                                 <hr>
                                 <h3><b>Bank Details</b></h3>

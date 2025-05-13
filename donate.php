@@ -7,7 +7,7 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
-    <title>ChariTeam - Free Nonprofit Website Template</title>
+    <title>Vcarekids</title>
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -192,8 +192,8 @@
                     </p>
 
 
-                    
-                   
+
+
                 </div>
                 <div class="col-lg-6" data-wow-delay="0.5s">
                     <div class="h-100 bg-dark p-5">
@@ -244,9 +244,9 @@
                                     </div>
                                 </div>
                                 <div class="col-12">
+                                    <p class="text-light">Upload a Photo of a Payment Receipt</p>
                                     <div class="form-floating">
                                         <input type="file" name="receipt" class="form-control" id="receipt" required>
-                                        <label for="receipt" style="color: #4f0504;">Upload Paid Payment Receipt</label>
                                     </div>
                                 </div>
                                 <div class="col-12">
