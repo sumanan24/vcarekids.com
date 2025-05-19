@@ -2,8 +2,19 @@
 include_once '../includes/config.php';
 
 // Fetch news records
-$query = "SELECT id, title, content, link, created_at, updated_at FROM news";
+$category_filter = isset($_GET['category_id']) ? intval($_GET['category_id']) : 0;
+
+$query = "SELECT n.id, n.title, n.content, n.link, n.created_at, n.updated_at, c.categoryname as category_name 
+          FROM news n 
+          LEFT JOIN activity_categories c ON n.category_id = c.id";
+if ($category_filter > 0) {
+    $query .= " WHERE n.category_id = " . $category_filter;
+}
 $result = $con->query($query);
+
+// Get all categories for filter
+$cat_query = "SELECT id, categoryname FROM activity_categories ORDER BY categoryname";
+$cat_result = $con->query($cat_query);
 
 // Handle deletion
 if (isset($_GET['delete_id'])) {
@@ -77,6 +88,22 @@ if (isset($_GET['delete_id'])) {
                         </div><?php }
                                 ?>
 
+                    <div class="row mb-3">
+                        <div class="col-md-3">
+                            <form method="GET" class="form-inline">
+                                <select class="form-control" name="category_id" onchange="this.form.submit()">
+                                    <option value="0">All Categories</option>
+                                    <?php
+                                    while ($cat = $cat_result->fetch_assoc()) {
+                                        $selected = ($category_filter == $cat['id']) ? 'selected' : '';
+                                        echo "<option value=\"" . $cat['id'] . "\" $selected>" . htmlspecialchars($cat['categoryname']) . "</option>";
+                                    }
+                                    ?>
+                                </select>
+                            </form>
+                        </div>
+                    </div>
+
                     <table class="table table-bordered" id="datatablesSimple">
                         <thead>
                             <tr>
@@ -84,6 +111,7 @@ if (isset($_GET['delete_id'])) {
                                 <th>Title</th>
                                 <th>Content</th>
                                 <th>Link</th>
+                                <th>Category</th>
                                 <?php
                                 if ($_SESSION['role'] == 'admin') {
                                 ?>
@@ -103,6 +131,7 @@ if (isset($_GET['delete_id'])) {
                                     <td><?= $row['title']; ?></td>
                                     <td><?= substr($row['content'], 0, 50); ?>...</td>
                                     <td><a href="<?= $row['link']; ?>" target="_blank">Link</a></td>
+                                    <td><?= htmlspecialchars($row['category_name']); ?></td>
                                     <?php
                                     if ($_SESSION['role'] == 'admin') {
                                     ?>

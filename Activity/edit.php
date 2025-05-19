@@ -4,11 +4,11 @@ include_once '../includes/config.php';
 if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['id'])) {
     $id = $_GET['id'];
 
-    $query = "SELECT title, content, link, image FROM news WHERE id = ?";
+    $query = "SELECT title, content, link, image, category_id FROM news WHERE id = ?";
     $stmt = $con->prepare($query);
     $stmt->bind_param("i", $id);
     $stmt->execute();
-    $stmt->bind_result($title, $content, $link, $image);
+    $stmt->bind_result($title, $content, $link, $image, $category_id);
     $stmt->fetch();
     $stmt->close();
 }
@@ -18,11 +18,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $title = $_POST['title'];
     $content = $_POST['content'];
     $link = $_POST['link'];
+    $category_id = $_POST['category_id'];
     $updated_at = date('Y-m-d H:i:s');
 
-    $query = "UPDATE news SET title = ?, content = ?, link = ?, updated_at = ?";
-    $params = [$title, $content, $link, $updated_at];
-    $types = "ssss";
+    $query = "UPDATE news SET title = ?, content = ?, link = ?, category_id = ?, updated_at = ?";
+    $params = [$title, $content, $link, $category_id, $updated_at];
+    $types = "sssss";
 
     if (!empty($_FILES['image']['tmp_name'])) {
         $image = file_get_contents($_FILES['image']['tmp_name']);
@@ -95,6 +96,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 <div class="mb-3">
                                     <label for="link" class="form-label">Link</label>
                                     <input type="url" class="form-control" id="link" name="link" value="<?php echo htmlspecialchars($link); ?>">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="category_id" class="form-label">Category</label>
+                                    <select class="form-control" id="category_id" name="category_id" required>
+                                        <option value="">Select Category</option>
+                                        <?php
+                                        $cat_query = "SELECT * FROM `activity_categories`";
+                                        $cat_result = $con->query($cat_query);
+                                        while ($cat = $cat_result->fetch_assoc()) {
+                                            $selected = ($category_id == $cat['id']) ? 'selected' : '';
+                                            echo "<option value=\"" . $cat['id'] . "\" $selected>" . htmlspecialchars($cat['categoryname']) . "</option>";
+                                        }
+                                        ?>
+                                    </select>
                                 </div>
                                 <div class="mb-3">
                                     <label for="image" class="form-label">Image</label>

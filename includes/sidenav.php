@@ -57,6 +57,7 @@ if (!isset($_SESSION['email'])) {
                 </a>
                 <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav">
+                         <a class="nav-link" href="../Activity/category.php"><i class="fa fa-bars"></i> &nbsp;&nbsp;Categorys</a>
                         <a class="nav-link" href="../Activity/new.php"><i class="fa fa-bars"></i> &nbsp;&nbsp;New</a>
                         <a class="nav-link" href="../Activity/manage.php"><i class="fa fa-server"></i> &nbsp;&nbsp;Manage</a>
                     </nav>

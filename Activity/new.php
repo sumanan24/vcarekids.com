@@ -4,21 +4,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $title = $_POST['title'];
     $content = $_POST['content'];
     $link = $_POST['link'];
+    $category_id = $_POST['category_id'];
     $image = file_get_contents($_FILES['image']['tmp_name']);
     $created_at = date('Y-m-d H:i:s');
     $updated_at = $created_at;
 
-    $query = "INSERT INTO news (title, content, link, image, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?)";
+    $query = "INSERT INTO news (title, content, link, image, category_id, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?)";
     $stmt = $con->prepare($query);
-    $stmt->bind_param("ssssss", $title, $content, $link, $image, $created_at, $updated_at);
+    $stmt->bind_param("sssssss", $title, $content, $link, $image, $category_id, $created_at, $updated_at);
 
     if ($stmt->execute()) {
         header("Location: manage.php");
     } else {
         echo "Error: " . $stmt->error;
     }
-    $stmt->close();
-    $conn->close();
 }
 
 ?>
@@ -71,6 +70,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 <div class="mb-3">
                                     <label for="link" class="form-label">Link</label>
                                     <input type="url" class="form-control" id="link" name="link">
+                                </div>
+                                <div class="mb-3">
+
+                                    <label for="category_id" class="form-label">Category</label>
+                                    <select class="form-control" id="category_id" name="category_id" required>
+                                        <option value="" selected disabled>Select Category</option>
+                                        <?php
+                                        include('../includes/config.php');
+                                        $cquery = "SELECT id, categoryname FROM activity_categories";
+                                        $cresult = $con->query($cquery);
+                                        while ($row = $cresult->fetch_assoc()) {
+                                            echo "<option value=\"" . $row['id'] . "\">" . $row['categoryname'] . "</option>";
+                                        }
+
+                                        ?>
+                                    </select>
                                 </div>
                                 <div class="mb-3">
                                     <label for="image" class="form-label">Image</label>

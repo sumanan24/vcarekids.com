@@ -159,12 +159,15 @@
                 <div class="marquee-container">
                     <div class="marquee-content" style="color:white;">
                         <?php
-                        $sql = "SELECT donars.donarfullname, COUNT(students.donar_id) AS student_count FROM donars LEFT JOIN students ON students.donar_id = donars.id GROUP BY donars.id, donars.donarfullname;";
+                        $sql = "SELECT donars.donarfullname, COUNT(students.donar_id) AS student_count 
+                                FROM donars 
+                                LEFT JOIN students ON students.donar_id = donars.id 
+                                GROUP BY donars.id, donars.donarfullname";
                         $result = $con->query($sql);
                         if ($result->num_rows > 0) {
                             while ($row = $result->fetch_assoc()) {
                                 if ($row["student_count"] >= 1) {
-                                    echo "<b>" . $row["donarfullname"] . "</b> (" . $row["student_count"] . " Students) | ";
+                                    echo "<b>" . htmlspecialchars($row["donarfullname"]) . "</b> (" . $row["student_count"] . " Students) | ";
                                 }
                             }
                         }
@@ -216,20 +219,53 @@
 
     <div class="container-xxl ">
         <div class="container">
-            <!-- event Start -->
+            <!-- Category Filter Start -->
+            <div class="row mb-4">
+                <div class="col-lg-12">
+                    <div class="category-filter text-center">
+                        <a href="service.php" class="btn <?php echo !isset($_GET['category']) ? 'btn-primary' : 'btn-outline-primary'; ?> m-2">All</a>
+                        <?php
+                        $cat_sql = "SELECT * FROM activity_categories ORDER BY categoryname";
+                        $cat_result = $con->query($cat_sql);
+                        while ($cat = $cat_result->fetch_assoc()) {
+                            $active = isset($_GET['category']) && $_GET['category'] == $cat['id'] ? 'btn-primary' : 'btn-outline-primary';
+                            echo '<a href="service.php?category=' . $cat['id'] . '" class="btn ' . $active . ' m-2">' . htmlspecialchars($cat['categoryname']) . '</a>';
+                        }
+                        ?>
+                    </div>
+                </div>
+            </div>
+            <!-- Category Filter End -->
+
+            <!-- Activities Start -->
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="text-center mx-auto  wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
-                        
-                    </div>
                     <div class="row g-4 justify-content-center">
                         <?php
-                        $sql = "SELECT title, content, link, image FROM news ORDER BY id DESC ";
+                        // Base query
+                        $sql = "SELECT n.title, n.content, n.link, n.image, ac.categoryname 
+                               FROM news n 
+                               LEFT JOIN activity_categories ac ON n.category_id = ac.id";
+                        
+                        // Add category filter if selected
+                        if (isset($_GET['category'])) {
+                            $category_id = mysqli_real_escape_string($con, $_GET['category']);
+                            $sql .= " WHERE n.category_id = '$category_id'";
+                        }
+                        
+                        $sql .= " ORDER BY ac.categoryname, n.id DESC";
                         $result = $con->query($sql);
+
+                        $current_category = '';
+                        
                         // Check if there are results
                         if ($result->num_rows > 0) {
-                            // Output data for each row
                             while ($row = $result->fetch_assoc()) {
+                                // Display category header if it's a new category
+                                if ($current_category != $row['categoryname']) {
+                                    $current_category = $row['categoryname'];
+                                    echo '<div class="col-12"><h3 class="text-primary mt-4 mb-3">' . htmlspecialchars($current_category ?: 'Uncategorized') . '</h3></div>';
+                                }
                         ?>
                                 <div class="col-lg-4 col-md-4 wow fadeInUp" data-wow-delay="0.5s">
                                     <div class="causes-item d-flex flex-column bg-white border-top border-5 rounded-top overflow-hidden h-100">
@@ -263,7 +299,7 @@
                 </div>
 
             </div>
-            <!-- event End -->
+            <!-- Activities End -->
         </div>
     </div>
    
