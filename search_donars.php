@@ -4,14 +4,14 @@ include('includes/config.php');
 $query = isset($_POST['query']) ? $_POST['query'] : '';
 $category = isset($_POST['category']) ? $_POST['category'] : '';
 
-$sql = "SELECT donars.donarfullname, donars.Country, donars.photo, 
+$sql = "SELECT DISTINCT donars.donarfullname, donars.Country, donars.photo, 
                (SELECT COUNT(*) FROM students WHERE students.donar_id = donars.id) AS studentcount 
         FROM donars 
-        JOIN students ON donars.id = students.donar_id 
-        WHERE donars.donarfullname LIKE ?";
+        WHERE donars.id IN (SELECT DISTINCT donar_id FROM students)
+        AND donars.donarfullname LIKE ?";
 
 if (!empty($category)) {
-    $sql .= " AND students.category = ?";
+    $sql .= " AND donars.id IN (SELECT donar_id FROM students WHERE category = ?)";
 }
 
 $sql .= " ORDER BY studentcount DESC";

@@ -7,6 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $fullname = trim($_POST['fullname']);
     $Details = trim($_POST['Details']);
     $Casestatus = trim($_POST['Casestatus']);
+    $file_number = trim($_POST['file_number']);
     $phone = trim($_POST['phone']);
     $whatsapp_number = trim($_POST['whatsapp_number']);
     $parent_phone_number = trim($_POST['parent_phone_number']);
@@ -32,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (
         empty($fullname) || empty($Details) || empty($phone) || empty($whatsapp_number) || empty($parent_phone_number) || empty($parentname) ||
         empty($parentaddress) || empty($permanentaddress) || empty($dob) || empty($district) ||
-        empty($category) || empty($donar_id) || empty($gender) || empty($grade) || empty($schoolname)
+        empty($category) || empty($donar_id) || empty($gender) || empty($grade) || empty($schoolname) || empty($file_number)
     ) {
         die("Error: All required fields must be filled.");
     }
@@ -43,6 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         &$fullname,
         &$Details,
         &$Casestatus,
+        &$file_number,
         &$phone,
         &$whatsapp_number,
         &$parent_phone_number,
@@ -64,7 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         &$holdername,
         &$id
     ];
-    $types = "ssssssssssssssssssssssi";
+    $types = str_repeat('s', count($params) - 1) . 'i'; // All strings except last one (id) which is integer
 
     if ($_FILES['image']['size'] > 0) {
         $image = file_get_contents($_FILES['image']['tmp_name']);
@@ -74,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     // Update query
-    $query = "UPDATE students SET fullname = ?, Details = ?, Casestatus = ?, phone = ?, whatsapp_number = ?, parent_phone_number = ?, parentname = ?, 
+    $query = "UPDATE students SET fullname = ?, Details = ?, Casestatus = ?, file_number = ?, phone = ?, whatsapp_number = ?, parent_phone_number = ?, parentname = ?, 
         parentaddress = ?, permanentaddress = ?, dob = ?, district = ?, category = ?, donar_id = ?, 
         gender = ?, grade = ?, schoolname = ?, familyincome = ?, parentjob = ?, bankname = ?, bankbranch = ?, 
         accountnumber = ?, holdername = ? $image_query WHERE id = ?";
@@ -206,19 +208,25 @@ $donorResult = $con->query($donorQuery);
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="mb-3">
+                                            <label for="file_number" class="form-label">File Number</label>
+                                            <input type="text" class="form-control" name="file_number" value="<?php echo $student['file_number']; ?>" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
                                             <label for="fullname" class="form-label">Full Name</label>
                                             <input type="text" class="form-control" id="fullname" name="fullname" value="<?php echo $student['fullname']; ?>" required>
                                         </div>
                                     </div>
+                                </div>
+                                <!-- 1st row end -->
+                                <div class="row">
                                     <div class="col-md-6">
                                         <div class="mb-3">
                                             <label for="phone" class="form-label">Phone Number</label>
                                             <input type="text" class="form-control" id="phone" name="phone" value="<?php echo $student['phone']; ?>" required>
                                         </div>
                                     </div>
-                                </div>
-                                <!-- 1st row end -->
-                                <div class="row">
                                     <div class="col-md-6">
                                         <div class="mb-3">
                                             <label for="whatsapp_number" class="form-label">WhatsApp Number</label>

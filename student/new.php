@@ -6,7 +6,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Get form data and trim to remove unnecessary whitespace
     $fullname = trim($_POST['fullname']);
     $Details = trim($_POST['Details']);
-    $status= trim($_POST['Casestatus']);
+    $Casestatus = trim($_POST['Casestatus']);
+    $file_number = trim($_POST['file_number']);
     $phone = trim($_POST['phone']);
     $whatsapp_number = trim($_POST['whatsapp_number']);
     $parent_phone_number = trim($_POST['parent_phone_number']);
@@ -33,64 +34,39 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Validate required fields
     if (
         empty($fullname) || empty($Details) || empty($phone) || empty($whatsapp_number) || empty($parent_phone_number) || empty($parentname) ||
-        empty($parentaddress) || empty($permanentaddress) || empty($dob) || empty($district) || empty($category) || empty($donar_id) ||
-        empty($gender) || empty($grade) || empty($schoolname) || empty($image)
+        empty($parentaddress) || empty($permanentaddress) || empty($dob) || empty($district) ||
+        empty($category) || empty($donar_id) || empty($gender) || empty($grade) || empty($schoolname) || empty($file_number)
     ) {
         die("Error: All fields are required.");
     }
 
     // Insert query to include new fields (family income, bank details, etc.)
-    $query = "INSERT INTO students 
-(fullname, Details, Casestatus ,phone, whatsapp_number, parent_phone_number, parentname, parentaddress, permanentaddress, dob, district, category, donar_id, image, gender, grade, schoolname, familyincome, parentjob, bankname, bankbranch, accountnumber, holdername) 
-VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $query = "INSERT INTO students (fullname, Details, Casestatus, file_number, phone, whatsapp_number, parent_phone_number, parentname, parentaddress, 
+        permanentaddress, dob, district, category, donar_id, gender, grade, schoolname, familyincome, parentjob, bankname, bankbranch, accountnumber, 
+        holdername, image) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-// Prepare and bind parameters
-$stmt = $con->prepare($query);
+    // Prepare and bind parameters
+    $stmt = $con->prepare($query);
 
-if (!$stmt) {
-    die("Prepare failed: " . $con->error);
-}
+    if (!$stmt) {
+        die("Prepare failed: " . $con->error);
+    }
 
-$stmt->bind_param(
-    'sssssssssssssssssssssss',
-    $fullname,
-    $Details,
-    $status,
-    $phone,
-    $whatsapp_number,
-    $parent_phone_number,
-    $parentname,
-    $parentaddress,
-    $permanentaddress,
-    $dob,
-    $district,
-    $category,
-    $donar_id,
-    $image,
-    $gender,
-    $grade,
-    $schoolname,
-    $familyincome,
-    $parentjob,
-    $bankname,
-    $bankbranch,
-    $accountnumber,
-    $holdername
-);
+    $stmt->bind_param("ssssssssssssssssssssssss", $fullname, $Details, $Casestatus, $file_number, $phone, $whatsapp_number, 
+        $parent_phone_number, $parentname, $parentaddress, $permanentaddress, $dob, $district, $category, $donar_id, $gender, $grade, 
+        $schoolname, $familyincome, $parentjob, $bankname, $bankbranch, $accountnumber, $holdername, $image);
 
-// Execute the statement
-if ($stmt->execute()) {
-    echo "Student record added successfully!";
-    header("Location: manage.php");
-} else {
-    echo "Error: " . $stmt->error;
-}
+    // Execute the statement
+    if ($stmt->execute()) {
+        echo "Student record added successfully!";
+        header("Location: manage.php");
+    } else {
+        echo "Error: " . $stmt->error;
+    }
 
     // Close the statement
     $stmt->close();
 }
-
-
 
 // Fetch donors for dropdown
 include_once '../includes/config.php';
@@ -176,6 +152,12 @@ $donorResult = $con->query($donorQuery);
                                 <h3><b>Student Personal Details</b></h3>
                                 <hr>
                                 <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="file_number" class="form-label">File Number</label>
+                                            <input type="text" class="form-control" name="file_number" required>
+                                        </div>
+                                    </div>
                                     <div class="col-md-6">
                                         <div class="mb-3">
                                             <label for="fullname" class="form-label">Full Name</label>
@@ -347,8 +329,6 @@ $donorResult = $con->query($donorQuery);
                                         </div>
                                     </div>
                                 </div>
-
-                        
 
                                 <hr>
                                 <h3><b>Bank Details</b></h3>

@@ -167,7 +167,7 @@
                         if ($result->num_rows > 0) {
                             while ($row = $result->fetch_assoc()) {
                                 if ($row["student_count"] >= 1) {
-                                    echo "<b>" . htmlspecialchars($row["donarfullname"]) . "</b> (" . $row["student_count"] . " Students) | ";
+                                    echo "<b>" . $row["donarfullname"] . "</b> ";
                                 }
                             }
                         }
