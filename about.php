@@ -96,17 +96,15 @@ include 'includes/config.php'; // Make sure this file contains your database con
             /* Spacing between title and scrolling text */
         }
 
+        /* CSS */
         .marquee-container {
             overflow: hidden;
             flex-grow: 1;
             position: relative;
+            display: flex;
+            align-items: center;
         }
 
-        .marquee-content {
-            display: inline-block;
-            white-space: nowrap;
-            animation: marquee 10s linear infinite;
-        }
 
         @keyframes marquee {
             from {
@@ -154,21 +152,23 @@ include 'includes/config.php'; // Make sure this file contains your database con
         <div class="blinking-text">
             <!-- <p style="text-align: center; font-size: 18px;" class="p-2">Our Donars</p> -->
             <div class="donor-marquee">
-                <span class="donor-title" style="color:white;">Our Honorable Donors:</span>
+                <span class="donor-title" style="color:white;">Our Honorable Donors:</span> <a href="donar.php" style="color:white;" class="btn btn-sm btn-primary">Search</a>
                 <div class="marquee-container">
-                    <div class="marquee-content" style="color:white;">
-                        <?php
-                        $sql = "SELECT donars.donarfullname, COUNT(students.donar_id) AS student_count FROM donars LEFT JOIN students ON students.donar_id = donars.id GROUP BY donars.id, donars.donarfullname;";
-                        $result = $con->query($sql);
-                        if ($result->num_rows > 0) {
-                            while ($row = $result->fetch_assoc()) {
-                                if ($row["student_count"] >= 1) {
-                                    echo "<b>" . $row["donarfullname"] ." | ". "</b> ";
+                    <marquee>
+                        <div style="color:white; --speed: 1;">
+                            <?php
+                            $sql = "SELECT donars.donarfullname, COUNT(students.donar_id) AS student_count FROM donars LEFT JOIN students ON students.donar_id = donars.id GROUP BY donars.id, donars.donarfullname;";
+                            $result = $con->query($sql);
+                            if ($result->num_rows > 0) {
+                                while ($row = $result->fetch_assoc()) {
+                                    if ($row["student_count"] >= 1) {
+                                        echo "<b>" . $row["donarfullname"] . " | " . "</b> ";
+                                    }
                                 }
                             }
-                        }
-                        ?>
-                    </div>
+                            ?>
+                        </div>
+                    </marquee>
                 </div>
             </div>
         </div>
@@ -268,8 +268,8 @@ include 'includes/config.php'; // Make sure this file contains your database con
     </div>
     <!-- About End -->
 
-     <!-- Footer Start -->
-     <div class="container-fluid bg-dark text-white-50 footer mt-5 pt-5 wow fadeIn" data-wow-delay="0.1s">
+    <!-- Footer Start -->
+    <div class="container-fluid bg-dark text-white-50 footer mt-5 pt-5 wow fadeIn" data-wow-delay="0.1s">
         <div class="container py-5">
             <div class="row g-5">
                 <div class="col-lg-4 col-md-4">
@@ -281,7 +281,7 @@ include 'includes/config.php'; // Make sure this file contains your database con
                 </div>
                 <div class="col-lg-4 col-md-4">
                     <h5 class="text-light mb-4">Address</h5>
-                    <p><i class="fa fa-map-marker-alt me-3"></i>8-3500 McNicoll Ave,Scarborough,ON,Canada,M1V 4C7</p>
+                    <p><i class="fa fa-map-marker-alt me-3"></i>8-3500 McNicoll Ave, Scarborough, ON, Canada, Ontario</p>
                     <p><i class="fa fa-phone-alt me-3"></i>+1-416-644-1113</p>
                     <p><i class="fa fa-envelope me-3"></i>Vunitedcare4kids@gmail.com</p>
                 </div>

@@ -99,14 +99,6 @@
             position: relative;
             display: flex;
             align-items: center;
-
-            /* for contrast */
-        }
-
-        .marquee-content {
-            display: inline-block;
-            white-space: nowrap;
-            color: white;
         }
 
         .text-outline-stroke {
@@ -115,8 +107,6 @@
             -webkit-text-stroke: 2px black;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 3);
         }
-
-
 
         @media screen and (max-width: 768px) {
             .text-outline-stroke {

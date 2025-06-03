@@ -93,16 +93,12 @@
             /* Spacing between title and scrolling text */
         }
 
-        .marquee-container {
+         .marquee-container {
             overflow: hidden;
             flex-grow: 1;
             position: relative;
-        }
-
-        .marquee-content {
-            display: inline-block;
-            white-space: nowrap;
-            animation: marquee 10s linear infinite;
+            display: flex;
+            align-items: center;
         }
 
         @keyframes marquee {
@@ -155,21 +151,23 @@
         <div class="blinking-text">
             <!-- <p style="text-align: center; font-size: 18px;" class="p-2">Our Donars</p> -->
             <div class="donor-marquee">
-                <span class="donor-title" style="color:white;">Our Honorable Donors:</span>
+                <span class="donor-title" style="color:white;">Our Honorable Donors:</span> <a href="donar.php" style="color:white;" class="btn btn-sm btn-primary">Search</a>
                 <div class="marquee-container">
-                    <div class="marquee-content" style="color:white;">
-                        <?php
-                        $sql = "SELECT donars.donarfullname, COUNT(students.donar_id) AS student_count FROM donars LEFT JOIN students ON students.donar_id = donars.id GROUP BY donars.id, donars.donarfullname;";
-                        $result = $con->query($sql);
-                        if ($result->num_rows > 0) {
-                            while ($row = $result->fetch_assoc()) {
-                                if ($row["student_count"] >= 1) {
-                                    echo "<b>" . $row["donarfullname"] ." | ". "</b> ";
+                    <marquee>
+                        <div style="color:white; --speed: 1;">
+                            <?php
+                            $sql = "SELECT donars.donarfullname, COUNT(students.donar_id) AS student_count FROM donars LEFT JOIN students ON students.donar_id = donars.id GROUP BY donars.id, donars.donarfullname;";
+                            $result = $con->query($sql);
+                            if ($result->num_rows > 0) {
+                                while ($row = $result->fetch_assoc()) {
+                                    if ($row["student_count"] >= 1) {
+                                        echo "<b>" . $row["donarfullname"] . " | " . "</b> ";
+                                    }
                                 }
                             }
-                        }
-                        ?>
-                    </div>
+                            ?>
+                        </div>
+                    </marquee>
                 </div>
             </div>
         </div>
@@ -336,7 +334,7 @@
                 </div>
                 <div class="col-lg-4 col-md-4">
                     <h5 class="text-light mb-4">Address</h5>
-                    <p><i class="fa fa-map-marker-alt me-3"></i>8-3500 McNicoll Ave,Scarborough,ON,Canada,M1V 4C7</p>
+                    <p><i class="fa fa-map-marker-alt me-3"></i>8-3500 McNicoll Ave, Scarborough, ON, Canada, Ontario</p>
                     <p><i class="fa fa-phone-alt me-3"></i>+1-416-644-1113</p>
                     <p><i class="fa fa-envelope me-3"></i>Vunitedcare4kids@gmail.com</p>
                 </div>
