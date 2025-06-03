@@ -107,10 +107,6 @@
             display: inline-block;
             white-space: nowrap;
             color: white;
-          
-            animation: marquee linear infinite;
-            animation-duration: calc(100s / var(--speed, 1));
-            /* speed variable */
         }
 
         .text-outline-stroke {
