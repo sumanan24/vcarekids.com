@@ -79,7 +79,7 @@
         .donor-marquee {
             display: flex;
             align-items: center;
-            color:white;
+            color: white;
             background: #4f0504;
             padding: 10px;
             white-space: nowrap;
@@ -101,8 +101,9 @@
         .marquee-content {
             display: inline-block;
             white-space: nowrap;
-            color:white;
-            animation: marquee 10s linear infinite;
+            color: white;
+            animation: marquee linear infinite;
+            animation-duration: calc(100s / var(--speed, 1));
         }
 
         .text-outline-stroke {
@@ -112,7 +113,7 @@
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 3);
         }
 
-        
+
 
         @media screen and (max-width: 768px) {
             .text-outline-stroke {
@@ -157,7 +158,7 @@
         <div class="blinking-text">
             <!-- <p style="text-align: center; font-size: 18px;" class="p-2">Our Donars</p> -->
             <div class="donor-marquee">
-                <span class="donor-title" style="color:white;">Our Honorable Donors:</span>
+                <span class="donor-title" style="color:white;">Our Honorable Donors:</span> <a href="donar.php" style="color:white;" class="btn btn-sm btn-primary">Search</a>
                 <div class="marquee-container">
                     <div class="marquee-content" style="color:white;">
                         <?php
@@ -166,7 +167,7 @@
                         if ($result->num_rows > 0) {
                             while ($row = $result->fetch_assoc()) {
                                 if ($row["student_count"] >= 1) {
-                                    echo "<b>" . $row["donarfullname"] ." | ". "</b> ";
+                                    echo "<b>" . $row["donarfullname"] . " | " . "</b> ";
                                 }
                             }
                         }
@@ -261,7 +262,7 @@
                         ?>
                                 <div class="col-lg-12 col-md-12 wow fadeInUp" data-wow-delay="0.5s">
                                     <div class="causes-item d-flex flex-column bg-white  rounded-top overflow-hidden h-100">
-                                        
+
                                         <div class="position-relative mt-auto text-center">
                                             <?php
                                             if (!empty($row['advertisement_image'])) {
@@ -484,7 +485,7 @@
                 <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s" style="min-height: 450px;">
                     <div class="card">
                         <div class="container">
-                            <h3>Support Vanni Changam – Empower Students for a Better Future!</h3>
+                            <h3>Support VanniShangam – Empower Students for a Better Future!</h3>
                             <hr>
                             <section class="donation-section">
                                 <h4>🚲 Bicycle Donation Program</h4>
@@ -525,7 +526,7 @@
                 </div>
                 <div class="col-lg-4 col-md-4">
                     <h5 class="text-light mb-4">Address</h5>
-                    <p><i class="fa fa-map-marker-alt me-3"></i>8-3500 McNicoll Ave,Scarborough,ON,Canada,M1V 4C7</p>
+                    <p><i class="fa fa-map-marker-alt me-3"></i>8-3500 McNicoll Ave, Scarborough, ON, Canada, Ontario</p>
                     <p><i class="fa fa-phone-alt me-3"></i>+1-416-644-1113</p>
                     <p><i class="fa fa-envelope me-3"></i>Vunitedcare4kids@gmail.com</p>
                 </div>
