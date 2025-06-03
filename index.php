@@ -99,7 +99,7 @@
             position: relative;
             display: flex;
             align-items: center;
-           
+
             /* for contrast */
         }
 
@@ -163,19 +163,21 @@
             <div class="donor-marquee">
                 <span class="donor-title" style="color:white;">Our Honorable Donors:</span> <a href="donar.php" style="color:white;" class="btn btn-sm btn-primary">Search</a>
                 <div class="marquee-container">
-                    <div class="marquee-content" style="color:white; --speed: 1;" >
-                        <?php
-                        $sql = "SELECT donars.donarfullname, COUNT(students.donar_id) AS student_count FROM donars LEFT JOIN students ON students.donar_id = donars.id GROUP BY donars.id, donars.donarfullname;";
-                        $result = $con->query($sql);
-                        if ($result->num_rows > 0) {
-                            while ($row = $result->fetch_assoc()) {
-                                if ($row["student_count"] >= 1) {
-                                    echo "<b>" . $row["donarfullname"] . " | " . "</b> ";
+                    <marquee>
+                        <div style="color:white; --speed: 1;">
+                            <?php
+                            $sql = "SELECT donars.donarfullname, COUNT(students.donar_id) AS student_count FROM donars LEFT JOIN students ON students.donar_id = donars.id GROUP BY donars.id, donars.donarfullname;";
+                            $result = $con->query($sql);
+                            if ($result->num_rows > 0) {
+                                while ($row = $result->fetch_assoc()) {
+                                    if ($row["student_count"] >= 1) {
+                                        echo "<b>" . $row["donarfullname"] . " | " . "</b> ";
+                                    }
                                 }
                             }
-                        }
-                        ?>
-                    </div>
+                            ?>
+                        </div>
+                    </marquee>
                 </div>
             </div>
 
