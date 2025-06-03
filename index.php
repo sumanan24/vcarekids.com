@@ -92,18 +92,25 @@
             margin-right: 10px;
         }
 
+        /* CSS */
         .marquee-container {
             overflow: hidden;
             flex-grow: 1;
             position: relative;
+            display: flex;
+            align-items: center;
+           
+            /* for contrast */
         }
 
         .marquee-content {
             display: inline-block;
             white-space: nowrap;
             color: white;
+          
             animation: marquee linear infinite;
             animation-duration: calc(100s / var(--speed, 1));
+            /* speed variable */
         }
 
         .text-outline-stroke {
@@ -160,7 +167,7 @@
             <div class="donor-marquee">
                 <span class="donor-title" style="color:white;">Our Honorable Donors:</span> <a href="donar.php" style="color:white;" class="btn btn-sm btn-primary">Search</a>
                 <div class="marquee-container">
-                    <div class="marquee-content" style="color:white;">
+                    <div class="marquee-content" style="color:white; --speed: 1;" >
                         <?php
                         $sql = "SELECT donars.donarfullname, COUNT(students.donar_id) AS student_count FROM donars LEFT JOIN students ON students.donar_id = donars.id GROUP BY donars.id, donars.donarfullname;";
                         $result = $con->query($sql);
