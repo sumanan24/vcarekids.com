@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<?php include('includes/config.php') ?>
+<?php require_once('includes/config.php') ?>
 
 <head>
     <meta charset="utf-8">
@@ -193,11 +193,10 @@
                 </div>
                 
                 <div class="col-lg-6" data-wow-delay="0.5s" style="top:-50px">
-                    <p class="text-dark">Upload a Photo of a Payment Receipt</p>
                     <div class="h-100 bg-dark p-5">
+                        <h5 class="text-light fw-semibold mb-4">Upload a Photo of a Payment Receipt</h5>
                         <?php
                         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                            require 'includes/config.php'; // Include your database configuration file
 
                             $fullname = $_POST['fname'];
                             $email = $_POST['email'];
@@ -220,7 +219,7 @@
                             }
                         }
                         ?>
- 
+
                         <form method="POST" enctype="multipart/form-data">
                             <div class="row g-3">
                                 <div class="col-12">
@@ -242,20 +241,18 @@
                                     </div>
                                 </div>
                                 <div class="col-12">
-                                   
                                     <div class="form-floating">
                                         <input type="file" name="receipt" class="form-control" id="receipt" required>
                                     </div>
                                 </div>
                                 <div class="col-12">
-                                    <button class="btn btn-light w-100 py-2">Donate Now <i class="fa fa-arrow-right ms-2"></i></button>
+                                    <button class="btn btn-light w-100 py-2">Submit <i class="fa fa-arrow-right ms-2"></i></button>
                                 </div>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
-        </div>
     </div>
     <!-- Donate End -->
 

@@ -121,7 +121,6 @@
             from {
                 transform: translateX(100%);
             }
-
             to {
                 transform: translateX(-100%);
             }
@@ -433,7 +432,7 @@
                             </div>
                     <?php
                         } else {
-                            echo "Error: " . $sql . "<br>" . $conn->error;
+                            echo "Error: " . $sql . "<br>" . $con->error;
                         }
                     }
                     ?>
@@ -442,7 +441,6 @@
                             <div class="col-md-6">
                                 <div class="form-floating">
                                     <input type="text" name="name1" class="form-control" id="name" placeholder="Your Name">
-                                    <label for="name">Your Name</label>
                                 </div>
                             </div>
 
