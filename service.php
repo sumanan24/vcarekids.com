@@ -240,36 +240,37 @@
                     <div class="row g-4 justify-content-center">
                         <?php
                         // Base query
-                        $sql = "SELECT n.title, n.content, n.link, n.image, ac.categoryname 
-                               FROM news n 
+                        $sql = "SELECT n.title, n.content, n.link, n.image, n.created_at, ac.categoryname
+                               FROM news n
                                LEFT JOIN activity_categories ac ON n.category_id = ac.id";
                         
                         // Add category filter if selected
-                        if (isset($_GET['category'])) {
-                            $category_id = mysqli_real_escape_string($con, $_GET['category']);
-                            $sql .= " WHERE n.category_id = '$category_id'";
+                        if (isset($_GET['category']) && $_GET['category'] !== '') {
+                            $category_id = (int) $_GET['category'];
+                            $sql .= " WHERE n.category_id = " . $category_id;
                         }
-                        
-                        $sql .= " ORDER BY ac.categoryname, n.id DESC";
+
+                        $sql .= " ORDER BY COALESCE(n.created_at, n.updated_at) DESC, n.id DESC";
                         $result = $con->query($sql);
 
-                        $current_category = '';
-                        
-                        // Check if there are results
-                        if ($result->num_rows > 0) {
+                        if ($result && $result->num_rows > 0) {
                             while ($row = $result->fetch_assoc()) {
-                                // Display category header if it's a new category
-                                if ($current_category != $row['categoryname']) {
-                                    $current_category = $row['categoryname'];
-                                    echo '<div class="col-12"><h3 class="text-primary mt-4 mb-3">' . htmlspecialchars($current_category ?: 'Uncategorized') . '</h3></div>';
-                                }
+                                $activityDate = !empty($row['created_at'])
+                                    ? date('F j, Y', strtotime($row['created_at']))
+                                    : '';
                         ?>
                                 <div class="col-lg-4 col-md-4 wow fadeInUp" data-wow-delay="0.5s">
                                     <div class="causes-item d-flex flex-column bg-white border-top border-5 rounded-top overflow-hidden h-100">
                                         <div class="text-center p-4 pt-0">
                                             <br>
-                                            <h6 class="mb-3"><?php echo $row["title"]; ?></h6>
-                                            <p style="font-size: 12px;"><?php echo $row["content"]; ?></p>
+                                            <?php if ($activityDate): ?>
+                                                <p class="text-muted small mb-2"><i class="fa fa-calendar-alt me-1"></i><?php echo htmlspecialchars($activityDate); ?></p>
+                                            <?php endif; ?>
+                                            <?php if (!empty($row['categoryname'])): ?>
+                                                <span class="badge bg-secondary mb-2"><?php echo htmlspecialchars($row['categoryname']); ?></span>
+                                            <?php endif; ?>
+                                            <h6 class="mb-3"><?php echo htmlspecialchars($row['title']); ?></h6>
+                                            <p style="font-size: 12px;"><?php echo nl2br(htmlspecialchars($row['content'])); ?></p>
                                         </div>
                                         <div class="position-relative mt-auto">
                                             <?php
