@@ -133,6 +133,7 @@
     <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
         <div class="spinner-grow text-primary" role="status"></div>
     </div>
+    <script>document.addEventListener('DOMContentLoaded',function(){var s=document.getElementById('spinner');if(s)s.classList.remove('show');});</script>
     <!-- Spinner End -->
 
     <!-- Navbar Start -->
@@ -518,8 +519,8 @@
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4">
-                    <h5 class="text-light mb-4">Address</h5>
-                    <p><i class="fa fa-map-marker-alt me-3"></i>8-3500 McNicoll Ave, Scarborough, ON, Canada, Ontario</p>
+                    <h5 class="text-light mb-4">Head Office</h5>
+                    <p><i class="fa fa-map-marker-alt me-3"></i>8-3500 McNicoll Ave, Toronto (ONT), M1V4C7.</p>
                     <p><i class="fa fa-phone-alt me-3"></i>+1-416-644-1113</p>
                     <p><i class="fa fa-envelope me-3"></i>Vunitedcare4kids@gmail.com</p>
                 </div>

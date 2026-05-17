@@ -59,6 +59,18 @@
             text-decoration: underline;
         }
 
+        .contact-emails,
+        .contact-emails h5,
+        .contact-emails p,
+        .contact-emails a {
+            color: #000;
+        }
+
+        .contact-emails a:hover {
+            color: #333;
+            text-decoration: underline;
+        }
+
         .fixed-size-image {
             width: 100%;
             height: 200px;
@@ -226,6 +238,12 @@
                     <section class="contact">
                         <h2>Interested in Donating? Contact Us</h2>
                         <p>If you are interested in supporting any of these initiatives, please reach out to us.</p>
+                        <div class="mb-4 contact-emails">
+                            <h5 class="mb-3">Email us</h5>
+                            <p class="mb-2"><i class="fa fa-envelope me-2"></i><a href="mailto:vannitamil2009@gmail.com">vannitamil2009@gmail.com</a></p>
+                            <p class="mb-2"><i class="fa fa-envelope me-2"></i><a href="mailto:rkalanithi75@gmail.com">rkalanithi75@gmail.com</a></p>
+                            <p class="mb-0"><i class="fa fa-envelope me-2"></i><a href="mailto:Secretary@vcarekids.org">Secretary@vcarekids.org</a></p>
+                        </div>
                     </section>
 
                     <?php
@@ -333,8 +351,8 @@
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4">
-                    <h5 class="text-light mb-4">Address</h5>
-                    <p><i class="fa fa-map-marker-alt me-3"></i>8-3500 McNicoll Ave, Scarborough, ON, Canada, Ontario</p>
+                    <h5 class="text-light mb-4">Head Office</h5>
+                    <p><i class="fa fa-map-marker-alt me-3"></i>8-3500 McNicoll Ave, Toronto (ONT), M1V4C7.</p>
                     <p><i class="fa fa-phone-alt me-3"></i>+1-416-644-1113</p>
                     <p><i class="fa fa-envelope me-3"></i>Vunitedcare4kids@gmail.com</p>
                 </div>
