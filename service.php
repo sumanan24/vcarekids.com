@@ -152,7 +152,7 @@
 
         <div class="blinking-text">
             <div class="donor-marquee">
-                <span class="donor-title" style="color:white;">Our Honorable Donors:</span> <a href="donar.php" style="color:white;" class="btn btn-sm btn-primary">Search</a>
+                <span class="donor-title" style="color:white;">Our Honorable Donors:</span>
                 <div class="marquee-container">
                     <marquee>
                         <div style="color:white; --speed: 1;">
@@ -170,6 +170,7 @@
                         </div>
                     </marquee>
                 </div>
+                <a href="donar.php" style="color:white;" class="btn btn-sm btn-primary donor-marquee-btn">Search</a>
             </div>
         </div>
 
